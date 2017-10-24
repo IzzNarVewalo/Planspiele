@@ -3,6 +3,12 @@
 Ein Projekt der TUM (Design und Umsetzung von Planspielen) im Wintersemester 2017/2018.  
 Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/instrumented_devices/share.php) Ein Spiel für Rheumapatienten in Portugal.
 
+# Für Entwickler
+
+Generell Empfehle ich für die Entwicklung [ReSharper](https://www.jetbrains.com/resharper/) zu benutzen, das man als Student kostenlos bekommt.  
+Im nächsten Abschnitt ist vor allem der erste Punkt und sein Unterpunkt ist wichtig damit Github nicht meckert. Gerne können wir uns auch einen anderen Stil einigen, wichtig ist jedoch das alle den selben verwenden.
+
+
 # C# guidelines
 
 * Als Einrückstil bitte [K&R 1TBS](https://en.wikipedia.org/wiki/Indentation_style#Variant:_1TBS_.28OTBS.29)
@@ -17,7 +23,3 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
 * Namen von boolean variables sollten einen Präfix haben `(is/can/should)`
 * Ternäre Operatoren wenn möglich vermeiden (hässlich/unübersichtlich) `condition ? option1 : option2`
 * Interpolierte strings mit logik sind auch nicht sehr schön `Debug.Log($"When {condition} is true, {condition ? "it`s true!" : "It`s False"}");`
-
-
-Generell Empfehle ich für die Entwicklung [ReSharper](https://www.jetbrains.com/resharper/) zu benutzen, das man als Student kostenlos bekommt.  
-Vor allem der erste Punkt und Unterpunkt ist wichtig damit Github nicht meckert. Gerne können wir uns auch einen anderen Stil einigen, wichtig ist jedoch das alle den selben verwenden.
