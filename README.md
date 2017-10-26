@@ -21,7 +21,7 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
 * Zeilenlänge nicht größer als 120 Zeichen (haltet euch einfach an die Linie im Editor).
 * Pull requests erst mergen wenn das Projekt auch kompiliert.
 * Dateien und Ordner bitte in `PascalCase`.
-* Den Code so einfach und und klar wie möglich halten (obvious).
+* Den Code so einfach und und klar wie möglich halten (selbsterklärend).
 * Jedes Feature sollte bestenfalls seinen eigenen branch haben.
 * Lieber kleinere und dafür öftere commits machen als ein riesen commit.
 * Falls man Hilfe braucht lieber früher nachfragen anstatt zu viel Zeit zu verschwenden indem man selber ewig rumprobiert.
