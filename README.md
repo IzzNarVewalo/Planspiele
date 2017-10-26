@@ -16,6 +16,17 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
 * Lest euch bitte alle ein wie git funktioniert falls ihr es noch nicht könnt und coden wollt, wichtig ist auf jeden Fall die Reihenfolge (commit, pull, push) beizubehalten. bestenfalls wird jedes Feature auf einem eigenen Branch entwickelt.  
 * Ich würde mich persönlich freuen wenn wir so wenig Assets wie möglich aus dem AssetStore benutzen können.
 
+# Project policies
+
+* Zeilenlänge nicht größer als 120 Zeichen (haltet euch einfach an die Linie im Editor).
+* Pull requests erst mergen wenn das Projekt auch kompiliert.
+* Dateien und Ordner bitte in `PascalCase`.
+* Den Code so einfach und und klar wie möglich halten (obvious).
+* Jedes Feature sollte bestenfalls seinen eigenen branch haben.
+* Lieber kleinere und dafür öftere commits machen als ein riesen commit.
+* Falls man Hilfe braucht lieber früher nachfragen anstatt zu viel Zeit zu verschwenden indem man selber ewig rumprobiert.
+* Pull requests machen sobald ein feature fertig ist.
+    * statt einem riesen request mit X features, pro feature ein pull request.
 
 # C# guidelines
 
@@ -31,3 +42,24 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
 * Namen von boolean variables sollten einen Präfix haben `(is/can/should)`
 * Ternäre Operatoren wenn möglich vermeiden (hässlich/unübersichtlich) `condition ? option1 : option2`
 * Interpolierte strings mit logik sind auch nicht sehr schön `Debug.Log($"When {condition} is true, {condition ? "it`s true!" : "It`s False"}");`
+
+# How to use git shell 
+1. Aktuellste version vom master branch pullen
+    * `git fetch -p`
+    * `git pull origin master`
+2. Checkout zu einem neuen branch (ein branch pro feature)
+    * `git checkout -b <branch_name>`
+3. Das feature coden und committen
+    * `git status` - Zeigt die veränderten Dateien an
+    * `git add <filename>` - fügt Dateien dem commit hinzu
+    * `git add -u` - fügt alle veränderten Dateien dem commit hinzu
+    * `git add -A` - fügt alle Dateien im Ordner hinzu die noch nicht im commit sind
+    * `git commit -m "<commit message>"` -erstelle den commit
+(Schritt 3 so oft wiederholen bis das feature fertig ist)
+4. Push zu github
+    * `git push origin <branch_name>`
+5. erstelle pull request
+    * `git pull-request`
+6. Checkout zum masterbranch
+    * `git checkout master`
+7. Für jedes feature wiederholen
