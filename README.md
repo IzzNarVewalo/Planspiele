@@ -25,6 +25,7 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
 * Jedes Feature sollte bestenfalls seinen eigenen branch haben.
 * Lieber kleinere und dafür öftere commits machen als ein riesen commit.
 * Falls man Hilfe braucht lieber früher nachfragen anstatt zu viel Zeit zu verschwenden indem man selber ewig rumprobiert.
+* commit messages sinnvoll gestalten (anders als bei der README...)
 * Pull requests machen sobald ein feature fertig ist.
     * statt einem riesen request mit X features, pro feature ein pull request.
 
