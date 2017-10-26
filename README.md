@@ -56,6 +56,7 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
     * `git add -u` - fügt alle veränderten Dateien dem commit hinzu
     * `git add -A` - fügt alle Dateien im Ordner hinzu die noch nicht im commit sind
     * `git commit -m "<commit message>"` -erstelle den commit
+    
 (Schritt 3 so oft wiederholen bis das feature fertig ist)
 4. Push zu github
     * `git push origin <branch_name>`
