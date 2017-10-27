@@ -35,9 +35,10 @@ Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/i
    * Falls ihr Visual Studio benutzt, bitte unter Extras/Optionen [diese Einstellungen](https://imgur.com/a/7IUc1) verwenden 
 * Funktionen in `PascalCase`
 * Konstanten in `ALL_CAPS`
-* private variables in `_camelCaseWithUnderscore`
-* public properties mit getters/setters in `PascalCase`
-* Zugriff auf public variables über getters/setters
+* möglichst keine public variables
+    * private variables in `_camelCaseWithUnderscore`
+    * public properties mit getters/setters in `PascalCase`
+    * auf variables mit gettern/settern zugreifen statt sie public zu machen
 * statt Regionen lieber mehrere Classes erstellen
 * anstatt von großen switches oder langen if/else statements dictionaries benutzen
 * Namen von boolean variables sollten einen Präfix haben `(is/can/should)`
