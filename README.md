@@ -1,7 +1,7 @@
 # Übersicht
 
 Ein Projekt der TUM (Design und Umsetzung von Planspielen) im Wintersemester 2017/2018.  
-Dabei entwickeln wir mithilfe eines [ShaRe Devices](https://remotelab.fe.up.pt/instrumented_devices/share.php) Ein Spiel für Rheumapatienten in Portugal.
+Dabei entwickeln wir mithilfe eines [SHaRe Devices](https://remotelab.fe.up.pt/instrumented_devices/share.php) Ein Spiel für eine Handtherapie in Portugal.
 
 # Für Artists
 
