@@ -135,9 +135,9 @@ public class MusicManager : MonoBehaviour
             bassFiles.RemoveLast();
         }
 
-        guitarStart = Resources.Load<AudioClip>("Music/guitarStart.wav");
-        pianoStart = Resources.Load<AudioClip>("Music/pianoStart.wav");
-        bassStart = Resources.Load<AudioClip>("Music/bassStart.wav");
+        guitarStart = Resources.Load<AudioClip>("Music/Dm7-G7-C7M-C6_guitar_1");
+        pianoStart = Resources.Load<AudioClip>("Music/Dm7-G7-C7M-C6_piano_1");
+        bassStart = Resources.Load<AudioClip>("Music/empty");
     }
 
     private void Parse()
