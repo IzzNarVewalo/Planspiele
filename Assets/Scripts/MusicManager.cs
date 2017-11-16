@@ -56,9 +56,6 @@ public class MusicManager : MonoBehaviour
         guitarSource.Play();
         pianoSource.Play();
         bassSource.Play();
-        print("here");
-        print(guitarSource.isPlaying);
-        print(guitarSource.clip);
     }
 
     //public AudioClip PickRandomClip(params AudioClip[] clips)
