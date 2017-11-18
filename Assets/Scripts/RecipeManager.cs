@@ -44,10 +44,12 @@ public class RecipeManager : MonoBehaviour {
             stepCounter++;
         }else if(stepCounter == 5 && ingrediant.Equals("milk"))
         {
+            Debug.Log("Cup has " + (amount * 100) + "% milk");
             amountOfMilk = amount;
             stepCounter++;
-        }else if(stepCounter == 8)
+        }else if(stepCounter == 9&&ingrediant.Equals("spice"))
         {
+            Debug.Log("Cup has " + spicePickedUp);
             spice = ingrediant;            
         }
 
@@ -59,13 +61,19 @@ public class RecipeManager : MonoBehaviour {
         {
             //Finished  pouring coffee 
 
+            cm.spawnIngrediant("milk");
+
             stepCounter++;
-            //TODO: Switch Scene to Ingredient Space & Lock movement
+            Debug.Log("Switch to milk scene");
+
+
         }else if(stepCounter == 6)
         {
             //Finished adding milk
+
+            cm.spawnIngrediant("spice");
             stepCounter++;
-            //TODO: Switch Scene to Spice Space & Lock movement
+            Debug.Log("Switch to spice Scene");
         }
     }
 
@@ -76,10 +84,18 @@ public class RecipeManager : MonoBehaviour {
             //Pickup the cup for the first time / start the game
             stepCounter++;
             openChooseMenu();
+            Debug.Log("Open Size-Choose-Menu");
         }else if (stepCounter == 4)
         {
             //Pickup Milk
+            cm.movementLocked = false;
             stepCounter++;
+            Debug.Log("Picked up milk");
+        }else if(stepCounter == 7)
+        {
+            openChooseMenu();
+            stepCounter++;
+            Debug.Log("Open Spice Menu");
 
         }
     }
@@ -105,17 +121,17 @@ public class RecipeManager : MonoBehaviour {
         if (gotMenuUpdate && stepCounter == 1)
         {
 
-            if (menuRotData > 25 && menuRotData < 75)
+            if (menuRotData >= 25 && menuRotData < 75)
             {
                 cupSize = "small";
                 Debug.Log("small");
             }
-            else if ((menuRotData > 0 && menuRotData < 25) || (menuRotData > 335))
+            else if ((menuRotData >= 0 && menuRotData < 25) || (menuRotData > 335))
             {
                 cupSize = "medium";
                 Debug.Log("medium");
             }
-            else if (menuRotData < 335 && menuRotData > 285)
+            else if (menuRotData <= 335 && menuRotData > 285)
             {
                 cupSize = "large";
                 Debug.Log("large");
@@ -125,28 +141,37 @@ public class RecipeManager : MonoBehaviour {
 
             cm.movementLocked = false;
             cm.inMenu = false;
-            stepCounter++;
             waitForRotData = false;
+            gotMenuUpdate = false;
+            stepCounter++;
+            Debug.Log("Chose Size");
+            
         }
-        else if (gotMenuUpdate && stepCounter == 7)
+        else if (gotMenuUpdate && stepCounter == 8)
         {
-            if (menuRotData < -25 && menuRotData > -75)
+            if (menuRotData >= 25 && menuRotData < 75)
             {
                 spicePickedUp = "sugar";
+                Debug.Log("Sugar added");
             }
-            else if (menuRotData < 25 && menuRotData > -25)
+            else if ((menuRotData >= 0 && menuRotData < 25) || (menuRotData > 335))
             {
                 spicePickedUp = "cinnamon";
+                Debug.Log("Cinnamon added");
             }
-            else if (menuRotData > 25 && menuRotData < 75)
+            else if (menuRotData <= 335 && menuRotData > 285)
             {
                 spicePickedUp = "caramel";
+                Debug.Log("Caramel added");
             }
             //TODO: Close Menu
-            stepCounter++;
+            
             cm.movementLocked = false;
             cm.inMenu = false;
             waitForRotData = false;
+            gotMenuUpdate = false;
+            stepCounter++;
+            Debug.Log("Chose spice");
         }
     }
 

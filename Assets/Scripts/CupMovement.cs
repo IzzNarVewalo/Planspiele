@@ -15,13 +15,23 @@ public class CupMovement : MonoBehaviour {
     public GameObject recipeHandler;
 
     RecipeManager rm;
-    FillInCoffeZoneTrigger ft;
+    FillInCoffeZoneTrigger ftc;
+    FillInCoffeZoneTrigger ftm;
+    FillInCoffeZoneTrigger fts;
+    CameraMovement camM;
+
+    Vector3 milkSpawnpoint, spiceSpawnpoint;
 
     // Use this for initialization
     void Start()
     {
         rm = recipeHandler.GetComponent<RecipeManager>();
-        ft= GameObject.FindGameObjectsWithTag("FillInCoffeeZone")[0].GetComponent<FillInCoffeZoneTrigger>();
+        ftc= GameObject.FindGameObjectsWithTag("FillInCoffeeZone")[0].GetComponent<FillInCoffeZoneTrigger>();
+        ftm = GameObject.FindGameObjectsWithTag("FillInMilkZone")[0].GetComponent<FillInCoffeZoneTrigger>();
+        fts = GameObject.FindGameObjectsWithTag("FillInSpiceZone")[0].GetComponent<FillInCoffeZoneTrigger>();
+        camM = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<CameraMovement>();
+        milkSpawnpoint = GameObject.FindGameObjectsWithTag("MilkSpawnpoint")[0].transform.position;
+        spiceSpawnpoint = GameObject.FindGameObjectsWithTag("SpiceSpawnpoint")[0].transform.position;
     }
 
     // Update is called once per frame
@@ -58,18 +68,28 @@ public class CupMovement : MonoBehaviour {
             Debug.Log("Meow");
         }
 
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("inMilkZone: " + ftm.getInMilkZone());
+
             if (inMenu)
             {
                 Debug.Log("Z-Rotation: " + transform.rotation.eulerAngles.z);
                 rm.setRotData(transform.rotation.eulerAngles.z);
-            }else if (ft.inFillInCoffeeZone)
+            }else if (ftc.getInCoffeeZone())
             {
                 //TODO: Amount depending on how long you squeeze
-                Debug.Log("InZone!!!");
+                Debug.Log("FillInCoffee");
                 rm.fillCup("coffee", 0.5f);
-
+            }else if (ftm.getInMilkZone())
+            {
+                Debug.Log("FillInMilk");
+                rm.fillCup("milk", 0.25f);
+            }else if (fts.getInSpiceZone())
+            {
+                Debug.Log("FillInSpice");
+                rm.fillCup("spice", 0);
             }
 
         }
@@ -81,6 +101,22 @@ public class CupMovement : MonoBehaviour {
         waitForMouseButtonJumping = true;
         yield return new WaitForSeconds(0.1f);
         waitForMouseButtonJumping = false;
+
+    }
+
+    public void spawnIngrediant(string ingrediant)
+    {
+
+        if (ingrediant.Equals("milk"))
+        {
+            transform.position = milkSpawnpoint;
+            camM.switchPosition();
+        }else if (ingrediant.Equals("spice"))
+        {
+            transform.position = spiceSpawnpoint;
+            camM.switchPosition();
+        }
+        
 
     }
 
