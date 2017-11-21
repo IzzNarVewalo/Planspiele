@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class CupMovement : MonoBehaviour {
+public class CupMovementShare : MonoBehaviour {
 
     float valueX;
     float valueY;
@@ -12,13 +13,21 @@ public class CupMovement : MonoBehaviour {
     public float speed;
     public bool movementLocked = false, inMenu = false;
 
+    public float ldrThreshold;
+    private float ldrSmoothed;
+    public float forceThreshold;
+
+
     public GameObject recipeHandler;
+
+    public UnityEvent onPickup;
 
     RecipeManager rm;
     FillInCoffeZoneTrigger ftc;
     FillInCoffeZoneTrigger ftm;
     FillInCoffeZoneTrigger fts;
     CameraMovement camM;
+    Communication com;
 
     Vector3 milkSpawnpoint, spiceSpawnpoint;
 
@@ -26,67 +35,83 @@ public class CupMovement : MonoBehaviour {
     void Start()
     {
         rm = recipeHandler.GetComponent<RecipeManager>();
-        ftc= GameObject.FindGameObjectsWithTag("FillInCoffeeZone")[0].GetComponent<FillInCoffeZoneTrigger>();
+        ftc = GameObject.FindGameObjectsWithTag("FillInCoffeeZone")[0].GetComponent<FillInCoffeZoneTrigger>();
         ftm = GameObject.FindGameObjectsWithTag("FillInMilkZone")[0].GetComponent<FillInCoffeZoneTrigger>();
         fts = GameObject.FindGameObjectsWithTag("FillInSpiceZone")[0].GetComponent<FillInCoffeZoneTrigger>();
         camM = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<CameraMovement>();
+        com = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Communication>();
         milkSpawnpoint = GameObject.FindGameObjectsWithTag("MilkSpawnpoint")[0].transform.position;
         spiceSpawnpoint = GameObject.FindGameObjectsWithTag("SpiceSpawnpoint")[0].transform.position;
+        onPickup.AddListener(new UnityAction(OnPickup));
+    }
+
+    private void OnPickup()
+    {
+        Debug.Log("[Event] Picked up!");
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("LDR: " + com.ldr);
+        //Debug.Log("Force: " + com.force);
+
+        Debug.Log("PickedUp: " + pickedUp);
+
+
+
+        checkLdr();
+
+
         if (pickedUp)
         {
-
-            transform.Rotate(Input.GetAxis("Horizontal") * Time.deltaTime * speed, 0, Input.GetAxis("Vertical") * Time.deltaTime * speed);
-           // Debug.Log("Horizontal: " + Input.GetAxis("Horizontal"));
-           // Debug.Log("Vertical: " + Input.GetAxis("Vertical"));
-
+            transform.localRotation = com.rotQuat;
+            
             if (!movementLocked)
             {
-                transform.Translate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0, Space.World);
+                //transform.Translate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0, Space.World);
             }
 
         }
 
-        if (Input.GetMouseButton(0)&&!waitForMouseButtonJumping)
+        if (!waitForMouseButtonJumping)
         {
             if (pickedUp)
             {
-                rm.cupSatDown();
+                rm.cupPickedUp();
             }
             else
             {
                 Debug.Log("PickedUp");
-                rm.cupPickedUp();
+                rm.cupSatDown();
             }
 
-            //pickedUp = !pickedUp;
+           // pickedUp = !pickedUp;
             StartCoroutine("mouseButtonDelay");
-            Debug.Log("Meow");
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (com.force > forceThreshold)
         {
-            Debug.Log("inMilkZone: " + ftm.getInMilkZone());
+            Debug.Log("Squeeze");
 
             if (inMenu)
             {
                 Debug.Log("Z-Rotation: " + transform.rotation.eulerAngles.z);
                 rm.setRotData(transform.rotation.eulerAngles.z);
-            }else if (ftc.getInCoffeeZone())
+            }
+            else if (ftc.getInCoffeeZone())
             {
                 //TODO: Amount depending on how long you squeeze
                 Debug.Log("FillInCoffee");
                 rm.fillCup("coffee", 0.5f);
-            }else if (ftm.getInMilkZone())
+            }
+            else if (ftm.getInMilkZone())
             {
                 Debug.Log("FillInMilk");
                 rm.fillCup("milk", 0.25f);
-            }else if (fts.getInSpiceZone())
+            }
+            else if (fts.getInSpiceZone())
             {
                 Debug.Log("FillInSpice");
                 rm.fillCup("spice", 0);
@@ -94,6 +119,22 @@ public class CupMovement : MonoBehaviour {
 
         }
 
+    }
+
+    private void checkLdr()
+    {
+        ldrSmoothed = (ldrSmoothed + com.ldr) / 2;
+        if (ldrSmoothed < ldrThreshold)
+        {
+            if (!pickedUp)
+                onPickup.Invoke();// Vector3.Angle(Vector3.up, com.RawAcceleration));
+
+            pickedUp = true;
+        }
+        else
+        {
+            pickedUp = false;
+        }
     }
 
     IEnumerator mouseButtonDelay()
@@ -111,12 +152,13 @@ public class CupMovement : MonoBehaviour {
         {
             transform.position = milkSpawnpoint;
             camM.switchPosition();
-        }else if (ingrediant.Equals("spice"))
+        }
+        else if (ingrediant.Equals("spice"))
         {
             transform.position = spiceSpawnpoint;
             camM.switchPosition();
         }
-        
+
 
     }
 
