@@ -20,7 +20,7 @@ public class CupMovementShare : MonoBehaviour {
 
     public GameObject recipeHandler;
 
-    public UnityEvent<float> onPickup;
+    public UnityEvent onPickup;
 
     RecipeManager rm;
     FillInCoffeZoneTrigger ftc;
@@ -42,10 +42,10 @@ public class CupMovementShare : MonoBehaviour {
         com = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Communication>();
         milkSpawnpoint = GameObject.FindGameObjectsWithTag("MilkSpawnpoint")[0].transform.position;
         spiceSpawnpoint = GameObject.FindGameObjectsWithTag("SpiceSpawnpoint")[0].transform.position;
-        onPickup.AddListener(new UnityAction<float>(OnPickup));
+        onPickup.AddListener(new UnityAction(OnPickup));
     }
 
-    private void OnPickup(float angle)
+    private void OnPickup()
     {
         Debug.Log("[Event] Picked up!");
     }
@@ -65,7 +65,7 @@ public class CupMovementShare : MonoBehaviour {
 
         if (pickedUp)
         {
-            transform.rotation = com.rotQuat;
+            transform.localRotation = com.rotQuat;
             
             if (!movementLocked)
             {
@@ -127,7 +127,7 @@ public class CupMovementShare : MonoBehaviour {
         if (ldrSmoothed < ldrThreshold)
         {
             if (!pickedUp)
-                onPickup.Invoke(Vector3.Angle(Vector3.up, com.RawAcceleration));
+                onPickup.Invoke();// Vector3.Angle(Vector3.up, com.RawAcceleration));
 
             pickedUp = true;
         }
