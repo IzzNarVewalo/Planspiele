@@ -42,7 +42,7 @@ public class CupMovementShare : MonoBehaviour {
         com = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Communication>();
         milkSpawnpoint = GameObject.FindGameObjectsWithTag("MilkSpawnpoint")[0].transform.position;
         spiceSpawnpoint = GameObject.FindGameObjectsWithTag("SpiceSpawnpoint")[0].transform.position;
-        onPickup.AddListener(new UnityAction(OnPickup));
+        onPickup.AddListener(new UnityAction<float>(OnPickup));
     }
 
     private void OnPickup(float angle)
