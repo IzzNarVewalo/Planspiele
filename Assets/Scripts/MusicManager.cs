@@ -9,12 +9,15 @@ public class MusicManager : MonoBehaviour
     private AudioClip guitarStart;
     private AudioClip pianoStart;
     private AudioClip bassStart;
+	private AudioClip drumStart;
     private static LinkedList<string> pianoFiles = new LinkedList<string>();
     private static LinkedList<string> guitarFiles = new LinkedList<string>();
     private static LinkedList<string> bassFiles = new LinkedList<string>();
+	private static LinkedList<string> drumFiles = new LinkedList<string>();
     private LinkedList<AudioClip> guitarClips = new LinkedList<AudioClip>();
     private LinkedList<AudioClip> pianoClips = new LinkedList<AudioClip>();
     private LinkedList<AudioClip> bassClips = new LinkedList<AudioClip>();
+	private LinkedList<AudioClip> drumClips = new LinkedList<AudioClip>();
 
     [SerializeField]
     AudioSource guitarSource;
@@ -22,6 +25,8 @@ public class MusicManager : MonoBehaviour
     AudioSource pianoSource;
     [SerializeField]
     AudioSource bassSource;
+	[SerializeField]
+    AudioSource drumSource;
     public static MusicManager instance = null;
     //public float lowPitchRange = .95f;
     //public float highPitchRange = 1.05f;
@@ -53,9 +58,11 @@ public class MusicManager : MonoBehaviour
         guitarSource.clip = guitarStart;
         pianoSource.clip = pianoStart;
         bassSource.clip = bassStart;
+		drumSource.clip = drumStart;
         guitarSource.Play();
         pianoSource.Play();
         bassSource.Play();
+		drumSource.Play();
     }
 
     //public AudioClip PickRandomClip(params AudioClip[] clips)
@@ -77,6 +84,7 @@ public class MusicManager : MonoBehaviour
         guitarSource.clip = en.Current;
         en.Dispose();
 
+		//piano
         en = pianoClips.GetEnumerator();
         randomIndex = Random.Range(0, pianoClips.Count);
         for (int i = 0; i <= randomIndex; i++)
@@ -86,6 +94,7 @@ public class MusicManager : MonoBehaviour
         pianoSource.clip = en.Current;
         en.Dispose();
 
+		//bass
         en = bassClips.GetEnumerator();
         randomIndex = Random.Range(0, bassClips.Count);
         for (int i = 0; i <= randomIndex; i++)
@@ -94,10 +103,21 @@ public class MusicManager : MonoBehaviour
         }
         bassSource.clip = en.Current;
         en.Dispose();
+		
+		//drum
+        en = drumClips.GetEnumerator();
+        randomIndex = Random.Range(0, drumClips.Count);
+        for (int i = 0; i <= randomIndex; i++)
+        {
+            en.MoveNext();
+        }
+        drumSource.clip = en.Current;
+        en.Dispose();
 
         guitarSource.Play();
         pianoSource.Play();
         bassSource.Play();
+		drumSource.Play();
     }
 
     private void LoadClips()
@@ -110,7 +130,6 @@ public class MusicManager : MonoBehaviour
         {
             path = musicPath + guitarFiles.Last.Value;
             clip = Resources.Load(path) as AudioClip;
-            print(clip + " // " + path);
 
             guitarClips.AddLast(clip);
             guitarFiles.RemoveLast();
@@ -131,10 +150,19 @@ public class MusicManager : MonoBehaviour
             bassClips.AddLast(clip);
             bassFiles.RemoveLast();
         }
+		while (drumFiles.Count != 0)
+        {
+            path = musicPath + drumFiles.Last.Value;
+            clip = Resources.Load<AudioClip>(path);
+
+            drumClips.AddLast(clip);
+            drumFiles.RemoveLast();
+        }
 
         guitarStart = Resources.Load<AudioClip>("Music/guitarStart.wav");
         pianoStart = Resources.Load<AudioClip>("Music/pianoStart.wav");
         bassStart = Resources.Load<AudioClip>("Music/bassStart.wav");
+		bassStart = Resources.Load<AudioClip>("Music/drumStart.wav");
     }
 
     private void Parse()
@@ -159,6 +187,11 @@ public class MusicManager : MonoBehaviour
             {
                 path = line.Substring(8);
                 guitarFiles.AddLast(path);
+            }
+			else if (line.Contains("#Drum"))
+            {
+                path = line.Substring(6);
+                drumFiles.AddLast(path);
             }
         }
     }
