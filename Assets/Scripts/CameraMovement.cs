@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour {
         if (moveToNextPos)
         {
             
-            transform.position = Vector3.Lerp(transform.position, cameraPositions[positionCounter].transform.position, speed);
+            transform.position = Vector3.Lerp(transform.position, cameraPositions[positionCounter].transform.position, speed*Time.deltaTime);
             
             if((transform.position.x - cameraPositions[positionCounter].transform.position.x) < 0.1f)
             {
