@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CupMovement : MonoBehaviour {
 
-    float valueX;
+    /*float valueX;
     float valueY;
 
     bool pickedUp = false, waitForMouseButtonJumping = false;
@@ -118,6 +118,6 @@ public class CupMovement : MonoBehaviour {
         }
         
 
-    }
+    }*/
 
 }

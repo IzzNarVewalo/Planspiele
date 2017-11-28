@@ -25,7 +25,9 @@ public enum Ingredients {
     Milk,
     Sugar,
     Coffe,
-    Cocoa
+    Cocoa,
+    // Testing
+    Cup
 };
 
 public class Cookbook {

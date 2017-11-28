@@ -3,8 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RecipeManager : MonoBehaviour {
+    // Collection of all available recipes
+    private List<Recipe> recipes;
 
-    public GameObject player;
+    // The recipe that is currently selected and made
+    private Recipe activeRecipe;
+
+    void Start()
+    {
+        recipes = new List<Recipe>();
+        recipes.Add(new Recipe("Demo Recipe",
+            0,
+            new List<Ingredient>(
+                new Ingredient[] {
+                    new Ingredient(1, Unit.Cup, Ingredients.Cup),
+                    new Ingredient(100, Unit.Ml, Ingredients.Coffe),
+                    new Ingredient(50, Unit.Ml, Ingredients.Milk) })));
+
+        activeRecipe = recipes[0];
+        activeRecipe.Begin();
+    }
+
+    void Update()
+    {
+        if(activeRecipe != null)
+        {
+            activeRecipe.Update();
+        }
+    }
+
+    
+
+    /*public GameObject player;
 
     int stepCounter = 0;
     float menuRotData = 0;
@@ -173,6 +203,6 @@ public class RecipeManager : MonoBehaviour {
             stepCounter++;
             Debug.Log("Chose spice");
         }
-    }
+    }*/
 
 }
