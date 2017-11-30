@@ -7,6 +7,8 @@ public class ActionSelectCup : ShareAction {
 
     
     private bool selected = false;
+    IShareInput inS;
+
 
     public override void EnterAction()
     {
@@ -25,7 +27,7 @@ public class ActionSelectCup : ShareAction {
 	void Update () {
         if (_active)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (inS.IsPickedUp()||Input.GetKeyDown(KeyCode.C))
             {
                 selected = true;
                 debugText.text = "Cup selected!";
