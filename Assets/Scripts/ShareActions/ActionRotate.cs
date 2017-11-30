@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ActionRotate : ShareAction {
 
-    private bool finished = false;
-    private bool cupFilled = false;
+    public float tiltAngleThreshold;
 
+    private bool finished = false;
+    
     private float howLong = 0;
+
+    IShareInput inS;
 
     public override bool Finished()
     {
@@ -24,15 +27,15 @@ public class ActionRotate : ShareAction {
     
     // Update is called once per frame
     void Update () {
+
         if (_active)
         {
-            if (Input.GetKey(KeyCode.R))
+            if (inS.GetTiltAngle() > GameSettings.tiltThreshold ||Input.GetKey(KeyCode.R))
             {
                 howLong = howLong + Time.deltaTime;
-                cupFilled = true;
             }
 
-            if (!Input.GetKey(KeyCode.R) && cupFilled)
+            if (!inS.IsPickedUp()||!Input.GetKey(KeyCode.R))
             {
                 //Return the time value
                 finished = true;

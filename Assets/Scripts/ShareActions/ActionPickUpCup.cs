@@ -6,6 +6,7 @@ public class ActionPickUpCup : ShareAction {
 
     private bool pickedUp = false;
 
+     IShareInput inS;
 
     public override bool Finished()
     {
@@ -24,7 +25,7 @@ public class ActionPickUpCup : ShareAction {
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetKey(KeyCode.U))
+        if (inS.IsPickedUp()||Input.GetKey(KeyCode.U))
         {
             pickedUp = true;
         }

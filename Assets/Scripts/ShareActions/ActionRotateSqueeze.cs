@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ActionRotateSqueeze : ShareAction {
 
+    public float forceThreshold;
+    public float tiltThreshold;
+
     private bool finished = false;
-    private bool cupFilled = false;
 
     private float howLong = 0;
+    IShareInput inS;
 
     public override bool Finished()
     {
@@ -27,13 +30,13 @@ public class ActionRotateSqueeze : ShareAction {
 	void Update () {
         if (_active)
         {
-            if (Input.GetKey(KeyCode.Q))
+            if ((inS.GetForce()> GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold)||Input.GetKey(KeyCode.Q))
             {
                 howLong = howLong + Time.deltaTime;
-                cupFilled = true;
+                
             }
 
-            if (!Input.GetKey(KeyCode.Q) && cupFilled)
+            if (!inS.IsPickedUp()||!Input.GetKey(KeyCode.Q))
             {
                 //Return the time value
                 finished = true;
