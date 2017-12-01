@@ -74,6 +74,8 @@ public class ShareInput : MonoBehaviour, IShareInput {
             yield return new WaitForSecondsRealtime(waitTime);
             float activity = Quaternion.Angle(lastRotation, GetRotation()) + (lastAcceleratin - GetAccelerationRaw()).magnitude;
             _activityBuffer.Push(activity);
+            lastRotation = GetRotation();
+            lastAcceleratin = GetAccelerationRaw();
         }
     }
 
