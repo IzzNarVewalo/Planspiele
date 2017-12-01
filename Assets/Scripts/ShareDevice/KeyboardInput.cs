@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugInput : MonoBehaviour, IShareInput {
+public class KeyboardInput : MonoBehaviour, IShareInput {
 
     private float _force = 0;
 
@@ -44,6 +44,7 @@ public class DebugInput : MonoBehaviour, IShareInput {
 	void Update () {
         CheckForce();
         CheckRotation();
+        CheckPickUp();
 	}
 
     void CheckForce()
@@ -61,7 +62,10 @@ public class DebugInput : MonoBehaviour, IShareInput {
     void CheckRotation()
     {
         float horizontal = Input.GetAxis("Horizontal");
-        Quaternion.RotateTowards(_rotation, Quaternion.Euler(0, 0, (horizontal / Mathf.Abs(horizontal)) * 70), Mathf.Abs(horizontal) * Time.deltaTime);
+        if(horizontal != 0)
+        {
+            Quaternion.RotateTowards(_rotation, Quaternion.Euler(0, 0, (horizontal / Mathf.Abs(horizontal)) * 70), Mathf.Abs(horizontal) * Time.deltaTime);
+        }
     }
 
     void CheckPickUp()

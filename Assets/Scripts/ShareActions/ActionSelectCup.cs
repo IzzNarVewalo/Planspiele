@@ -5,17 +5,14 @@ using UnityEngine.UI;
 
 public class ActionSelectCup : ShareAction {
 
-    
     private bool selected = false;
-    IShareInput inS;
-
 
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSelectCup Action");
         // TODO: Wechsle durch Cups durch
         _active = true;
-        debugText.text = "To select the cup, squeeze the Share Device, or press C.";
+        debugText.text = "To select the cup, pick up the Share Device.";
     }
 
     public override bool Finished()
@@ -27,7 +24,7 @@ public class ActionSelectCup : ShareAction {
 	void Update () {
         if (_active)
         {
-            if (inS.IsPickedUp()||Input.GetKeyDown(KeyCode.C))
+            if (ShareInputManager.ShareInput.IsPickedUp())
             {
                 selected = true;
                 debugText.text = "Cup selected!";
