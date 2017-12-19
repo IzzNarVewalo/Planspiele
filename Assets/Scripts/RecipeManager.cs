@@ -9,30 +9,53 @@ public class RecipeManager : MonoBehaviour {
     // The recipe that is currently selected and made
     private Recipe activeRecipe;
 
-    void Start()
-    {
+    void Start() {
         recipes = new List<Recipe>();
+
+        List<ShareAction> listForCup = new List<ShareAction>(
+            new ShareAction[]{
+                new ActionPickUpCup()
+            });
+
+        List<ShareAction> listForCoffee = new List<ShareAction>(
+            new ShareAction[]{
+                new ActionSqueeze()
+            });
+
+        List<ShareAction> listForMilk = new List<ShareAction>(
+            new ShareAction[]{
+                new ActionPickUpCup(), 
+                new ActionRotate(), 
+                new ActionPutDownCup(), 
+            });
+
+        List<ShareAction> listForCaramel = new List<ShareAction>(
+            new ShareAction[]{
+                new ActionPickUpCup(),
+                new ActionRotateSqueeze(), 
+                new ActionPutDownCup(),
+            });
+
         recipes.Add(new Recipe("Demo Recipe",
             0,
             new List<Ingredient>(
                 new Ingredient[] {
-                    new Ingredient(1, Unit.Cup, Ingredients.Cup),
-                    new Ingredient(100, Unit.Ml, Ingredients.Coffe),
-                    new Ingredient(50, Unit.Ml, Ingredients.Milk) })));
+                    new Ingredient(1, Unit.Cup, Ingredients.Cup, listForCup),
+                    new Ingredient(100, Unit.Ml, Ingredients.Coffe, listForCoffee),
+                    new Ingredient(50, Unit.Ml, Ingredients.Milk, listForMilk),
+                    new Ingredient(2, Unit.Tablespoon, Ingredients.Caramel, listForCaramel)})));
 
         activeRecipe = recipes[0];
         activeRecipe.Begin();
     }
 
-    void Update()
-    {
-        if(activeRecipe != null)
-        {
+    void Update() {
+        if (activeRecipe != null) {
             activeRecipe.Update();
         }
     }
 
-    
+
 
     /*public GameObject player;
 

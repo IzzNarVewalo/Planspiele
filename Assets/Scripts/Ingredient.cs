@@ -9,10 +9,15 @@ public class Ingredient {
     // Includes the actions for each Ingredient that need to be fulfilled to add the ingredient
     public static Dictionary<Ingredients, ShareAction[]> IngredientActions;
 
-    static Ingredient()
-    {
-        SetupIngredientActions();
-    }
+    private List<ShareAction> _actions;
+    private float _amount;
+    private Unit _unit;
+    private Ingredients _name;
+
+    //static Ingredient()
+    //{
+    //    SetupIngredientActions();
+    //}
 
     public static void Translate() {
         IngredientToString = new Dictionary<Ingredients, string>();
@@ -36,28 +41,25 @@ public class Ingredient {
         UnitToString.Add(Unit.Tablespoon, " Tablespoon ");
     }
 
-    public static void SetupIngredientActions()
-    {
-        IngredientActions = new Dictionary<Ingredients, ShareAction[]>();
+    //public static void SetupIngredientActions()
+    //{
+    //    IngredientActions = new Dictionary<Ingredients, ShareAction[]>();
 
-        IngredientActions.Add(Ingredients.Cup, new ShareAction[] {
-            ShareAction.Create<ActionSelectCup>()
-        });
+    //    IngredientActions.Add(Ingredients.Cup, new ShareAction[] {
+    //        ShareAction.Create<ActionSelectCup>()
+    //    });
 
-        IngredientActions.Add(Ingredients.Coffe, new ShareAction[] {
-            ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
-        });
+    //    IngredientActions.Add(Ingredients.Coffe, new ShareAction[] {
+    //        ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
+    //    });
 
-        IngredientActions.Add(Ingredients.Milk, new ShareAction[] {
-            ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
-        });
-    }
+    //    IngredientActions.Add(Ingredients.Milk, new ShareAction[] {
+    //        ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
+    //    });
+    //}
 
-    private float _amount;
-    private Unit _unit;
-    private Ingredients _name;
 
-    public Ingredient(float amount, Unit unit, Ingredients name) {
+    public Ingredient(float amount, Unit unit, Ingredients name, List<ShareAction> actions) {
         _amount = amount;
         _unit = unit;
         _name = name;
@@ -67,18 +69,8 @@ public class Ingredient {
         return _amount + UnitToString[_unit] + IngredientToString[_name];
     }
 
-    public ShareAction[] GetShareActions()
+    public List<ShareAction> GetShareActions()
     {
-        switch (_name)
-        {
-
-        }
-        ShareAction[] actions;
-        if (IngredientActions.TryGetValue(_name, out actions))
-        {
-            return actions;
-        }
-
-        return new ShareAction[] { };
+            return _actions;
     }
 }   

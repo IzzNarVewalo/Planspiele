@@ -17,6 +17,7 @@ public enum Size {
 
 public enum Ingredients {
     Raspberries,
+    Caramel,
     Cherries,
     Oranges,
     Apples,
