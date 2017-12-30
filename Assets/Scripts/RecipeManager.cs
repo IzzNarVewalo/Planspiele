@@ -14,26 +14,26 @@ public class RecipeManager : MonoBehaviour {
 
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
-                new ActionPickUpCup()
+                ShareAction.Create<ActionPickUpCup>()
             });
 
         List<ShareAction> listForCoffee = new List<ShareAction>(
             new ShareAction[]{
-                new ActionSqueeze()
+                ShareAction.Create<ActionSqueeze>()
             });
 
         List<ShareAction> listForMilk = new List<ShareAction>(
             new ShareAction[]{
-                new ActionPickUpCup(), 
-                new ActionRotate(), 
-                new ActionPutDownCup(), 
+                ShareAction.Create<ActionPickUpCup>(), 
+                ShareAction.Create<ActionRotate>(), 
+                ShareAction.Create<ActionPutDownCup>(), 
             });
 
         List<ShareAction> listForCaramel = new List<ShareAction>(
             new ShareAction[]{
-                new ActionPickUpCup(),
-                new ActionRotateSqueeze(), 
-                new ActionPutDownCup(),
+                ShareAction.Create<ActionPickUpCup>(),
+                ShareAction.Create<ActionRotateSqueeze>(), 
+                ShareAction.Create<ActionPutDownCup>(),
             });
 
         recipes.Add(new Recipe("Demo Recipe",
@@ -46,6 +46,8 @@ public class RecipeManager : MonoBehaviour {
                     new Ingredient(2, Unit.Tablespoon, Ingredients.Caramel, listForCaramel)})));
 
         activeRecipe = recipes[0];
+        if (activeRecipe == null)
+            Debug.LogError("No recipe");
         activeRecipe.Begin();
     }
 

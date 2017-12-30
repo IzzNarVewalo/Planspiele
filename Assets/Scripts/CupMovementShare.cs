@@ -35,11 +35,6 @@ public class CupMovementShare : MonoBehaviour {
 
         checkLdr();
         transform.localRotation = com.rotQuat;
-        
-        if (com.force > forceThreshold  || Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("Squeeze");
-        }
     }
 
     private void checkLdr()

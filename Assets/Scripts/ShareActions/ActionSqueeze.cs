@@ -21,22 +21,26 @@ public class ActionRotateSqueeze : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionRotateSqueeze Action");
-
+        inS = ShareInputManager.ShareInput;
         _active = true;
-        debugText.text = "Rotate the Share Device and squeeze it or press Q";
+        debugText.text = "Rotate the Share-Device and squeeze it. (Arrow-Keys to rotate, F to squeeze)";
     }
 
 	// Update is called once per frame
 	void Update () {
         if (_active)
         {
-            if ((inS.GetForce()> GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold)||Input.GetKey(KeyCode.Q))
+            if ((inS.GetForce()> GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold))
             {
                 howLong = howLong + Time.deltaTime;
-                
             }
 
-            if (!inS.IsPickedUp()||!Input.GetKey(KeyCode.Q))
+            if(howLong > 5)
+            {
+                debugText.text = "You have squeezed enough. Put the Share-Device down. (V)";
+            }
+
+            if (!inS.IsPickedUp())
             {
                 //Return the time value
                 finished = true;

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour, IShareInput {
 
+    public static KeyCode squeezeKey = KeyCode.F;
+
+    public static KeyCode pickUpPutDownKey = KeyCode.V;
+
     private float _force = 0;
 
     private Quaternion _rotation = Quaternion.identity;
@@ -49,13 +53,13 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
 
     void CheckForce()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(squeezeKey))
         {
             _force = Mathf.Clamp(_force + Time.deltaTime * 500, -5, 5000);
         }
         else
         {
-            _force = Mathf.Clamp(_force - Time.deltaTime * 500, -5, 5000);
+            _force = Mathf.Clamp(_force - Time.deltaTime * 2000, -5, 5000);
         }
     }
 
@@ -64,13 +68,13 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         float horizontal = Input.GetAxis("Horizontal");
         if(horizontal != 0)
         {
-            Quaternion.RotateTowards(_rotation, Quaternion.Euler(0, 0, (horizontal / Mathf.Abs(horizontal)) * 70), Mathf.Abs(horizontal) * Time.deltaTime);
+            _rotation = Quaternion.RotateTowards(_rotation, Quaternion.Euler(0, 0, (horizontal / Mathf.Abs(horizontal)) * 70), Mathf.Abs(horizontal) * Time.deltaTime * 20);
         }
     }
 
     void CheckPickUp()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(pickUpPutDownKey))
         {
             _isPickedUp = !_isPickedUp;
         }

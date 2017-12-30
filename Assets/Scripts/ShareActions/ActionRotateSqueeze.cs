@@ -30,7 +30,7 @@ public class ActionSqueeze : ShareAction {
 	void Update () {
         if (_active)
         {
-            if (!inS.IsPickedUp()||!Input.GetKey(KeyCode.Q))
+            if (!ShareInputManager.ShareInput.IsPickedUp())
             {
                 //Return the time value
                 finished = true;

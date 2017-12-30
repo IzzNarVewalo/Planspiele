@@ -20,7 +20,7 @@ public class ActionRotate : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionRotate Action");
-
+        inS = ShareInputManager.ShareInput;
         _active = true;
         debugText.text = "Rotate the Share Device or press R";
     }
@@ -35,7 +35,7 @@ public class ActionRotate : ShareAction {
                 howLong = howLong + Time.deltaTime;
             }
 
-            if (!inS.IsPickedUp()||!Input.GetKey(KeyCode.R))
+            if (howLong > 5)
             {
                 //Return the time value
                 finished = true;

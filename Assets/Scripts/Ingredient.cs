@@ -63,6 +63,7 @@ public class Ingredient {
         _amount = amount;
         _unit = unit;
         _name = name;
+        _actions = actions;
     }
 
     public String PrintIngredient() {

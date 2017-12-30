@@ -24,7 +24,8 @@ public class Recipe {
     {
         foreach (Ingredient ingredient in _ingredients)
         {
-            _actions.AddRange(ingredient.GetShareActions());
+            if(ingredient.GetShareActions() != null)
+                _actions.AddRange(ingredient.GetShareActions());
         }
 
         _activeAction = _actions[0];

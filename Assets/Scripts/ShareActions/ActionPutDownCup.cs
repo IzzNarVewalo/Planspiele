@@ -6,8 +6,6 @@ public class ActionPutDownCup : ShareAction {
 
     private bool satDown = false;
 
-    IShareInput inS;
-
     public override bool Finished()
     {
        return satDown;
@@ -26,7 +24,7 @@ public class ActionPutDownCup : ShareAction {
     void Update()
     {
 
-        if (!inS.IsPickedUp()||Input.GetKey(KeyCode.D))
+        if (!ShareInputManager.ShareInput.IsPickedUp())
         {
             satDown = true;
         }

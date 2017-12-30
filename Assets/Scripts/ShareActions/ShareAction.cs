@@ -37,8 +37,7 @@ public abstract class ShareAction : MonoBehaviour {
 
     /// <summary>
     /// To make the Actions work, they need to be added to a GameObject.
-    /// Every Child Class needs to instantiate itself by first creating a GameObject g and then return g.AddComponent
-    /// See ActionSelectCup.cs for Example.
+    /// If they are not created using this method, every Child Class needs to instantiate itself by first creating a GameObject g and then return g.AddComponent();
     /// </summary>
     /// <returns></returns>
     public static ShareAction Create<T>() where T : ShareAction {
