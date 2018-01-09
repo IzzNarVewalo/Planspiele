@@ -18,6 +18,8 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private AudioClip clip_pouring;
     [SerializeField] private AudioClip[] clips_CupPut;
     [SerializeField] private AudioClip[] clips_CupLift;
+    [SerializeField] private AudioClip clip_WhippedCreamSpray;
+    [SerializeField] private AudioClip clip_Ambient;
 
     private AudioSource[] myAudioSources;
 
@@ -80,6 +82,16 @@ public class SoundEffectManager : MonoBehaviour
     public void PlayLiftCup()
     {
         PlayRandomSound(clips_CupLift);
+    }
+
+    public void PlayWhippedCreamSpray()
+    {
+        PlaySound(clip_WhippedCreamSpray);
+    }
+
+    public void PlayAmbient()
+    {
+        PlaySound(clip_Ambient);
     }
 
 
