@@ -41,8 +41,8 @@ public class MenuScript : MonoBehaviour {
         }
     }
 
-    private void CreateRecipes(String name, int id, List<Ingredient> ingredients) {
-        Recipe temp = new Recipe(name, id, ingredients);
+    private void CreateRecipes(String name, int id, Size size,List<Ingredient> ingredients) {
+        Recipe temp = new Recipe(name, id, size, ingredients);
         _cookbook.AddRecipe(temp);
     }
 }

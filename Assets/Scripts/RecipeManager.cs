@@ -37,7 +37,7 @@ public class RecipeManager : MonoBehaviour {
             });
 
         recipes.Add(new Recipe("Demo Recipe",
-            0,
+            0,Size.Small,
             new List<Ingredient>(
                 new Ingredient[] {
                     new Ingredient(1, Unit.Cup, Ingredients.Cup, listForCup),
