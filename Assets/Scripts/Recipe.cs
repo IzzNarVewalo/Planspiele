@@ -7,14 +7,16 @@ public class Recipe {
 
     private String _name;
     private int _id;
+    private Size _size;
     private List<Ingredient> _ingredients;
     private List<ShareAction> _actions;
     private int _activeActionIndex = 0;
     private ShareAction _activeAction;
 
-    public Recipe(String name, int id,  List<Ingredient> ingredients) {
+    public Recipe(String name, int id, Size size,  List<Ingredient> ingredients) {
         _name = name;
         _id = id;
+        _size = size;
         _ingredients = ingredients;
 
         _actions = new List<ShareAction>();
@@ -62,6 +64,10 @@ public class Recipe {
     public String GetName() {
         return _name;
     }
+    public String GetSize()
+    {
+        return _size.ToString();
+    }
 
     public String GetIngredients() {
         String ingr = null;
@@ -69,5 +75,9 @@ public class Recipe {
             ingr += ingredient.PrintIngredient() + "\n";
         }
         return ingr;
+    }
+    public List<Ingredient> GetIngredientsList()
+    {
+        return _ingredients;
     }
 }
