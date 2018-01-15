@@ -35,10 +35,10 @@ public class Ingredient {
         IngredientToString.Add(Ingredients.Cup, "Normal Size Cup");
 
 
-        UnitToString.Add(Unit.Cl, " cl ");
-        UnitToString.Add(Unit.Cup, " cup ");
-        UnitToString.Add(Unit.Ml, " ml ");
-        UnitToString.Add(Unit.Tablespoon, " Tablespoon ");
+        UnitToString.Add(Unit.Cl, "cl");
+        UnitToString.Add(Unit.Cup, "Cup");
+        UnitToString.Add(Unit.Ml, "ml");
+        UnitToString.Add(Unit.Tablespoon, "Tablespoon");
     }
 
     //public static void SetupIngredientActions()
@@ -68,6 +68,20 @@ public class Ingredient {
 
     public String PrintIngredient() {
         return _amount + UnitToString[_unit] + IngredientToString[_name];
+    }
+
+    public float getAmount()
+    {
+        return _amount;
+    }
+    public String getUnit()
+    {
+        Translate();
+        return UnitToString[_unit];
+    }
+    public String getName()
+    {
+        return IngredientToString[_name];
     }
 
     public List<ShareAction> GetShareActions()
