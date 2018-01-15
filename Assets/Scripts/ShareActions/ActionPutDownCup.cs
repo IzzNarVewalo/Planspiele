@@ -16,7 +16,7 @@ public class ActionPutDownCup : ShareAction {
         Debug.Log("Enter ActionPutDownCup Action");
 
         _active = true;
-        debugText.text = "Put down the Share Device or press D";
+        _instructionText.text = "Put down the Share Device or press D";
 
     }
 

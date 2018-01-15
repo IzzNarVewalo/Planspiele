@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionRotateSqueeze : ShareAction {
-
-    public float forceThreshold;
-    public float tiltThreshold;
-
+public class ActionSqueeze : ShareAction
+{
     private bool finished = false;
 
     private float howLong = 0;
+    public float Duration = 5;
     IShareInput inS;
 
     public override bool Finished()
@@ -23,21 +21,24 @@ public class ActionRotateSqueeze : ShareAction {
         Debug.Log("Enter ActionRotateSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
-        debugText.text = "Rotate the Share-Device and squeeze it. (Arrow-Keys to rotate, F to squeeze)";
+        _instructionText.text = "Squeeze the Device. (or F to squeeze)";
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         if (_active)
         {
-            if ((inS.GetForce()> GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold))
+            if ((inS.GetForce() > GameSettings.forceThreshold))
             {
                 howLong = howLong + Time.deltaTime;
+                Debug.Log(howLong / Duration);
+
             }
 
-            if(howLong > 5)
+            if (howLong > Duration)
             {
-                debugText.text = "You have squeezed enough. Put the Share-Device down. (V)";
+                _instructionText.text = "You have squeezed enough. Put the Share-Device down.";
             }
 
             if (!inS.IsPickedUp())
@@ -47,7 +48,5 @@ public class ActionRotateSqueeze : ShareAction {
             }
 
         }
-
-
-	}
+    }
 }

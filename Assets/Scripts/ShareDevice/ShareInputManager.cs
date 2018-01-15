@@ -47,8 +47,6 @@ public class ShareInputManager : MonoBehaviour {
             _inputType = (ShareInputType)(((int)_inputType + 1) % numberOfEnums);
             SetShareInput();
         }
-
-        Debug.Log(_shareInput.GetForce());
     }
 
     private void SetShareInput()

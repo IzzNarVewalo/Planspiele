@@ -12,7 +12,7 @@ public class ActionSelectCup : ShareAction {
         Debug.Log("Enter ActionSelectCup Action");
         // TODO: Wechsle durch Cups durch
         _active = true;
-        debugText.text = "To select the cup, pick up the Share Device.";
+        _instructionText.text = "To select the cup, pick up the Share Device.";
     }
 
     public override bool Finished()
@@ -27,7 +27,7 @@ public class ActionSelectCup : ShareAction {
             if (ShareInputManager.ShareInput.IsPickedUp())
             {
                 selected = true;
-                debugText.text = "Cup selected!";
+                _instructionText.text = "Cup selected!";
                 Debug.Log("Cup Selected!");
             }
         }

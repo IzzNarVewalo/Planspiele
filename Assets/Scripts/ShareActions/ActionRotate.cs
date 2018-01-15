@@ -10,7 +10,9 @@ public class ActionRotate : ShareAction {
     
     private float howLong = 0;
 
-    IShareInput inS;
+    public float Duration = 5;
+
+    IShareInput shareInput;
 
     public override bool Finished()
     {
@@ -20,9 +22,9 @@ public class ActionRotate : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionRotate Action");
-        inS = ShareInputManager.ShareInput;
+        shareInput = ShareInputManager.ShareInput;
         _active = true;
-        debugText.text = "Rotate the Share Device or press R";
+        _instructionText.text = "Rotate the Share Device to add the ingredient!";
     }
     
     // Update is called once per frame
@@ -30,16 +32,21 @@ public class ActionRotate : ShareAction {
 
         if (_active)
         {
-            if (inS.GetTiltAngle() > GameSettings.tiltThreshold ||Input.GetKey(KeyCode.R))
+            
+            if (shareInput.GetTiltAngle() > GameSettings.tiltThreshold)
             {
+                //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
+                Debug.Log(howLong / (Duration));
             }
 
-            if (howLong > 5)
+            if (howLong > Duration)
             {
-                //Return the time value
-                finished = true;
+                _instructionText.text = "You have added enough. Put the Share-Device down.";
             }
+
+            if (!shareInput.IsPickedUp())
+                finished = true;
 
         }
 

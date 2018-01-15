@@ -12,6 +12,12 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     private float _activityMeasure;
 
+    private float _forceIdleTime;
+
+    private bool _initialCalibrationDone = false;
+
+    private bool _pickedUp = false;
+
     public Vector3 GetAccelerationRaw()
     {
         return _communication.RawAcceleration;
@@ -29,13 +35,20 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     public float GetTiltAngle()
     {
-        return Vector3.Angle(Vector3.down, _communication.RawAcceleration);
+        return Vector3.Angle(Vector3.up, _communication.RawAcceleration);
     }
 
     public bool IsPickedUp()
     {
-        // TODO: 
-        throw new System.NotImplementedException();
+        if (!_pickedUp)
+        {
+            _pickedUp = _initialCalibrationDone && RecentActivitySum() > 2500 && GetForce() > 50;
+        } else
+        {
+            _pickedUp = (RecentActivitySum() > 2500) || !(_forceIdleTime > 0.2);
+        }
+
+        return _pickedUp;
     }
 
     void Awake()
@@ -56,12 +69,35 @@ public class ShareInput : MonoBehaviour, IShareInput {
     // Use this for initialization
     void Start () {
         StartCoroutine(ActivityLogger(_activitiesPerSecond));
+        StartCoroutine(WaitForInitialization());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (GetForce() < 50)
+        {
+            _forceIdleTime += Time.deltaTime;
+        } else
+        {
+            _forceIdleTime = 0;
+        }
 	}
+
+    IEnumerator WaitForInitialization()
+    {
+        yield return new WaitForSeconds(1);
+
+        while (true)
+        {
+            if(RecentActivitySum() < 2000)
+            {
+                _initialCalibrationDone = true;
+                Debug.Log("Initialized device");
+                break;
+            }
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 
     IEnumerator ActivityLogger(int timesPerSecond)
     {

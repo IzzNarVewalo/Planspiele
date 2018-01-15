@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public abstract class ShareAction : MonoBehaviour {
 
-    protected Text debugText;
+    protected Text _instructionText;
     // Is the current Action active?
     protected bool _active;
     // Instruction text which can be shown in the progress list on the UI
@@ -17,10 +17,10 @@ public abstract class ShareAction : MonoBehaviour {
     /// </summary>
     protected void Awake()
     {
-        debugText = GameObject.Find("DebugText").GetComponent<Text>();
-        if(debugText == null)
+        _instructionText = GameObject.Find("DebugText").GetComponent<Text>();
+        if(_instructionText == null)
         {
-            Debug.LogError("Debug Text nicht gefunden.");
+            Debug.LogError("Instruction Text nicht gefunden.");
         }
     }
 

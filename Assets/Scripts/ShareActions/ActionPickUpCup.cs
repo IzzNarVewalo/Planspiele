@@ -16,18 +16,18 @@ public class ActionPickUpCup : ShareAction {
         Debug.Log("Enter ActionPickUpCup Action");
 
         _active = true;
-        debugText.text = "Pick up the Share Device or press V";
+        _instructionText.text = "Pick up the Share Device or press V";
 
     }
 
     // Update is called once per frame
     void Update () {
-
-        if (ShareInputManager.ShareInput.IsPickedUp())
+        if (_active)
         {
-            pickedUp = true;
+            if (ShareInputManager.ShareInput.IsPickedUp())
+            {
+                pickedUp = true;
+            }
         }
-
-
 	}
 }

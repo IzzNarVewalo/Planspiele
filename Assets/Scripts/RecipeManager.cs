@@ -47,8 +47,14 @@ public class RecipeManager : MonoBehaviour {
 
         activeRecipe = recipes[0];
         if (activeRecipe == null)
+        {
             Debug.LogError("No recipe");
-        activeRecipe.Begin();
+        } else
+        {
+            activeRecipe.Begin();
+        }
+            
+        
     }
 
     void Update() {

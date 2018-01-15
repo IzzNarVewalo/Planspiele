@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class GameSettings {
 
-   public static float tiltThreshold = 50;
-   public static float forceThreshold = 50;
+   public static float tiltThreshold = 45;
+   public static float forceThreshold = 200;
 
 
 }
