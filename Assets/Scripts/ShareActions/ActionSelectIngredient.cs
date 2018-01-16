@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class ActionSelectIngredient : ShareAction {
 
-    private bool _ingredientSelected = false;
+    private bool _ingredientIsSelected = false;
+
+    private Ingredient _selectedIngredient = null;
 
     private IShareInput _shareInput;
 
     private RotatingPicker _rotatingPicker;
-
+    
     private static string _rotatingPickerName = "IngredientPicker";
 
     public override bool Finished()
     {
-        throw new System.NotImplementedException();
+        return _ingredientIsSelected;
     }
 
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSelectIngredient Action");
+        ShowInstructionText("Pick up the cup to stop the rotation and select the ingredient.");
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
         _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponent<RotatingPicker>();
@@ -38,15 +41,40 @@ public class ActionSelectIngredient : ShareAction {
 	void Update () {
         if (_active)
         {
-            // 
-            if(_shareInput.GetForce() >= GameSettings.forceThreshold)
+            if(_rotatingPicker != null)
+            {
+                if (_shareInput.IsPickedUp())
+                {
+                    if(_selectedIngredient == null)
+                    {
+                        SoundEffectManager.Instance.PlayLiftCup();
+                        _selectedIngredient = _rotatingPicker.Select();
+                    }
+
+                    if(_shareInput.GetForce() >= GameSettings.ForceThreshold)
+                    {
+                        _ingredientIsSelected = true;
+                        GameData.SelectedIngredient = _selectedIngredient;
+                    }
+
+                } else
+                {
+                    if(_selectedIngredient != null)
+                    {
+                        _selectedIngredient = null;
+                        _rotatingPicker.Rotate();
+                    }
+                }
+            }
+
+            if(_shareInput.GetForce() >= GameSettings.ForceThreshold)
             {
                 if(_rotatingPicker != null)
                 {
                     GameData.SelectedIngredient = _rotatingPicker.Select();
-                    _ingredientSelected = true;
+                    _ingredientIsSelected = true;
                 }
-                SoundEffectManager.Instance.PlayLiftCup();
+                
             }
         }
 	}

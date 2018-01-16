@@ -3,12 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IShareInput {
+    
 
     /// <summary>
     /// Returns how much force is applied to the Share Device.
     /// </summary>
     /// <returns>Pressing Force</returns>
     float GetForce();
+
+    /// <summary>
+    /// Returns the maximum force that can be applied to the input device.
+    /// </summary>
+    float MaxForce();
+
+    /// <summary>
+    /// Returns the maximum force that was applied to the input device.
+    /// </summary>
+    /// <returns></returns>
+    float MaxAppliedForce();
+
+    /// <summary>
+    /// Resets the MaxAppliedForce to 0.
+    /// </summary>
+    void ResetMaxAppliedForce();
 
     /// <summary>
     /// Returns the rotation of the Share Device.

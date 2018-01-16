@@ -18,6 +18,10 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     private bool _pickedUp = false;
 
+    private float _maxForce = 3986;
+
+    private float _maxAppliedForce;
+
     public Vector3 GetAccelerationRaw()
     {
         return _communication.RawAcceleration;
@@ -81,6 +85,10 @@ public class ShareInput : MonoBehaviour, IShareInput {
         {
             _forceIdleTime = 0;
         }
+
+        float force = GetForce();
+        if (force > _maxAppliedForce)
+            _maxAppliedForce = force;
 	}
 
     IEnumerator WaitForInitialization()
@@ -125,4 +133,18 @@ public class ShareInput : MonoBehaviour, IShareInput {
         return sum;
     }
 
+    public float MaxForce()
+    {
+        return _maxForce;
+    }
+
+    public float MaxAppliedForce()
+    {
+        return _maxAppliedForce;
+    }
+
+    public void ResetMaxAppliedForce()
+    {
+        _maxAppliedForce = 0;
+    }
 }

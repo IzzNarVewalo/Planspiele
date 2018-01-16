@@ -16,6 +16,7 @@ public class RecipeManager : MonoBehaviour {
 
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
+                ShareAction.Create<ActionCalibrateForce>(),
                 ShareAction.Create<ActionPickUpCup>()
             });
 

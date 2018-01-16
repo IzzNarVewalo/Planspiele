@@ -10,6 +10,10 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
 
     private float _force = 0;
 
+    private float _maxForce = 3986;
+
+    private float _maxAppliedForce;
+
     private Quaternion _rotation = Quaternion.identity;
 
     private bool _isPickedUp = false;
@@ -55,11 +59,13 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
     {
         if (Input.GetKey(squeezeKey))
         {
-            _force = Mathf.Clamp(_force + Time.deltaTime * 500, -5, 5000);
+            _force = Mathf.Clamp(_force + Time.deltaTime * 500, -5, MaxForce());
+            if (_force > _maxAppliedForce)
+                _maxAppliedForce = _force;
         }
         else
         {
-            _force = Mathf.Clamp(_force - Time.deltaTime * 2000, -5, 5000);
+            _force = Mathf.Clamp(_force - Time.deltaTime * 2000, -5, MaxForce());
         }
     }
 
@@ -78,5 +84,20 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         {
             _isPickedUp = !_isPickedUp;
         }
+    }
+
+    public float MaxForce()
+    {
+        return _maxForce;
+    }
+
+    public float MaxAppliedForce()
+    {
+        return _maxAppliedForce;
+    }
+
+    public void ResetMaxAppliedForce()
+    {
+        _maxAppliedForce = 0;
     }
 }

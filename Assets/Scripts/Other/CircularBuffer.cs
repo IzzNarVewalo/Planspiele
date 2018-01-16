@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircularBuffer<T> : IEnumerable {
+public class CircularBuffer<T> : IEnumerable where T : IComparable<T> {
 
     private int _size;
 
@@ -53,4 +54,5 @@ public class CircularBuffer<T> : IEnumerable {
             yield return _buffer[(_first + i) % _size];
         }
     }
+
 }

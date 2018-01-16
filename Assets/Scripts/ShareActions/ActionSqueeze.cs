@@ -29,7 +29,7 @@ public class ActionSqueeze : ActionAddIngredient
     {
         if (_active)
         {
-            if ((inS.GetForce() > GameSettings.forceThreshold))
+            if ((inS.GetForce() > GameSettings.ForceThreshold))
             {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);

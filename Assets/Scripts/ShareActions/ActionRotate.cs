@@ -33,7 +33,7 @@ public class ActionRotate : ActionAddIngredient {
         if (_active)
         {
             
-            if (shareInput.GetTiltAngle() > GameSettings.tiltThreshold)
+            if (shareInput.GetTiltAngle() > GameSettings.TiltThreshold)
             {
                 //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
