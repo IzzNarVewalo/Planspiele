@@ -90,7 +90,10 @@ public class Ingredient {
     }
     public void SetProgress(float progress)
     {
+        float oldProgress = _progress;
         _progress = progress;
+        if (oldProgress < 1 && progress >= 1)
+            RecipeManager.UpdateRecipeUI();
     }
 
     public List<ShareAction> GetShareActions()

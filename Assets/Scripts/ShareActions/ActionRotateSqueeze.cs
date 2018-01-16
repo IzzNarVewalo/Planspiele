@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionRotateSqueeze : ShareAction
+public class ActionRotateSqueeze : ActionAddIngredient
 {
     private bool finished = false;
 
@@ -21,7 +21,7 @@ public class ActionRotateSqueeze : ShareAction
         Debug.Log("Enter ActionRotateSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
-        _instructionText.text = "Rotate the Share-Device and squeeze it.";
+        ShowInstructionText("Rotate the Share-Device and squeeze it.");
     }
 
     // Update is called once per frame
@@ -32,13 +32,13 @@ public class ActionRotateSqueeze : ShareAction
             if ((inS.GetForce() > GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold))
             {
                 howLong = howLong + Time.deltaTime;
-                Debug.Log(howLong / Duration);
+                UpdateIngredientProgress(howLong / Duration);
 
             }
 
             if (howLong > Duration)
             {
-                _instructionText.text = "You have added enough. Put the Share-Device down.";
+                ShowInstructionText("You have added enough. Put the Share-Device down.");
             }
 
             if (!inS.IsPickedUp())
