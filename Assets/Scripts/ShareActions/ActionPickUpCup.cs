@@ -8,7 +8,6 @@ public class ActionPickUpCup : ShareAction {
 
     public override bool Finished()
     {
-        SoundEffectManager.Instance.PlayLiftCup();
         return pickedUp;
     }
 
@@ -19,6 +18,11 @@ public class ActionPickUpCup : ShareAction {
         _active = true;
         _instructionText.text = "Pick up the Share Device or press V";
 
+    }
+
+    public override void ExitAction()
+    {
+        SoundEffectManager.Instance.PlayLiftCup();
     }
 
     // Update is called once per frame

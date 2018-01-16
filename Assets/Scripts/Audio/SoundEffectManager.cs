@@ -86,6 +86,7 @@ public class SoundEffectManager : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
+        Debug.Log("Playing audio: " + clip.name);
         foreach (AudioSource aS in myAudioSources)
         {
             if (aS.playOnAwake == true)
@@ -101,6 +102,7 @@ public class SoundEffectManager : MonoBehaviour
 
     private void PlayRandomSound(AudioClip[] clips)
     {
+        Debug.Log("Random Sound");
         foreach (AudioSource aS in myAudioSources)
         {
             if (aS.playOnAwake == true)

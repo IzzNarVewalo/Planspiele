@@ -34,7 +34,11 @@ public class ActionRotateSqueeze : ActionAddIngredient
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
                 if (playSound)
+                {
                     SoundEffectManager.Instance.PlaySauceSqueezing();
+                    playSound = false;
+                }
+                    
             }
             else
             {

@@ -26,4 +26,9 @@ public class RotatingPicker : MonoBehaviour {
         StopCoroutine(_rotation);
         return _actualIngredient;
     }
+
+    public void Rotate()
+    {
+        _rotation = StartCoroutine(Rotate(gameObject.transform.childCount));
+    }
 }

@@ -8,8 +8,7 @@ public class ActionPutDownCup : ShareAction {
 
     public override bool Finished()
     {
-        SoundEffectManager.Instance.PlayPutCup();
-       return satDown;
+        return satDown;
     }
 
     public override void EnterAction()
@@ -19,6 +18,11 @@ public class ActionPutDownCup : ShareAction {
         _active = true;
         _instructionText.text = "Put down the Share Device or press D";
 
+    }
+
+    public override void ExitAction()
+    {
+        SoundEffectManager.Instance.PlayPutCup();
     }
 
     // Update is called once per frame
