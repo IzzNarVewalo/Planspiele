@@ -21,6 +21,7 @@ public class ActionSqueeze : ActionAddIngredient
         Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
+        ProgressBarScript.value = 0;
         ShowInstructionText("Squeeze the Device.");
     }
 
@@ -32,6 +33,7 @@ public class ActionSqueeze : ActionAddIngredient
             if ((inS.GetForce() > GameSettings.forceThreshold))
             {
                 howLong = howLong + Time.deltaTime;
+                ProgressBarScript.value = howLong / Duration;
                 UpdateIngredientProgress(howLong / Duration);
                 if (playSound)
                 {

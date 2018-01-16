@@ -21,6 +21,7 @@ public class ActionRotateSqueeze : ActionAddIngredient
         Debug.Log("Enter ActionRotateSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
+        ProgressBarScript.value = 0;
         ShowInstructionText("Rotate the Share-Device and squeeze it.");
     }
 
@@ -33,6 +34,7 @@ public class ActionRotateSqueeze : ActionAddIngredient
             {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
+                ProgressBarScript.value = howLong / Duration;
                 if (playSound)
                 {
                     SoundEffectManager.Instance.PlaySauceSqueezing();

@@ -24,6 +24,7 @@ public class ActionRotate : ActionAddIngredient {
         Debug.Log("Enter ActionRotate Action");
         shareInput = ShareInputManager.ShareInput;
         _active = true;
+        ProgressBarScript.value = 0;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
     }
     
@@ -37,6 +38,7 @@ public class ActionRotate : ActionAddIngredient {
             {
                 //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
+                ProgressBarScript.value = howLong / Duration;
                 UpdateIngredientProgress(howLong / Duration);
             }
 

@@ -12,6 +12,13 @@ public class RecipeManager : MonoBehaviour {
     private static RecipeToUI _recipeToUI;
 
     void Start() {
+
+        //Set Progress Bar Values
+        ProgressBarScript.yellowEnd = 1.0f;
+        ProgressBarScript.greenEnd = 1.5f;
+        ProgressBarScript.orangeEnd = 2.0f;
+
+
         _recipes = new List<Recipe>();
 
         List<ShareAction> listForCup = new List<ShareAction>(
