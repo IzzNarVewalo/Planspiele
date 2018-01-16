@@ -8,6 +8,7 @@ public class ActionPutDownCup : ShareAction {
 
     public override bool Finished()
     {
+        SoundEffectManager.Instance.PlayPutCup();
        return satDown;
     }
 

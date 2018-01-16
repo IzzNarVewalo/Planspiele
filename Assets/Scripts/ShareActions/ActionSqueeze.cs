@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActionSqueeze : ActionAddIngredient
 {
     private bool finished = false;
-
+    private bool playSound = true;
     private float howLong = 0;
     public float Duration = 5;
     IShareInput inS;
@@ -33,8 +33,14 @@ public class ActionSqueeze : ActionAddIngredient
             {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
-
+                if (playSound)
+                    SoundEffectManager.Instance.PlaySplash();
             }
+            else
+            {
+                playSound = true;
+            }
+            
 
             if (howLong > Duration)
             {

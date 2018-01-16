@@ -46,6 +46,7 @@ public class ActionSelectIngredient : ShareAction {
                     GameData.SelectedIngredient = _rotatingPicker.Select();
                     _ingredientSelected = true;
                 }
+                SoundEffectManager.Instance.PlayLiftCup();
             }
         }
 	}
