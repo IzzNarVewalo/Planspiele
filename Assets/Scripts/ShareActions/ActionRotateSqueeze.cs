@@ -32,20 +32,16 @@ public class ActionRotateSqueeze : ActionAddIngredient
             if ((inS.GetForce() > GameSettings.forceThreshold && inS.GetTiltAngle() > GameSettings.tiltThreshold))
             {
                 howLong = howLong + Time.deltaTime;
-<<<<<<< HEAD
-                Debug.Log(howLong / Duration);
+                UpdateIngredientProgress(howLong / Duration);
                 if (playSound)
                     SoundEffectManager.Instance.PlaySauceSqueezing();
             }
             else
             {
                 playSound = true;
-=======
-                UpdateIngredientProgress(howLong / Duration);
-
->>>>>>> 16ba09e94e172a42d4d1b3819b5f814a78d1c50e
+                
             }
-
+            
             if (howLong > Duration)
             {
                 ShowInstructionText("You have added enough. Put the Share-Device down.");
