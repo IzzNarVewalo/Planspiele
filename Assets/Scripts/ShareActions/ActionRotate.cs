@@ -7,8 +7,7 @@ public class ActionRotate : ActionAddIngredient {
     public float tiltAngleThreshold;
 
     private bool finished = false;
-    private bool playSound = true;
-
+    
     private float howLong = 0;
 
     public float Duration = 5;
@@ -25,7 +24,6 @@ public class ActionRotate : ActionAddIngredient {
         Debug.Log("Enter ActionRotate Action");
         shareInput = ShareInputManager.ShareInput;
         _active = true;
-        ProgressBarScript.value = 0;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
     }
     
@@ -39,18 +37,8 @@ public class ActionRotate : ActionAddIngredient {
             {
                 //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
-                ProgressBarScript.value = howLong / Duration;
                 UpdateIngredientProgress(howLong / Duration);
 
-
-                if (playSound)
-                {
-                    SoundEffectManager.Instance.PlaySplash();
-                    playSound = false;
-                }
-            } else
-            {
-                playSound = true;
             }
 
             if (howLong > Duration)
