@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class RecipeManager : MonoBehaviour {
     // Collection of all available recipes
-    private List<Recipe> recipes;
+    private List<Recipe> _recipes;
 
     // The recipe that is currently selected and made
-    private Recipe activeRecipe;
+    private static Recipe _activeRecipe;
+
+    private static RecipeToUI _recipeToUI;
 
     void Start() {
-        recipes = new List<Recipe>();
+        _recipes = new List<Recipe>();
 
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
@@ -36,7 +38,7 @@ public class RecipeManager : MonoBehaviour {
                 ShareAction.Create<ActionPutDownCup>(),
             });
 
-        recipes.Add(new Recipe("Demo Recipe",
+        _recipes.Add(new Recipe("Demo Recipe",
             0,Size.Small,
             new List<Ingredient>(
                 new Ingredient[] {
@@ -45,25 +47,42 @@ public class RecipeManager : MonoBehaviour {
                     new Ingredient(50, Unit.Ml, Ingredients.Milk, listForMilk),
                     new Ingredient(2, Unit.Tablespoon, Ingredients.Caramel, listForCaramel)})));
 
-        activeRecipe = recipes[0];
-        if (activeRecipe == null)
+        _activeRecipe = _recipes[0];
+        if (_activeRecipe == null)
         {
             Debug.LogError("No recipe");
         } else
         {
-            activeRecipe.Begin();
+            _activeRecipe.Begin();
         }
             
         
     }
 
     void Update() {
-        if (activeRecipe != null) {
-            activeRecipe.Update();
+        if (_activeRecipe != null) {
+            _activeRecipe.Update();
         }
     }
 
+    private void Awake()
+    {
+        if(_recipeToUI == null)
+        {
+            _recipeToUI = FindObjectOfType<RecipeToUI>();
+        }
+    }
 
+    public static void UpdateRecipeUI()
+    {
+        if(_recipeToUI != null)
+        {
+            _recipeToUI.writeRecipe(_activeRecipe);
+        } else
+        {
+            Debug.LogError("RecipeToUI Script is not set! Is the Script added to the Scene?");
+        }
+    }
 
     /*public GameObject player;
 

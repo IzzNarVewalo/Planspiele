@@ -6,27 +6,61 @@ using UnityEngine.UI;
 
 public abstract class ShareAction : MonoBehaviour {
 
-    protected Text _instructionText;
     // Is the current Action active?
     protected bool _active;
     // Instruction text which can be shown in the progress list on the UI
     protected string _instruction;
+    protected static Text _instructionText;
+    // The name of the GameObject which should be used as the Text _instructionText
+    protected static string _instructionTextObjectName = "DebugText";
+
+    protected static RecipeToUI _recipeToUI;
 
     /// <summary>
     /// When overriding this method, call base.Awake();
     /// </summary>
     protected void Awake()
     {
-        _instructionText = GameObject.Find("DebugText").GetComponent<Text>();
+        
         if(_instructionText == null)
         {
-            Debug.LogError("Instruction Text nicht gefunden.");
+            _instructionText = GameObject.Find(_instructionTextObjectName).GetComponent<Text>();
+        }
+
+        if(_recipeToUI == null)
+        {
+            _recipeToUI = FindObjectOfType<RecipeToUI>();
         }
     }
 
     public void SetActive(bool active)
     {
         _active = active;
+    }
+
+    protected void ShowInstructionText(string instruction)
+    {
+        _instruction = instruction;
+        ShowInstructionText();
+    }
+
+    protected void ShowInstructionText()
+    {
+        if(_instructionText != null)
+        {
+            _instructionText.text = _instruction;
+        } else
+        {
+            Debug.LogError("Text _instructionText is not set in ShareAction.");
+        }
+    }
+
+    protected void UpdateIngredientProgress(float progress)
+    {
+        if(GameData.SelectedIngredient != null)
+        {
+            GameData.SelectedIngredient.SetProgress(progress);
+        }
     }
 
     /// <summary>
