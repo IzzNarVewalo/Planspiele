@@ -26,6 +26,4 @@ public class RotatingPicker : MonoBehaviour {
         StopCoroutine(_rotation);
         return _actualIngredient;
     }
-
-    public void 
 }
