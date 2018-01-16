@@ -13,6 +13,7 @@ public class Ingredient {
     private float _amount;
     private Unit _unit;
     private Ingredients _name;
+    private float _progress = 0;
 
     //static Ingredient()
     //{
@@ -70,18 +71,26 @@ public class Ingredient {
         return _amount + UnitToString[_unit] + IngredientToString[_name];
     }
 
-    public float getAmount()
+    public float GetAmount()
     {
         return _amount;
     }
-    public String getUnit()
+    public String GetUnit()
     {
         Translate();
         return UnitToString[_unit];
     }
-    public String getName()
+    public String GetName()
     {
         return IngredientToString[_name];
+    }
+    public float GetProgress()
+    {
+        return _progress;
+    }
+    public void SetProgress(float progress)
+    {
+        _progress = progress;
     }
 
     public List<ShareAction> GetShareActions()

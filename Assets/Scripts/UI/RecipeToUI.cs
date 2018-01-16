@@ -14,13 +14,11 @@ public class RecipeToUI : MonoBehaviour {
             temp.Add(new Ingredient(0.5f,Unit.Cup, Ingredients.Coffe, null));
             temp.Add(new Ingredient(2f, Unit.Tablespoon, Ingredients.Cherries, null));
             temp.Add(new Ingredient(500f, Unit.Ml, Ingredients.Milk, null));
-
+            temp[2].SetProgress(1f);
+            temp[1].SetProgress(1f);
             Recipe r = new Recipe("Cherry-Latte", 0, Size.Big, temp);
             writeRecipe(r);
         }
-
-        
-
     }
 
     public void writeRecipe(Recipe recipe)
@@ -32,38 +30,60 @@ public class RecipeToUI : MonoBehaviour {
 
         foreach(Ingredient i in ingredients)
         {
-            leftSide.text = leftSide.text + makeAmountNice(i) + " " + i.getUnit() + "\n";
-            rightSide.text = rightSide.text + i.getName() + "\n";
+            string left = "";
+            string right = "";
+            left =makeAmountNice(i) + " " + i.GetUnit();
+            right = right + i.GetName();
+            if(i.GetProgress() >= 1f)
+            {
+                /*left = StrikeThrough(left);
+                right = StrikeThrough(right);*/
+                left = '\u2713'+left;
+            }
+            else
+            {
+                left = "    "+left; 
+            }
+            leftSide.text += left+"\n";
+            rightSide.text += right+"\n";
         }
-        leftSide.text += "Serve!";
-
+        leftSide.text += "    Serve!";
+    }
+    private string StrikeThrough(string s)
+    {
+        string strikethrough = "";
+        foreach (char c in s)
+        {
+            strikethrough = strikethrough + c + '\u0336';
+        }
+        return strikethrough;
     }
 
     private string makeAmountNice(Ingredient i)
     {
-        Debug.Log("Meow"+ i.getUnit());
-        if (i.getUnit().Equals("Cup"))
+        Debug.Log("Meow"+ i.GetUnit());
+        if (i.GetUnit().Equals("Cup"))
         {
-            Debug.Log("Woof"+i.getAmount());
-            if(i.getAmount() == 0.5f)
+            Debug.Log("Woof"+i.GetAmount());
+            if(i.GetAmount() == 0.5f)
             {
                 Debug.Log("Peep");
                 return "1/2";
-            }else if(i.getAmount() == 0.33f)
+            }else if(i.GetAmount() == 0.33f)
             {
                 return "1/3";
-            }else if(i.getAmount() == 0.2f)
+            }else if(i.GetAmount() == 0.2f)
             {
                 return "1/4";
             }
             else
             {
-                return "" + i.getAmount();
+                return "" + i.GetAmount();
             }
         }
         else
         {
-            return "" + i.getAmount();
+            return "" + i.GetAmount();
         }
     }
 
