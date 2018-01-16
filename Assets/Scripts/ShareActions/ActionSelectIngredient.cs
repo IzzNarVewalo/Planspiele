@@ -8,6 +8,10 @@ public class ActionSelectIngredient : ShareAction {
 
     private IShareInput _shareInput;
 
+    private RotatingPicker _rotatingPicker;
+
+    private static string _rotatingPickerName = "IngredientPicker";
+
     public override bool Finished()
     {
         throw new System.NotImplementedException();
@@ -16,9 +20,13 @@ public class ActionSelectIngredient : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSelectIngredient Action");
-
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
+        _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponent<RotatingPicker>();
+        if(_rotatingPicker == null)
+        {
+            Debug.LogError("Couldn't find the Rotating Picker with name '"+_rotatingPickerName+"' in the scene!");
+        }
     }
 
     // Use this for initialization
@@ -33,7 +41,11 @@ public class ActionSelectIngredient : ShareAction {
             // 
             if(_shareInput.GetForce() >= GameSettings.forceThreshold)
             {
-
+                if(_rotatingPicker != null)
+                {
+                    GameData.SelectedIngredient = _rotatingPicker.Select();
+                    _ingredientSelected = true;
+                }
             }
         }
 	}
