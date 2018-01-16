@@ -8,6 +8,7 @@ public class ActionPickUpCup : ShareAction {
 
     public override bool Finished()
     {
+        SoundEffectManager.Instance.PlayLiftCup();
         return pickedUp;
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActionRotateSqueeze : ShareAction
 {
     private bool finished = false;
-
+    private bool playSound = true;
     private float howLong = 0;
     public float Duration = 5;
     IShareInput inS;
@@ -33,7 +33,12 @@ public class ActionRotateSqueeze : ShareAction
             {
                 howLong = howLong + Time.deltaTime;
                 Debug.Log(howLong / Duration);
-
+                if (playSound)
+                    SoundEffectManager.Instance.PlaySauceSqueezing();
+            }
+            else
+            {
+                playSound = true;
             }
 
             if (howLong > Duration)

@@ -34,6 +34,7 @@ public class ActionSelectIngredient : ShareAction {
             if(_shareInput.GetForce() >= GameSettings.forceThreshold)
             {
 
+                SoundEffectManager.Instance.PlayLiftCup();
             }
         }
 	}

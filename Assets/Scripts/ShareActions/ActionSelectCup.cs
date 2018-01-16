@@ -17,6 +17,7 @@ public class ActionSelectCup : ShareAction {
 
     public override bool Finished()
     {
+        SoundEffectManager.Instance.PlayLiftCup();
         return selected;
     }
 	
