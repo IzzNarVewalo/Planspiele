@@ -6,6 +6,8 @@ public class ActionSelectIngredient : ShareAction {
 
     private bool _ingredientSelected = false;
 
+    private IShareInput _shareInput;
+
     public override bool Finished()
     {
         throw new System.NotImplementedException();
@@ -14,6 +16,8 @@ public class ActionSelectIngredient : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSelectIngredient Action");
+
+        _shareInput = ShareInputManager.ShareInput;
         _active = true;
     }
 
@@ -26,7 +30,11 @@ public class ActionSelectIngredient : ShareAction {
 	void Update () {
         if (_active)
         {
+            // 
+            if(_shareInput.GetForce() >= GameSettings.forceThreshold)
+            {
 
+            }
         }
 	}
 }
