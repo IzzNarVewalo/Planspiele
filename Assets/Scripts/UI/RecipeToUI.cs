@@ -37,12 +37,14 @@ public class RecipeToUI : MonoBehaviour {
             string right = "";
             left =makeAmountNice(i) + " " + i.GetUnit();
             right = right + i.GetName();
-            //Sets the checkmark if the ingredient is finished
+            //Sets the checkmark and changes color to green if the ingredient is finished
             if (i.GetProgress() >= 1f)
             {
                 /*left = StrikeThrough(left);
                 right = StrikeThrough(right);*/
                 left = '\u2713'+left;
+                left = "<color=#008000ff>" + left + "</color>";
+                right = "<color=#008000ff>" + right + "</color>";
             }
             else
             {
