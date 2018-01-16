@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class RecipeToUI : MonoBehaviour {
     public Text leftSide, rightSide, headline;
-    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
@@ -21,20 +20,25 @@ public class RecipeToUI : MonoBehaviour {
         }
     }
 
+    //Writes the Recipe on the Note
     public void writeRecipe(Recipe recipe)
     {
+        //Reset textboxes
         leftSide.text = "";
         rightSide.text = "";
+        //Write out the Recipename
         headline.text = recipe.GetSize() + " "+recipe.GetName();
         List<Ingredient> ingredients = recipe.GetIngredientsList();
 
+        //Write out the Ingredients
         foreach(Ingredient i in ingredients)
         {
             string left = "";
             string right = "";
             left =makeAmountNice(i) + " " + i.GetUnit();
             right = right + i.GetName();
-            if(i.GetProgress() >= 1f)
+            //Sets the checkmark if the ingredient is finished
+            if (i.GetProgress() >= 1f)
             {
                 /*left = StrikeThrough(left);
                 right = StrikeThrough(right);*/
@@ -42,13 +46,15 @@ public class RecipeToUI : MonoBehaviour {
             }
             else
             {
-                left = "    "+left; 
+                left = "    "+left;     //Makes the format prettier
             }
             leftSide.text += left+"\n";
             rightSide.text += right+"\n";
         }
         leftSide.text += "    Serve!";
     }
+
+    //Can be used to make strikethrough text
     private string StrikeThrough(string s)
     {
         string strikethrough = "";
@@ -59,15 +65,13 @@ public class RecipeToUI : MonoBehaviour {
         return strikethrough;
     }
 
+    //Changes Cupsizes to fractions, just looks prettier
     private string makeAmountNice(Ingredient i)
     {
-        Debug.Log("Meow"+ i.GetUnit());
         if (i.GetUnit().Equals("Cup"))
         {
-            Debug.Log("Woof"+i.GetAmount());
             if(i.GetAmount() == 0.5f)
             {
-                Debug.Log("Peep");
                 return "1/2";
             }else if(i.GetAmount() == 0.33f)
             {
