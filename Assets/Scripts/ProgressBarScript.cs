@@ -30,4 +30,14 @@ public class ProgressBarScript : MonoBehaviour {
         }
         progressVisObj.value = value;
 	}
+
+    public static bool isRed()
+    {
+        return value >= orangeEnd;
+    }
+
+    public static bool isZero()
+    {
+        return value <= 0;
+    }
 }
