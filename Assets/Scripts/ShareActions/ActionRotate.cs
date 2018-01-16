@@ -7,7 +7,8 @@ public class ActionRotate : ActionAddIngredient {
     public float tiltAngleThreshold;
 
     private bool finished = false;
-    
+    private bool playSound = true;
+
     private float howLong = 0;
 
     public float Duration = 5;
@@ -40,6 +41,16 @@ public class ActionRotate : ActionAddIngredient {
                 howLong = howLong + Time.deltaTime;
                 ProgressBarScript.value = howLong / Duration;
                 UpdateIngredientProgress(howLong / Duration);
+
+
+                if (playSound)
+                {
+                    SoundEffectManager.Instance.PlaySplash();
+                    playSound = false;
+                }
+            } else
+            {
+                playSound = true;
             }
 
             if (howLong > Duration)
