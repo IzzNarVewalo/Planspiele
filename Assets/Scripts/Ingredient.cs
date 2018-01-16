@@ -93,7 +93,10 @@ public class Ingredient {
         float oldProgress = _progress;
         _progress = progress;
         if (oldProgress < 1 && progress >= 1)
+        {
             RecipeManager.UpdateRecipeUI();
+            SoundEffectManager.Instance.PlaySubtaskComplete();
+        }
     }
 
     public List<ShareAction> GetShareActions()

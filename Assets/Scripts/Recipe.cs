@@ -80,4 +80,15 @@ public class Recipe {
     {
         return _ingredients;
     }
+
+    public void calculateScore()
+    {
+        int score = 0;
+
+        foreach (Ingredient ingredient in _ingredients)
+        {
+            score += Mathf.Clamp((200 - (int)(ingredient.GetProgress() * 100)),0,100); 
+        }
+        GameData.score = score;
+    }
 }

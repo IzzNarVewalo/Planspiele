@@ -38,6 +38,7 @@ public class ActionRotate : ActionAddIngredient {
                 //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
+
             }
 
             if (howLong > Duration)

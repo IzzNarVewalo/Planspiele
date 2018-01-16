@@ -12,6 +12,13 @@ public class RecipeManager : MonoBehaviour {
     private static RecipeToUI _recipeToUI;
 
     void Start() {
+
+        //Set Progress Bar Values
+        ProgressBarScript.yellowEnd = 1.0f;
+        ProgressBarScript.greenEnd = 1.5f;
+        ProgressBarScript.orangeEnd = 2.0f;
+
+
         _recipes = new List<Recipe>();
 
         List<ShareAction> listForCup = new List<ShareAction>(
@@ -46,7 +53,7 @@ public class RecipeManager : MonoBehaviour {
                     new Ingredient(1, Unit.Cup, Ingredients.Cup, listForCup),
                     new Ingredient(100, Unit.Ml, Ingredients.Coffe, listForCoffee),
                     new Ingredient(50, Unit.Ml, Ingredients.Milk, listForMilk),
-                    new Ingredient(2, Unit.Tablespoon, Ingredients.Caramel, listForCaramel)})));
+                    new Ingredient(2, Unit.Tablespoon,Ingredients.Cherries, listForCaramel)})));
 
         _activeRecipe = _recipes[0];
         if (_activeRecipe == null)
@@ -56,14 +63,23 @@ public class RecipeManager : MonoBehaviour {
         {
             _activeRecipe.Begin();
         }
-            
-        
+        _recipes[0].GetIngredientsList()[1].SetProgress(1.0f);
+        _recipes[0].GetIngredientsList()[2].SetProgress(1.7f);
+        _recipes[0].GetIngredientsList()[3].SetProgress(2.7f);
+
     }
 
     void Update() {
         if (_activeRecipe != null) {
             _activeRecipe.Update();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+           
+            _recipeToUI.writeScore(_recipes[0]);
+        }
+
     }
 
     private void Awake()

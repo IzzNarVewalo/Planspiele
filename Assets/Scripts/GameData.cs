@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameData {
 
+    public static int score = 0;
+
 	public static Ingredient SelectedIngredient { get; set; }
 
     private static List<Ingredient> AddedIngredients;

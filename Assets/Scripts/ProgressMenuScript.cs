@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ProgressMenuScript : MonoBehaviour {
     
-    public Text recepy;
+    //public Text recepy;
 
     public float val;
 
@@ -19,9 +19,9 @@ public class ProgressMenuScript : MonoBehaviour {
         ProgressBarScript.orangeEnd = orangeEnd;
     }
 
-    public void setRecepyText(string text) {
-        recepy.text = text;
-    }
+    //public void setRecepyText(string text) {
+    //    recepy.text = text;
+    //}
 
 	// Use this for initialization
 	void Start () {
