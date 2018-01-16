@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionRotate : ShareAction {
+public class ActionRotate : ActionAddIngredient {
 
     public float tiltAngleThreshold;
 
@@ -24,7 +24,7 @@ public class ActionRotate : ShareAction {
         Debug.Log("Enter ActionRotate Action");
         shareInput = ShareInputManager.ShareInput;
         _active = true;
-        _instructionText.text = "Rotate the Share Device to add the ingredient!";
+        ShowInstructionText("Rotate the Share Device to add the ingredient!");
     }
     
     // Update is called once per frame
@@ -37,12 +37,12 @@ public class ActionRotate : ShareAction {
             {
                 //Debug.Log("Tilt angle: " + shareInput.GetTiltAngle());
                 howLong = howLong + Time.deltaTime;
-                Debug.Log(howLong / (Duration));
+                UpdateIngredientProgress(howLong / Duration);
             }
 
             if (howLong > Duration)
             {
-                _instructionText.text = "You have added enough. Put the Share-Device down.";
+                ShowInstructionText("You have added enough. Put the Share-Device down.");
             }
 
             if (!shareInput.IsPickedUp())

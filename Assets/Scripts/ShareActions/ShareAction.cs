@@ -55,14 +55,6 @@ public abstract class ShareAction : MonoBehaviour {
         }
     }
 
-    protected void UpdateIngredientProgress(float progress)
-    {
-        if(GameData.SelectedIngredient != null)
-        {
-            GameData.SelectedIngredient.SetProgress(progress);
-        }
-    }
-
     /// <summary>
     /// If the action is finished, this returns true.
     /// </summary>

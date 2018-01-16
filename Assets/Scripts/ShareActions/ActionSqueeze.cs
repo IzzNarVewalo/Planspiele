@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionSqueeze : ShareAction
+public class ActionSqueeze : ActionAddIngredient
 {
     private bool finished = false;
     private bool playSound = true;
@@ -18,10 +18,10 @@ public class ActionSqueeze : ShareAction
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionRotateSqueeze Action");
+        Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
-        _instructionText.text = "Squeeze the Device. (or F to squeeze)";
+        ShowInstructionText("Squeeze the Device.");
     }
 
     // Update is called once per frame
@@ -32,6 +32,7 @@ public class ActionSqueeze : ShareAction
             if ((inS.GetForce() > GameSettings.forceThreshold))
             {
                 howLong = howLong + Time.deltaTime;
+<<<<<<< HEAD
                 Debug.Log(howLong / Duration);
                 if (playSound)
                     SoundEffectManager.Instance.PlaySplash();
@@ -39,11 +40,15 @@ public class ActionSqueeze : ShareAction
             else
             {
                 playSound = true;
+=======
+                UpdateIngredientProgress(howLong / Duration);
+
+>>>>>>> 16ba09e94e172a42d4d1b3819b5f814a78d1c50e
             }
 
             if (howLong > Duration)
             {
-                _instructionText.text = "You have squeezed enough. Put the Share-Device down.";
+                ShowInstructionText("You have squeezed enough. Put the Share-Device down.");
             }
 
             if (!inS.IsPickedUp())
