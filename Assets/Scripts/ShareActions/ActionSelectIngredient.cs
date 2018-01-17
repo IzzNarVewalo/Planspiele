@@ -66,16 +66,6 @@ public class ActionSelectIngredient : ShareAction {
                     }
                 }
             }
-
-            if(_shareInput.GetForce() >= GameSettings.ForceThreshold)
-            {
-                if(_rotatingPicker != null)
-                {
-                    GameData.SelectedIngredient = _rotatingPicker.Select();
-                    _ingredientIsSelected = true;
-                }
-                
-            }
         }
 	}
 }
