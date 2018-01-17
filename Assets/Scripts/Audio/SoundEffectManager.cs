@@ -28,16 +28,21 @@ public class SoundEffectManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        myAudioSources = new AudioSource[1];
+        myAudioSources = new AudioSource[6];
 
-        GameObject audioSource1 = new GameObject("audioSource_1");
-        Utils.AddAudioListener(audioSource1, false, 1.0f, false);
-        audioSource1.transform.parent = transform;
-        myAudioSources[0] = audioSource1.GetComponent<AudioSource>();
+        for (int i = 0; i > myAudioSources.Length; i++)
+        {
+            GameObject audioSource = new GameObject("audioSource_" + i);
+            Utils.AddAudioListener(audioSource, false, 1.0f, false);
+            audioSource.transform.parent = transform;
+            myAudioSources[i] = audioSource.GetComponent<AudioSource>();
+        }
+
+        
 
     }
 
-
+    #region Play_Sounds
     public void PlayOpenMenu()
     {
         PlaySound(clip_MenuOpen);   
@@ -94,10 +99,72 @@ public class SoundEffectManager : MonoBehaviour
         PlaySound(clip_Ambient);
     }
 
+    #endregion
 
+    #region Stop_Sounds
+    public void StopOpenMenu()
+    {
+        StopSound(clip_MenuOpen);
+    }
+
+    public void StopCloseMenu()
+    {
+        StopSound(clip_MenuClose);
+    }
+
+    public void StopCoffeeMachine()
+    {
+        StopSound(clip_CoffeeMachine);
+    }
+
+    public void StopSplash()
+    {
+        StopSound(clip_pouring);
+    }
+
+    public void StopSauceSqueezing()
+    {
+        StopSound(clip_sauceSqueeze);
+    }
+
+    public void StopOrderComplete()
+    {
+        StopRandomSound(clips_orderReceived);
+    }
+
+    public void StopSubtaskComplete()
+    {
+        StopSound(clip_subtaskComplete);
+    }
+
+
+    public void StopPutCup()
+    {
+        StopRandomSound(clips_CupPut);
+    }
+
+    public void StopLiftCup()
+    {
+        StopRandomSound(clips_CupLift);
+    }
+
+    public void StopWhippedCreamSpray()
+    {
+        StopSound(clip_WhippedCreamSpray);
+    }
+
+    public void StopAmbient()
+    {
+        StopSound(clip_Ambient);
+    }
+
+    #endregion
+
+    #region Utilities_Functions
 
     private void PlaySound(AudioClip clip)
     {
+        bool found = false;
         foreach (AudioSource aS in myAudioSources)
         {
             if (aS.playOnAwake == true)
@@ -107,12 +174,18 @@ public class SoundEffectManager : MonoBehaviour
             else
             {
                 Utils.PlaySound(aS, clip);
+                found = true;
             }
+        }
+        if (found == false)
+        {
+            Debug.Log("All audio sources are busy");
         }
     }
 
     private void PlayRandomSound(AudioClip[] clips)
     {
+        bool found = false;
         foreach (AudioSource aS in myAudioSources)
         {
             if (aS.playOnAwake == true)
@@ -122,10 +195,53 @@ public class SoundEffectManager : MonoBehaviour
             else
             {
                 Utils.PlayRandomSound(aS, clips);
+                found = true;
             }
+        }
+        if (found == false)
+        {
+            Debug.Log("All audio sources are busy");
+        }
+    }
+
+    private void StopSound(AudioClip clip)
+    {
+        bool found = false;
+        foreach(AudioSource aS in myAudioSources)
+        {
+            if (aS.clip == clip)
+            {
+                aS.Stop();
+                found = true;
+            }
+        }
+        if (found == false)
+        {
+            Debug.Log("Clip " + clip.name + " not playing");
         }
     }
 
 
+    private void StopRandomSound(AudioClip[] clips)
+    {
+        bool found = false;
+        foreach (AudioClip clip in clips)
+        {
+            foreach (AudioSource aS in myAudioSources)
+            {
+                if (aS.clip == clip)
+                {
+                    aS.Stop();
+                    found = true;
+                }
+            }
+        }
+        if (found == false)
+        {
+            Debug.Log("Clips not playing");
+        }
+    }
+
+    #endregion
 
 }
