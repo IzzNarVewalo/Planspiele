@@ -58,11 +58,15 @@ public class LanguageFile {
             dictionaryEntries[i++] = new DictionaryEntry(kvp.Key, kvp.Value);
         }
 
-        using (StreamWriter sw = new StreamWriter(_savePath + languageShort.ToLower() + ".lang"))
+        using (Stream s = new FileStream(_savePath + languageShort.ToLower() + ".lang", FileMode.OpenOrCreate))
         {
-            string json = JsonUtility.ToJson(this);
-            sw.Write(json);
+            using (StreamWriter sw = new StreamWriter(s, System.Text.Encoding.UTF8))
+            {
+                string json = JsonUtility.ToJson(this);
+                sw.Write(json);
+            }
         }
+        
     }
 	
 }

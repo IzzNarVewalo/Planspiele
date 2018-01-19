@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,29 @@ public class ActionSqueeze : ActionAddIngredient
     public float Duration = 5;
     IShareInput inS;
 
+    public delegate void PlaySoundMethod();
+    PlaySoundMethod _playSoundMethod;
+    PlaySoundMethod _stopSoundMethod;
+
     public override bool Finished()
     {
         return finished;
     }
 
+    public void SetSoundMethods(PlaySoundMethod playSoundMethod, PlaySoundMethod stopSoundMethod, bool add = true)
+    {
+        if (add)
+        {
+            _playSoundMethod += playSoundMethod;
+            _stopSoundMethod += stopSoundMethod;
+        }
+        else
+        {
+            _playSoundMethod = playSoundMethod;
+            _stopSoundMethod = stopSoundMethod;
+        }
+            
+    }
 
     public override void EnterAction()
     {
@@ -36,6 +55,7 @@ public class ActionSqueeze : ActionAddIngredient
                 if (playSound)
                 {
                     SoundEffectManager.Instance.PlaySplash();
+                    _playSoundMethod();
                     playSound = false;
                 }
                     
