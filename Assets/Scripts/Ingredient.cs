@@ -34,6 +34,7 @@ public class Ingredient {
         IngredientToString.Add(Ingredients.Sugar, "Sugar");
         IngredientToString.Add(Ingredients.WhippedCream, "whipped Cream");
         IngredientToString.Add(Ingredients.Cup, "Normal Size Cup");
+        IngredientToString.Add(Ingredients.Caramel, "Caramel");
 
 
         UnitToString.Add(Unit.Cl, "cl");

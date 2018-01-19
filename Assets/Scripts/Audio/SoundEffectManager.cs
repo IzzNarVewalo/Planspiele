@@ -167,7 +167,7 @@ public class SoundEffectManager : MonoBehaviour
         bool found = false;
         foreach (AudioSource aS in myAudioSources)
         {
-            if (aS.playOnAwake == true)
+            if (aS != null&&aS.playOnAwake == true)
             {
                 continue;
             }
@@ -188,7 +188,7 @@ public class SoundEffectManager : MonoBehaviour
         bool found = false;
         foreach (AudioSource aS in myAudioSources)
         {
-            if (aS.playOnAwake == true)
+            if (aS != null && aS.playOnAwake == true)
             {
                 continue;
             }
@@ -209,7 +209,7 @@ public class SoundEffectManager : MonoBehaviour
         bool found = false;
         foreach(AudioSource aS in myAudioSources)
         {
-            if (aS.clip == clip)
+            if (aS != null && aS.clip == clip)
             {
                 aS.Stop();
                 found = true;
@@ -229,7 +229,7 @@ public class SoundEffectManager : MonoBehaviour
         {
             foreach (AudioSource aS in myAudioSources)
             {
-                if (aS.clip == clip)
+                if (aS != null && aS.clip == clip)
                 {
                     aS.Stop();
                     found = true;

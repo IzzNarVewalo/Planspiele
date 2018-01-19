@@ -43,13 +43,21 @@ public class RecipeToUI : MonoBehaviour {
             left =makeAmountNice(i) + " " + i.GetUnit();
             right = right + i.GetName();
             //Sets the checkmark and changes color to green if the ingredient is finished
-            if (i.GetProgress() >= 1f)
+            if (i.GetProgress() >= 1f &&i.GetProgress()<=ProgressBarScript.greenEnd)
             {
-                /*left = StrikeThrough(left);
-                right = StrikeThrough(right);*/
                 left = '\u2713'+left;
                 left = "<color=#008000ff>" + left + "</color>";
                 right = "<color=#008000ff>" + right + "</color>";
+            }else if(i.GetProgress() >ProgressBarScript.greenEnd && i.GetProgress()<=ProgressBarScript.orangeEnd){
+                left = '\u2713' + left;
+                left = "<color=#ffa500ff>" + left + "</color>";
+                right = "<color=#ffa500ff>" + right + "</color>";
+            }
+            else if (i.GetProgress()>ProgressBarScript.orangeEnd)
+            {
+                left = '\u2713' + left;
+                left = "<color=#ff0000ff>" + left + "</color>";
+                right = "<color=#ff0000ff>" + right + "</color>";
             }
             else
             {
@@ -103,7 +111,6 @@ public class RecipeToUI : MonoBehaviour {
         int scoreTotalValue = 0;
         endScreen.SetActive(true);
         scoreHead.text = r.GetSize() + " " + r.GetName();
-        Debug.Log(r.GetSize() + " " + r.GetName());
         List<Ingredient> ingredients = r.GetIngredientsList();
         scoreLeft.text = "";
         scoreRight.text = "";
@@ -111,8 +118,6 @@ public class RecipeToUI : MonoBehaviour {
         //Write out the Ingredients
         foreach (Ingredient i in ingredients)
         {
-           
-       
             string left = "";
             string right = "";
             string score = "";
@@ -158,6 +163,5 @@ public class RecipeToUI : MonoBehaviour {
         }
         scoreTotal.text = "Total Score: " + scoreTotalValue;
     }
-
 
 }
