@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Translation {
 
-    string[] languages = new string[] { "en" };
+    public enum AvailableLanguage
+    {
+        EN
+    }
+
+    static AvailableLanguage _defaultLanguage = AvailableLanguage.EN;
     
     static LanguageFile _languageFile;
 
@@ -12,7 +17,10 @@ public class Translation {
 
 	static Translation()
     {
-
+        if (!LoadLanguage(GameSettings.Language))
+        {
+            Debug.LogError(string.Format("Language {0} could not be loaded!", GameSettings.Language.ToString()));
+        }
     }
 
     public static void Test()
@@ -21,9 +29,9 @@ public class Translation {
         l.Save();
     }
 
-    public static bool LoadLanguage(string language)
+    public static bool LoadLanguage(AvailableLanguage language)
     {
-        LanguageFile loaded = LanguageFile.Load(language);
+        LanguageFile loaded = LanguageFile.Load(language.ToString().ToLower());
         if (loaded != null)
         {
             _languageFile = loaded;

@@ -34,11 +34,19 @@ public class ActionSqueeze : ActionAddIngredient
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
                 if (playSound)
+                {
                     SoundEffectManager.Instance.PlaySplash();
+                    playSound = false;
+                }
+                    
             }
             else
             {
-                playSound = true;
+                if (!playSound)
+                {
+                    SoundEffectManager.Instance.StopSplash();
+                    playSound = true;
+                }
             }
             
 

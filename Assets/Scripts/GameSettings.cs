@@ -17,5 +17,5 @@ public static class GameSettings {
     }
     public static float MinPressForce = 300;
 
-
+    public static Translation.AvailableLanguage Language = Translation.AvailableLanguage.EN;
 }

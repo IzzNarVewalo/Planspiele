@@ -14,6 +14,8 @@ public class ActionRotate : ActionAddIngredient {
 
     IShareInput shareInput;
 
+    private bool _playSound = false;
+
     public override bool Finished()
     {
         return finished;
@@ -39,6 +41,18 @@ public class ActionRotate : ActionAddIngredient {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
 
+                if (_playSound)
+                {
+                    _playSound = false;
+                    SoundEffectManager.Instance.PlaySplash();
+                }
+            } else
+            {
+                if (!_playSound)
+                {
+                    _playSound = true;
+                    SoundEffectManager.Instance.StopSplash();
+                }
             }
 
             if (howLong > Duration)

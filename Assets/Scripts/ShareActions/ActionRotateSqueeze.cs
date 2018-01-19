@@ -46,8 +46,11 @@ public class ActionRotateSqueeze : ActionAddIngredient
             }
             else
             {
-                playSound = true;
-                
+                if (!playSound)
+                {
+                    SoundEffectManager.Instance.StopSauceSqueezing();
+                    playSound = true;
+                }
             }
             
             if (howLong > Duration)
