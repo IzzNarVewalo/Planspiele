@@ -20,9 +20,14 @@ public class ActionSelectCup : ShareAction {
         SoundEffectManager.Instance.PlayLiftCup();
         return selected;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    protected override void SetInstructionImages()
+    {
+        instructionImages = null;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (_active)
         {
             if (ShareInputManager.ShareInput.IsPickedUp())
