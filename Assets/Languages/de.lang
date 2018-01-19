@@ -1,4 +1,4 @@
-{
+Ôªø{
     "languageShort": "de",
     "languageLong": "Deutsch",
     "dictionaryEntries": [
@@ -68,11 +68,11 @@
         },
         {
             "key": "LargeCup",
-            "value": "Groﬂer Becher"
+            "value": "Gro√üer Becher"
         },
         {
             "key": "Tablespoon",
-            "value": "Esslˆffel"
+            "value": "Essl√∂ffel"
         },
         {
             "key": "Cup",
@@ -116,7 +116,7 @@
         },
         {
             "key": "Big",
-            "value": "Groﬂer"
+            "value": "Gro√üer"
         }
     ]
 }
