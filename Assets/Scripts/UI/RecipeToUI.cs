@@ -8,23 +8,6 @@ public class RecipeToUI : MonoBehaviour {
     public GameObject endScreen;
     public Text scoreHead, scoreLeft, scoreRight, scoreText, scoreTotal;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-           /* List<Ingredient> temp = new List<Ingredient>();
-            temp.Add(new Ingredient(0.5f,Unit.Cup, Ingredients.Coffe, null));
-            temp.Add(new Ingredient(2f, Unit.Tablespoon, Ingredients.Cherries, null));
-            temp.Add(new Ingredient(500f, Unit.Ml, Ingredients.Milk, null));
-            temp[2].SetProgress(1.0f);
-            temp[1].SetProgress(2.9f);
-            temp[0].SetProgress(1.0f);
-            Recipe r = new Recipe("Cherry-Latte", 0, Size.Big, temp);
-            writeScore(r);*/
-
-        }
-    }
-
     //Writes the Recipe on the Note
     public void writeRecipe(Recipe recipe)
     {
@@ -45,23 +28,30 @@ public class RecipeToUI : MonoBehaviour {
             //Sets the checkmark and changes color to green if the ingredient is finished
             if (i.GetProgress() >= 1f &&i.GetProgress()<=ProgressBarScript.greenEnd)
             {
+                //Adds the checkmark
                 left = '\u2713'+left;
+                //Changes color to green
                 left = "<color=#008000ff>" + left + "</color>";
                 right = "<color=#008000ff>" + right + "</color>";
             }else if(i.GetProgress() >ProgressBarScript.greenEnd && i.GetProgress()<=ProgressBarScript.orangeEnd){
+                //Adds the checkmark
                 left = '\u2713' + left;
+                //Changes color to orange
                 left = "<color=#ffa500ff>" + left + "</color>";
                 right = "<color=#ffa500ff>" + right + "</color>";
             }
             else if (i.GetProgress()>ProgressBarScript.orangeEnd)
             {
+                //Adds the checkmark
                 left = '\u2713' + left;
+                //Changes color to red
                 left = "<color=#ff0000ff>" + left + "</color>";
                 right = "<color=#ff0000ff>" + right + "</color>";
             }
             else
             {
-                left = "    "+left;     //Makes the format prettier
+                //Text stays black
+                left = "    "+left;     //Makes the format prettier, space for the checkmark
             }
             leftSide.text += left+"\n";
             rightSide.text += right+"\n";
@@ -130,23 +120,25 @@ public class RecipeToUI : MonoBehaviour {
             //Sets the checkmark and changes color to green if the ingredient is finished
             if (i.GetProgress() >= 1f)
             {
-                /*left = StrikeThrough(left);
-                right = StrikeThrough(right);*/
+                //Adds the checkmark
                 left = '\u2713' + left;
                 if (i.GetProgress() < ProgressBarScript.greenEnd)
                 {
+                    //Changes color to green
                     left = "<color=#008000ff>" + left + "</color>";
                     right = "<color=#008000ff>" + right + "</color>";
                     score = "<color=#008000ff>" + score + "</color>";
                 }
                 else if (i.GetProgress() > ProgressBarScript.orangeEnd)
                 {
+                    //Changes color to red
                     left = "<color=#ff0000ff>" + left + "</color>";
                     right = "<color=#ff0000ff>" + right + "</color>";
                     score = "<color=#ff0000ff>" + score + "</color>";
                 }
                 else
                 {
+                    //Changes color to orange
                     left = "<color=#ffa500ff>" + left + "</color>";
                     right = "<color=#ffa500ff>" + right + "</color>";
                     score = "<color=#ffaf00ff>" + score + "</color>";
@@ -154,9 +146,8 @@ public class RecipeToUI : MonoBehaviour {
             }
             else
             {
-                left = "    " + left;     //Makes the format prettier
+                left = "    " + left;     //Makes the format prettier, space for the checkmark
             }
-            Debug.Log(left);
             scoreLeft.text += left + "\n";
             scoreRight.text += right + "\n";
             scoreText.text += score + "\n";
