@@ -81,7 +81,6 @@ public abstract class ShareAction : MonoBehaviour {
         {
             if(instructionImages == null || instructionImages.Length == 0)
             {
-                Debug.Log("No Image");
                 return;
             }
             _imageChangeTimer = imageChangeStartTime;
@@ -89,7 +88,6 @@ public abstract class ShareAction : MonoBehaviour {
             _currentInstructionImage.sprite = instructionImages[_currentInstructionImageIndex];
         } else
         {
-            Debug.Log("Stay: " + _imageChangeTimer);
             _imageChangeTimer -= Time.deltaTime;
         }
     }
@@ -119,7 +117,6 @@ public abstract class ShareAction : MonoBehaviour {
         Debug.Log("Enter Action " + GetType());
         _active = true;
         SetInstructionImages();
-        Debug.Log("Active");
         
     }
 
