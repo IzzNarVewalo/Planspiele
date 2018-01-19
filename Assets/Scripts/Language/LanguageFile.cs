@@ -27,7 +27,7 @@ public class LanguageFile {
 
     public static LanguageFile Load(string language)
     {
-        using (StreamReader sr = new StreamReader(_savePath + language.ToLower() + ".lang"))
+        using (StreamReader sr = new StreamReader(_savePath + language.ToLower() + ".lang", System.Text.Encoding.UTF8))
         {
             string json = sr.ReadToEnd();
             LanguageFile languageFile = JsonUtility.FromJson<LanguageFile>(json);
@@ -59,11 +59,12 @@ public class LanguageFile {
             dictionaryEntries[i++] = new DictionaryEntry(kvp.Key, kvp.Value);
         }
 
-        using (StreamWriter sw = new StreamWriter(_savePath + languageShort.ToLower() + ".lang"))
+        using (StreamWriter sw = new StreamWriter(_savePath + languageShort.ToLower() + ".lang", false, System.Text.Encoding.UTF8))
         {
             string json = JsonUtility.ToJson(this, true);
             sw.Write(json);
         }
+        
     }
 	
 }

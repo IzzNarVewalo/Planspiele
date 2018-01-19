@@ -28,12 +28,21 @@ public class ActionRotate : ActionAddIngredient {
         _active = true;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
     }
-    
+
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Turn1");
+        instructionImages[1] = Resources.Load<Sprite>("Turn2");
+    }
+
     // Update is called once per frame
-    void Update () {
+    new void Update () {
 
         if (_active)
         {
+
+            base.Update();
             
             if (shareInput.GetTiltAngle() > GameSettings.TiltThreshold)
             {

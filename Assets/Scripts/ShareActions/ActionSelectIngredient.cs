@@ -19,6 +19,12 @@ public class ActionSelectIngredient : ShareAction {
         return _ingredientIsSelected;
     }
 
+
+    protected override void SetInstructionImages()
+    {
+        instructionImages = null;
+    }
+
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSelectIngredient Action");
@@ -31,7 +37,7 @@ public class ActionSelectIngredient : ShareAction {
             Debug.LogError("Couldn't find the Rotating Picker with name '"+_rotatingPickerName+"' in the scene!");
         }
     }
-
+    
     // Use this for initialization
     void Start () {
 		

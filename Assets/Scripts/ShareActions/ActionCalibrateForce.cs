@@ -32,10 +32,20 @@ public class ActionCalibrateForce : ShareAction
         return _calibrationState == CalibrationState.Finished;
     }
 
-    private void Update()
+
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Squeeze1");
+        instructionImages[1] = Resources.Load<Sprite>("Squeeze2");
+    }
+
+    private new void Update()
     {
         if (_active)
         {
+            base.Update();
+
             switch (_calibrationState)
             {
                 case CalibrationState.NormalForce:

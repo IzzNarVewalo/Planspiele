@@ -30,7 +30,7 @@ public class SoundEffectManager : MonoBehaviour
 
         myAudioSources = new AudioSource[6];
 
-        for (int i = 0; i > myAudioSources.Length; i++)
+        for (int i = 0; i < myAudioSources.Length; i++)
         {
             GameObject audioSource = new GameObject("audioSource_" + i);
             Utils.AddAudioListener(audioSource, false, 1.0f, false);
@@ -55,17 +55,18 @@ public class SoundEffectManager : MonoBehaviour
 
     public void PlayCoffeeMachine()
     {
-        PlaySound(clip_CoffeeMachine);
+        PlayLoopedSound(clip_CoffeeMachine);
     }
 
     public void PlaySplash()
     {
-        PlaySound(clip_pouring);
+        PlayLoopedSound(clip_pouring);
     }
 
     public void PlaySauceSqueezing()
     {
-        PlaySound(clip_sauceSqueeze);
+
+        PlayLoopedSound(clip_sauceSqueeze);
     }
 
     public void PlayOrderComplete()
@@ -91,7 +92,7 @@ public class SoundEffectManager : MonoBehaviour
 
     public void PlayWhippedCreamSpray()
     {
-        PlaySound(clip_WhippedCreamSpray);
+        PlayLoopedSound(clip_WhippedCreamSpray);
     }
 
     public void PlayAmbient()
@@ -183,6 +184,28 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
+    private void PlayLoopedSound(AudioClip clip)
+    {
+        bool found = false;
+        foreach (AudioSource aS in myAudioSources)
+        {
+            if (aS != null && aS.playOnAwake == true)
+            {
+                continue;
+            }
+            else
+            {
+                aS.loop = true;
+                Utils.PlaySound(aS, clip);
+                found = true;
+            }
+        }
+        if (found == false)
+        {
+            Debug.Log("All audio sources are busy");
+        }
+    }
+
     private void PlayRandomSound(AudioClip[] clips)
     {
         bool found = false;
@@ -212,6 +235,7 @@ public class SoundEffectManager : MonoBehaviour
             if (aS != null && aS.clip == clip)
             {
                 aS.Stop();
+                aS.loop = false;
                 found = true;
             }
         }
