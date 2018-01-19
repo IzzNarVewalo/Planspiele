@@ -63,20 +63,11 @@ public class RecipeManager : MonoBehaviour {
         {
             _activeRecipe.Begin();
         }
-        _recipes[0].GetIngredientsList()[1].SetProgress(1.0f);
-        _recipes[0].GetIngredientsList()[2].SetProgress(1.7f);
-        _recipes[0].GetIngredientsList()[3].SetProgress(2.7f);
     }
 
     void Update() {
         if (_activeRecipe != null) {
             _activeRecipe.Update();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-           
-            _recipeToUI.writeScore(_recipes[0]);
         }
 
     }

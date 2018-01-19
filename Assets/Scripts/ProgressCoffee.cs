@@ -23,7 +23,6 @@ public class ProgressCoffee : MonoBehaviour {
         if ((transform.rotation.eulerAngles.z >= 10.0f && transform.rotation.eulerAngles.z <= 340.0f) 
             || (transform.rotation.eulerAngles.z <= 350.0f && transform.rotation.eulerAngles.z >= 20.0f))
         {
-            Debug.Log("asfgasfg");
             rotationDirection *= -1;
         }
 
