@@ -23,43 +23,27 @@ public class Ingredient {
     public static void Translate() {
         IngredientToString = new Dictionary<Ingredients, string>();
         UnitToString = new Dictionary<Unit, string>();
-        IngredientToString.Add(Ingredients.Apples, "Apples");
-        IngredientToString.Add(Ingredients.Cocoa, "Cocoa");
-        IngredientToString.Add(Ingredients.Cherries, "Cherries");
-        IngredientToString.Add(Ingredients.Coffe, "Coffe");
-        IngredientToString.Add(Ingredients.LemonJuice, "Lemon juice");
-        IngredientToString.Add(Ingredients.Milk, "Milk");
-        IngredientToString.Add(Ingredients.Oranges, "Oranges");
-        IngredientToString.Add(Ingredients.Raspberries, "Raspberries");
-        IngredientToString.Add(Ingredients.Sugar, "Sugar");
-        IngredientToString.Add(Ingredients.WhippedCream, "whipped Cream");
-        IngredientToString.Add(Ingredients.Cup, "Normal Size Cup");
-        IngredientToString.Add(Ingredients.Caramel, "Caramel");
+        IngredientToString.Add(Ingredients.Apple, Translation.Get("Apple"));
+        IngredientToString.Add(Ingredients.Cocoa, Translation.Get("Cocoa"));
+        IngredientToString.Add(Ingredients.Caramel, Translation.Get("Caramel"));
+        IngredientToString.Add(Ingredients.Cherry, Translation.Get("Cherry"));
+        IngredientToString.Add(Ingredients.Coffee, Translation.Get("Coffee"));
+        IngredientToString.Add(Ingredients.LemonJuice, Translation.Get("LemonJuice"));
+        IngredientToString.Add(Ingredients.Milk, Translation.Get("Milk"));
+        IngredientToString.Add(Ingredients.Orange, Translation.Get("Orange"));
+        IngredientToString.Add(Ingredients.Raspberry, Translation.Get("Raspberry"));
+        IngredientToString.Add(Ingredients.Sugar, Translation.Get("Sugar"));
+        IngredientToString.Add(Ingredients.WhippedCream, Translation.Get("WhippedCream"));
+        IngredientToString.Add(Ingredients.SmallCup, Translation.Get("SmallCup"));
+        IngredientToString.Add(Ingredients.MediumCup, Translation.Get("MediumCup"));
+        IngredientToString.Add(Ingredients.LargeCup, Translation.Get("LargeCup"));
 
 
-        UnitToString.Add(Unit.Cl, "cl");
-        UnitToString.Add(Unit.Cup, "Cup");
-        UnitToString.Add(Unit.Ml, "ml");
-        UnitToString.Add(Unit.Tablespoon, "Tablespoon");
+        UnitToString.Add(Unit.Cl, Translation.Get("Ml"));
+        UnitToString.Add(Unit.Cup, Translation.Get("Cup"));
+        UnitToString.Add(Unit.Ml, Translation.Get("Ml"));
+        UnitToString.Add(Unit.Tablespoon, Translation.Get("Tablespoon"));
     }
-
-    //public static void SetupIngredientActions()
-    //{
-    //    IngredientActions = new Dictionary<Ingredients, ShareAction[]>();
-
-    //    IngredientActions.Add(Ingredients.Cup, new ShareAction[] {
-    //        ShareAction.Create<ActionSelectCup>()
-    //    });
-
-    //    IngredientActions.Add(Ingredients.Coffe, new ShareAction[] {
-    //        ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
-    //    });
-
-    //    IngredientActions.Add(Ingredients.Milk, new ShareAction[] {
-    //        ActionAddIngredient.Create(new Ingredient(100, Unit.Ml, Ingredients.Coffe))
-    //    });
-    //}
-
 
     public Ingredient(float amount, Unit unit, Ingredients name, List<ShareAction> actions) {
         _amount = amount;

@@ -15,7 +15,8 @@ public class RecipeToUI : MonoBehaviour {
         leftSide.text = "";
         rightSide.text = "";
         //Write out the Recipename
-        headline.text = recipe.GetSize() + " "+recipe.GetName();
+        Debug.Log("Recipe Size: " + recipe.GetSize());
+        headline.text = Translation.Get(recipe.GetName());
         List<Ingredient> ingredients = recipe.GetIngredientsList();
 
         //Write out the Ingredients
@@ -56,7 +57,7 @@ public class RecipeToUI : MonoBehaviour {
             leftSide.text += left+"\n";
             rightSide.text += right+"\n";
         }
-        leftSide.text += "    Serve!";
+        leftSide.text += "    "+ Translation.Get("Serve");
     }
 
     //Can be used to make strikethrough text
@@ -100,7 +101,7 @@ public class RecipeToUI : MonoBehaviour {
     {
         int scoreTotalValue = 0;
         endScreen.SetActive(true);
-        scoreHead.text = r.GetSize() + " " + r.GetName();
+        scoreHead.text = Translation.Get(r.GetName());
         List<Ingredient> ingredients = r.GetIngredientsList();
         scoreLeft.text = "";
         scoreRight.text = "";
@@ -116,7 +117,7 @@ public class RecipeToUI : MonoBehaviour {
             score += Mathf.Clamp(200 - i.GetProgress() * 100,0,100);
             
             scoreTotalValue += (int)Mathf.Clamp((200 - (int)(i.GetProgress() * 100)), 0, 100);
-            Debug.Log("Score: " + scoreTotalValue);
+            Debug.Log(Translation.Get("Score")+": " + scoreTotalValue);
             //Sets the checkmark and changes color to green if the ingredient is finished
             if (i.GetProgress() >= 1f)
             {
@@ -152,7 +153,7 @@ public class RecipeToUI : MonoBehaviour {
             scoreRight.text += right + "\n";
             scoreText.text += score + "\n";
         }
-        scoreTotal.text = "Total Score: " + scoreTotalValue;
+        scoreTotal.text = Translation.Get("TotalScore")+": " + scoreTotalValue;
     }
 
 }

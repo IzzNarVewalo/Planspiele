@@ -6,7 +6,9 @@ public class Translation {
 
     public enum AvailableLanguage
     {
-        EN
+        EN,
+        DE,
+        PT
     }
 
     static AvailableLanguage _defaultLanguage = AvailableLanguage.EN;
@@ -19,6 +21,7 @@ public class Translation {
     {
         if (!LoadLanguage(GameSettings.Language))
         {
+
             Debug.LogError(string.Format("Language {0} could not be loaded!", GameSettings.Language.ToString()));
         }
     }

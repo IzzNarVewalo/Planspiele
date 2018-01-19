@@ -1,6 +1,6 @@
 {
-    "languageShort": "en",
-    "languageLong": "English",
+    "languageShort": "de",
+    "languageLong": "Deutsch",
     "dictionaryEntries": [
         {
             "key": "Created_At",
@@ -16,31 +16,31 @@
         },
         {
             "key": "Apple",
-            "value": "Apple"
+            "value": "Apfel"
         },
         {
             "key": "Cocoa",
-            "value": "Cocoa"
+            "value": "Kakao"
         },
         {
             "key": "Caramel",
-            "value": "Caramel"
+            "value": "Karamel"
         },
         {
             "key": "Cherry",
-            "value": "Cherry"
+            "value": "Kirsche"
         },
         {
             "key": "Coffee",
-            "value": "Coffee"
+            "value": "Kaffee"
         },
         {
             "key": "LemonJuice",
-            "value": "Lemon Juice"
+            "value": "Zitronensaft"
         },
         {
             "key": "Milk",
-            "value": "Milk"
+            "value": "Milch"
         },
         {
             "key": "Orange",
@@ -48,35 +48,35 @@
         },
         {
             "key": "Raspberry",
-            "value": "Raspberry"
+            "value": "Himbeere"
         },
         {
             "key": "Sugar",
-            "value": "Sugar"
+            "value": "Zucker"
         },
         {
             "key": "WhippedCream",
-            "value": "Whipped Cream"
+            "value": "Sahne"
         },
         {
             "key": "SmallCup",
-            "value": "Small Cup"
+            "value": "Kleiner Becher"
         },
         {
             "key": "MediumCup",
-            "value": "Medium Cup"
+            "value": "Mittlerer Becher"
         },
         {
             "key": "LargeCup",
-            "value": "Large Cup"
+            "value": "Großer Becher"
         },
         {
             "key": "Tablespoon",
-            "value": "Tablespoons"
+            "value": "Esslöffel"
         },
         {
             "key": "Cup",
-            "value": "Cup"
+            "value": "Becher"
         },
         {
             "key": "Cl",
@@ -88,35 +88,35 @@
         },
         {
             "key": "Serve",
-            "value": "Serve!"
+            "value": "Servieren!"
         },
         {
             "key": "Score",
-            "value": "Score"
+            "value": "Punktzahl"
         },
         {
             "key": "TotalScore",
-            "value": "Total Score"
+            "value": "Gesamtpuktzahl"
         },
         {
             "key": "CaramelCoffee",
-            "value": "Caramel Coffee"
+            "value": "Karamel Kaffee"
         },
         {
             "key": "DemoRecipe",
-            "value": "Demo Recipe"
+            "value": "Demo Rezept"
         },
         {
             "key": "Small",
-            "value": "Small"
+            "value": "Kleiner"
         },
         {
             "key": "Medium",
-            "value": "Medium"
+            "value": "Mittlerer"
         },
         {
             "key": "Big",
-            "value": "Big"
+            "value": "Großer"
         }
     ]
 }

@@ -100,11 +100,11 @@ public class ActionCalibrateForce : ShareAction
                 break;
 
             case CalibrationState.NormalForce:
-                ShowInstructionText(string.Format("Device calibration: Pick up the device and hold it normally with constant force for {0} seconds.", _requiredConstantForceDuration));
+                ShowInstructionText(string.Format(Translation.Get("calibration_instruction"),_requiredConstantForceDuration));
                 break;
 
             case CalibrationState.MaxForce:
-                ShowInstructionText("Device calibration: Press the device as much as you can. Put it down when you're done.");
+                ShowInstructionText(Translation.Get("calibration_instruction_maxforce"));
                 ShareInputManager.ShareInput.ResetMaxAppliedForce();
                 break;
         }

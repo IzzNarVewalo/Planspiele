@@ -31,6 +31,7 @@ public class LanguageFile {
         {
             string json = sr.ReadToEnd();
             LanguageFile languageFile = JsonUtility.FromJson<LanguageFile>(json);
+            languageFile.translations = new Dictionary<string, string>();
             foreach (DictionaryEntry entry in languageFile.dictionaryEntries)
             {
                 languageFile.translations.Add(entry.key, entry.value);
@@ -60,7 +61,7 @@ public class LanguageFile {
 
         using (StreamWriter sw = new StreamWriter(_savePath + languageShort.ToLower() + ".lang"))
         {
-            string json = JsonUtility.ToJson(this);
+            string json = JsonUtility.ToJson(this, true);
             sw.Write(json);
         }
     }

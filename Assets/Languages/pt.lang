@@ -1,6 +1,6 @@
 {
-    "languageShort": "en",
-    "languageLong": "English",
+    "languageShort": "pt",
+    "languageLong": "Portuguese",
     "dictionaryEntries": [
         {
             "key": "Created_At",
@@ -16,67 +16,67 @@
         },
         {
             "key": "Apple",
-            "value": "Apple"
+            "value": "Maçã"
         },
         {
             "key": "Cocoa",
-            "value": "Cocoa"
+            "value": "Cacau"
         },
         {
             "key": "Caramel",
-            "value": "Caramel"
+            "value": "Caramelo"
         },
         {
             "key": "Cherry",
-            "value": "Cherry"
+            "value": "Cereja"
         },
         {
             "key": "Coffee",
-            "value": "Coffee"
+            "value": "Café"
         },
         {
             "key": "LemonJuice",
-            "value": "Lemon Juice"
+            "value": "Suco de limão"
         },
         {
             "key": "Milk",
-            "value": "Milk"
+            "value": "Leite"
         },
         {
             "key": "Orange",
-            "value": "Orange"
+            "value": "Laranja"
         },
         {
             "key": "Raspberry",
-            "value": "Raspberry"
+            "value": "Framboesa"
         },
         {
             "key": "Sugar",
-            "value": "Sugar"
+            "value": "Açúcar"
         },
         {
             "key": "WhippedCream",
-            "value": "Whipped Cream"
+            "value": "Chantilly"
         },
         {
             "key": "SmallCup",
-            "value": "Small Cup"
+            "value": "Copo pequeno"
         },
         {
             "key": "MediumCup",
-            "value": "Medium Cup"
+            "value": "Copa média"
         },
         {
             "key": "LargeCup",
-            "value": "Large Cup"
+            "value": "Grande Copa"
         },
         {
             "key": "Tablespoon",
-            "value": "Tablespoons"
+            "value": "Colheres de sopa"
         },
         {
             "key": "Cup",
-            "value": "Cup"
+            "value": "Copa"
         },
         {
             "key": "Cl",
@@ -88,35 +88,35 @@
         },
         {
             "key": "Serve",
-            "value": "Serve!"
+            "value": "Servir!"
         },
         {
             "key": "Score",
-            "value": "Score"
+            "value": "Ponto"
         },
         {
             "key": "TotalScore",
-            "value": "Total Score"
+            "value": "Pontuação total"
         },
         {
             "key": "CaramelCoffee",
-            "value": "Caramel Coffee"
+            "value": "Café Caramelo"
         },
         {
             "key": "DemoRecipe",
-            "value": "Demo Recipe"
+            "value": "Demo Receita"
         },
         {
             "key": "Small",
-            "value": "Small"
+            "value": "Pequeno"
         },
         {
             "key": "Medium",
-            "value": "Medium"
+            "value": "Médio"
         },
         {
             "key": "Big",
-            "value": "Big"
+            "value": "Grande"
         }
     ]
 }

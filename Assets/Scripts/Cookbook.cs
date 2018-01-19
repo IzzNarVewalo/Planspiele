@@ -16,19 +16,21 @@ public enum Size {
 };
 
 public enum Ingredients {
-    Raspberries,
+    Raspberry,
     Caramel,
-    Cherries,
-    Oranges,
-    Apples,
+    Cherry,
+    Orange,
+    Apple,
     LemonJuice,
     WhippedCream,
     Milk,
     Sugar,
-    Coffe,
+    Coffee,
     Cocoa,
     // Testing
-    Cup
+    SmallCup,
+    MediumCup,
+    LargeCup
 };
 
 public class Cookbook {
