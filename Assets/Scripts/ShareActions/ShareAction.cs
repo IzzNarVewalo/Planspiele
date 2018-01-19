@@ -13,8 +13,16 @@ public abstract class ShareAction : MonoBehaviour {
     protected static Text _instructionText;
     // The name of the GameObject which should be used as the Text _instructionText
     protected static string _instructionTextObjectName = "DebugText";
+    protected static string _instructionImageObjectName = "InstructionImage";
 
     protected static RecipeToUI _recipeToUI;
+
+    protected Sprite[] instructionImages;
+    protected Image _currentInstructionImage;
+
+    protected int _currentInstructionImageIndex;
+    protected readonly float imageChangeStartTime = 1.0f;
+    protected float _imageChangeTimer = -1.0f;
 
     /// <summary>
     /// When overriding this method, call base.Awake();
@@ -31,12 +39,24 @@ public abstract class ShareAction : MonoBehaviour {
         {
             _recipeToUI = FindObjectOfType<RecipeToUI>();
         }
+
+        if(_currentInstructionImage == null)
+        {
+            _currentInstructionImage = GameObject.Find(_instructionImageObjectName).GetComponent<Image>();
+        }
+    }
+    
+    protected void Update()
+    {
+        ShowInstructionImage();
     }
 
     public void SetActive(bool active)
     {
         _active = active;
     }
+
+    protected abstract void SetInstructionImages();
 
     protected void ShowInstructionText(string instruction)
     {
@@ -52,6 +72,23 @@ public abstract class ShareAction : MonoBehaviour {
         } else
         {
             Debug.LogError("Text _instructionText is not set in ShareAction.");
+        }
+    }
+
+    protected void ShowInstructionImage()
+    {
+        if(_imageChangeTimer <= 0.0f) //Change Image
+        {
+            if(instructionImages == null || instructionImages.Length == 0)
+            {
+                return;
+            }
+            _imageChangeTimer = imageChangeStartTime;
+            _currentInstructionImageIndex = (_currentInstructionImageIndex + 1) % instructionImages.Length;
+            _currentInstructionImage.sprite = instructionImages[_currentInstructionImageIndex];
+        } else
+        {
+            _imageChangeTimer -= Time.deltaTime;
         }
     }
 
@@ -79,6 +116,8 @@ public abstract class ShareAction : MonoBehaviour {
     public virtual void EnterAction() {
         Debug.Log("Enter Action " + GetType());
         _active = true;
+        SetInstructionImages();
+        
     }
 
     /// <summary>
@@ -90,5 +129,5 @@ public abstract class ShareAction : MonoBehaviour {
         Debug.Log("Exit Action " + GetType());
         _active = false;
     }
-	
+    	
 }

@@ -20,6 +20,13 @@ public class ActionPickUpCup : ShareAction {
 
     }
 
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Take1");
+        instructionImages[1] = Resources.Load<Sprite>("Take2");
+    }
+
     public override void ExitAction()
     {
         Debug.Log("Blaaa");
