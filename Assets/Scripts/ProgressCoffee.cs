@@ -23,6 +23,10 @@ public class ProgressCoffee : MonoBehaviour {
         if ((transform.rotation.eulerAngles.z >= 10.0f && transform.rotation.eulerAngles.z <= 340.0f) 
             || (transform.rotation.eulerAngles.z <= 350.0f && transform.rotation.eulerAngles.z >= 20.0f))
         {
+<<<<<<< HEAD
+=======
+            //Debug.Log("asfgasfg");
+>>>>>>> remotes/origin/InstructionImages
             rotationDirection *= -1;
         }
 
@@ -38,7 +42,7 @@ public class ProgressCoffee : MonoBehaviour {
 
         if (ProgressBarScript.isZero())
         {
-            Debug.Log("isZero");
+            //Debug.Log("isZero");
             this.gameObject.GetComponent<Rigidbody2D>().simulated = false;
             transform.position = startPos;
             firstTimeRed = true;

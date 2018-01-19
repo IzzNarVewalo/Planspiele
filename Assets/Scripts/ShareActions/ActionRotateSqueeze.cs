@@ -17,6 +17,13 @@ public class ActionRotateSqueeze : ActionAddIngredient
         return finished;
     }
 
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Move1");
+        instructionImages[1] = Resources.Load<Sprite>("Move2");
+    }
+
 
     public override void EnterAction()
     {

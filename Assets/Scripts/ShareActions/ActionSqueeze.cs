@@ -16,12 +16,26 @@ public class ActionSqueeze : ActionAddIngredient
     }
 
 
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Squeeze1");
+        instructionImages[1] = Resources.Load<Sprite>("Squeeze2");
+    }
+
+
     public override void EnterAction()
     {
         Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
         ShowInstructionText("Squeeze the Device.");
+    }
+
+    protected new void setInstructionImages()
+    {
+        instructionImages[0] = (Sprite)Resources.Load("Squeeze1");
+        instructionImages[1] = (Sprite)Resources.Load("Squeeze2");
     }
 
     // Update is called once per frame

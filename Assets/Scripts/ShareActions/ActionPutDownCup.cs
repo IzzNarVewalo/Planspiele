@@ -20,13 +20,20 @@ public class ActionPutDownCup : ShareAction {
 
     }
 
+    protected override void SetInstructionImages()
+    {
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Lay1");
+        instructionImages[1] = Resources.Load<Sprite>("Lay2");
+    }
+
     public override void ExitAction()
     {
         SoundEffectManager.Instance.PlayPutCup();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
 
         if (!ShareInputManager.ShareInput.IsPickedUp())
