@@ -17,9 +17,11 @@ public class ActionRotateSqueeze : ActionAddIngredient
 
     protected override void SetInstructionImages()
     {
+        
         instructionImages = new Sprite[2];
-        instructionImages[0] = Resources.Load<Sprite>("Turn+Squeeze1");
-        instructionImages[1] = Resources.Load<Sprite>("Turn+Squeeze2");
+        instructionImages[0] = Resources.Load<Sprite>("TurnSqueeze2");
+        instructionImages[1] = Resources.Load<Sprite>("TurnSqueeze1");
+        
     }
 
 
@@ -30,20 +32,23 @@ public class ActionRotateSqueeze : ActionAddIngredient
         _active = true;
         UpdateIngredientProgress(0);
         ShowInstructionText("Rotate the Share-Device and squeeze it.");
+        SetInstructionImages();
     }
 
     public override void ExitAction()
     {
         base.ExitAction();
+        if (GameData.SelectedIngredient != null && GameData.SelectedIngredient.GetProgress() < 1.0f)
+            GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
         ProgressBarScript.value = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        Debug.Log("Progressbar: " + ProgressBarScript.value);
         if (_active)
         {
+            base.Update();
             if ((inS.GetForce() > GameSettings.ForceThreshold && inS.GetTiltAngle() > GameSettings.TiltThreshold))
             {
                 howLong = howLong + Time.deltaTime;

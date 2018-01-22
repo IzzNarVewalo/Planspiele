@@ -29,7 +29,6 @@ public class ActionPickUpCup : ShareAction {
 
     public override void ExitAction()
     {
-        Debug.Log("Blaaa");
         SoundEffectManager.Instance.PlayLiftCup();
     }
 
