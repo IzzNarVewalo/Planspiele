@@ -180,6 +180,7 @@ public class SoundEffectManager : MonoBehaviour
                 }
                 else
                 {
+                    aS.loop = false;
                     Utils.PlaySound(aS, clip);
                     found = true;
                 }

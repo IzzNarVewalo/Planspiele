@@ -8,7 +8,7 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     private CircularBuffer<float> _activityBuffer;
 
-    private int _activitiesPerSecond = 20;
+    private int _activitiesPerSecond = 10;
 
     private float _activityMeasure;
 
@@ -46,10 +46,13 @@ public class ShareInput : MonoBehaviour, IShareInput {
     {
         if (!_pickedUp)
         {
-            _pickedUp = _initialCalibrationDone && RecentActivitySum() > 2500 && GetForce() > 50;
+            
+            _pickedUp = _initialCalibrationDone && RecentActivitySum() > 1250 && GetForce() > 50;
         } else
         {
-            _pickedUp = (RecentActivitySum() > 2500) || !(_forceIdleTime > 0.2);
+            _pickedUp = ((RecentActivitySum() > 1250) || !(_forceIdleTime > 0.1));
+            if (!_pickedUp && GetTiltAngle() > 20)
+                _pickedUp = true;
         }
 
         return _pickedUp;
@@ -110,7 +113,7 @@ public class ShareInput : MonoBehaviour, IShareInput {
     IEnumerator ActivityLogger(int timesPerSecond)
     {
         _activityBuffer = new CircularBuffer<float>(timesPerSecond);
-        float waitTime = 1f / timesPerSecond;
+        float waitTime = 0.5f / timesPerSecond;
         Quaternion lastRotation = GetRotation();
         Vector3 lastAcceleratin = GetAccelerationRaw();
         while (true)

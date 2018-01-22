@@ -10,6 +10,8 @@ public abstract class ActionAddIngredient : ShareAction {
         {
             GameData.SelectedIngredient.SetProgress(progress);
         }
+
+        ProgressBarScript.value = progress;
     }
 
 }
