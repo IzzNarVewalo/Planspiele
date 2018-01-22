@@ -10,6 +10,8 @@ public class ActionRotateSqueeze : ActionAddIngredient
     public float Duration = 5;
     IShareInput inS;
 
+
+
     public override bool Finished()
     {
         return finished;
@@ -27,7 +29,6 @@ public class ActionRotateSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionRotateSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
         UpdateIngredientProgress(0);

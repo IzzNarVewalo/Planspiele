@@ -23,12 +23,12 @@ public class ActionRotate : ActionAddIngredient {
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionRotate Action");
         shareInput = ShareInputManager.ShareInput;
         _active = true;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
         SetInstructionImages();
     }
+
     public override void ExitAction()
     {
         base.ExitAction();
@@ -36,6 +36,7 @@ public class ActionRotate : ActionAddIngredient {
             GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
         ProgressBarScript.value = 0;
     }
+
     protected override void SetInstructionImages()
     {
         instructionImages = new Sprite[2];

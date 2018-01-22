@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ingredient {
+public class Ingredient : MonoBehaviour{
     public static Dictionary<Ingredients, string> IngredientToString;
     public static Dictionary<Unit, string> UnitToString;
     // Includes the actions for each Ingredient that need to be fulfilled to add the ingredient
     public static Dictionary<Ingredients, ShareAction[]> IngredientActions;
 
     private List<ShareAction> _actions;
+    [SerializeField] 
     private float _amount;
+    [SerializeField]
     private Unit _unit;
+    [SerializeField]
     private Ingredients _name;
     private float _progress = 0;
     
@@ -101,5 +104,15 @@ public class Ingredient {
 
     public UnityEngine.Object GetMesh() {
         return _meshForIngredient[_unit];
+    }
+
+    public Ingredients GetIngredientType()
+    {
+        return _name;
+    }
+
+    public void SetIngredientType(Ingredients ingredients)
+    {
+        _name = ingredients;
     }
 }   
