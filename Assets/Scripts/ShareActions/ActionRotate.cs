@@ -30,7 +30,7 @@ public class ActionRotate : ActionAddIngredient {
     }
     public override void ExitAction()
     {
-        Debug.Log("Exit ActionRotate Action");
+        base.ExitAction();
         ProgressBarScript.value = 0;
     }
     protected override void SetInstructionImages()

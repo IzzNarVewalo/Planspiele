@@ -40,6 +40,7 @@ public class ProgressCoffee : MonoBehaviour {
         {
             //Debug.Log("isZero");
             this.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             transform.position = startPos;
             firstTimeRed = true;
 

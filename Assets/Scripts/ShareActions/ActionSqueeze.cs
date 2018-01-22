@@ -35,6 +35,12 @@ public class ActionSqueeze : ActionAddIngredient
             
     }
 
+    public override void ExitAction()
+    {
+        base.ExitAction();
+        ProgressBarScript.value = 0;
+    }
+
     protected override void SetInstructionImages()
     {
         instructionImages = new Sprite[2];
@@ -53,11 +59,6 @@ public class ActionSqueeze : ActionAddIngredient
         ShowInstructionText("Squeeze the Device.");
     }
 
-    public override void ExitAction()
-    {
-        Debug.Log("Exit ActionSqueeze Action");
-        ProgressBarScript.value = 0;
-    }
 
     protected new void setInstructionImages()
     {

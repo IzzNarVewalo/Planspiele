@@ -28,26 +28,26 @@ public class ActionRotateSqueeze : ActionAddIngredient
         Debug.Log("Enter ActionRotateSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _active = true;
-        ProgressBarScript.value = 0;
+        UpdateIngredientProgress(0);
         ShowInstructionText("Rotate the Share-Device and squeeze it.");
     }
 
     public override void ExitAction()
     {
-        Debug.Log("Exit ActionRotateSqueeze Action");
+        base.ExitAction();
         ProgressBarScript.value = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Progressbar: " + ProgressBarScript.value);
         if (_active)
         {
             if ((inS.GetForce() > GameSettings.ForceThreshold && inS.GetTiltAngle() > GameSettings.TiltThreshold))
             {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
-                ProgressBarScript.value = howLong / Duration;
                 if (playSound)
                 {
                     SoundEffectManager.Instance.PlaySauceSqueezing();
