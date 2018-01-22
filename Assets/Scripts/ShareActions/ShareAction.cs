@@ -87,8 +87,9 @@ public abstract class ShareAction : MonoBehaviour {
     {
         if(_imageChangeTimer <= 0.0f) //Change Image
         {
-            if(instructionImages == null || instructionImages.Length == 0)
+            if(instructionImages == null || instructionImages.Length == 0||_currentInstructionImage == null)
             {
+                Debug.LogWarning("Instruction Image or current Instruction Image is null");
                 return;
             }
             _imageChangeTimer = imageChangeStartTime;
