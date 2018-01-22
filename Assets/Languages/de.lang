@@ -8,11 +8,12 @@
         },
         {
             "key": "calibration_instruction",
-            "value": "Device calibration: Pick up the device and hold it normally with constant force for {0} seconds."
+            "value": "Device Kalibrierung: Heb das Device auf und halte es mit einer normalen konstanten Kraft für {0} Sekunden."
+			
         },
         {
             "key": "calibration_instruction_maxforce",
-            "value": "Device calibration: Press the device as much as you can. Put it down when you're done."
+            "value": "Device Kalibrierung: Drücke das Device so fest wie möglich. Stelle das Device hin wenn du fertig bist."
         },
         {
             "key": "Apple",

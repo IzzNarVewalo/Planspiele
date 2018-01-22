@@ -7,7 +7,7 @@ public class RecipeManager : MonoBehaviour {
     private List<Recipe> _recipes;
 
     // The recipe that is currently selected and made
-    private static Recipe _activeRecipe;
+    public static Recipe _activeRecipe;
 
     private static RecipeToUI _recipeToUI;
 
@@ -86,7 +86,7 @@ public class RecipeManager : MonoBehaviour {
     {
         _activeRecipe = r;
         _recipeToUI.writeRecipe(r);
-
+        _recipeToUI.CloseEndScreen();
     }
 
     public static void UpdateRecipeUI()
