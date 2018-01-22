@@ -118,6 +118,10 @@
         {
             "key": "Big",
             "value": "Großer"
+        },
+        {
+            "key": "Penalties",
+            "value": "Strafpunkte"
         }
     ]
 }

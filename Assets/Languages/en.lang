@@ -117,6 +117,10 @@
         {
             "key": "Big",
             "value": "Big"
+        },
+        {
+            "key": "Penalties",
+            "value": "Penalties"
         }
     ]
 }

@@ -87,8 +87,9 @@ public class Recipe {
 
         foreach (Ingredient ingredient in _ingredients)
         {
-            score += Mathf.Clamp((200 - (int)(ingredient.GetProgress() * 100)),0,100); 
+            score += Mathf.Clamp((200 - (int)(ingredient.GetProgress() * 100)),0,100);
         }
+        score -= GameData.penalty;
         GameData.score = score;
     }
 }

@@ -127,8 +127,6 @@ public class RecipeToUI : MonoBehaviour {
                 left = makeAmountNice(i) + " " + i.GetUnit();
                 right = right + i.GetName();
                 score += Mathf.Clamp(200 - i.GetProgress() * 100, 0, 100);
-
-                scoreTotalValue += (int)Mathf.Clamp((200 - (int)(i.GetProgress() * 100)), 0, 100);
                 Debug.Log(Translation.Get("Score") + ": " + scoreTotalValue);
                 //Sets the checkmark and changes color to green if the ingredient is finished
                 if (i.GetProgress() >= 1f)
@@ -165,7 +163,10 @@ public class RecipeToUI : MonoBehaviour {
                 scoreRight.text += right + "\n";
                 scoreText.text += score + "\n";
             }
-            scoreTotal.text = Translation.Get("TotalScore") + ": " + scoreTotalValue;
+            scoreLeft.text += "    "+Translation.Get("Penalties");
+            scoreText.text += "-" + GameData.penalty;
+            r.calculateScore();
+            scoreTotal.text = Translation.Get("TotalScore") + ": " + GameData.score;
             _endScreenOpen = true;
         }
     }
