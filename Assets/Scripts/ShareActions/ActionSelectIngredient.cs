@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionSelectIngredient : ShareAction {
+public class ActionSelectIngredient : ShareAction
+{
 
     private bool _ingredientIsSelected = false;
 
@@ -11,8 +12,8 @@ public class ActionSelectIngredient : ShareAction {
     private IShareInput _shareInput;
 
     private RotatingPicker _rotatingPicker;
-    
-    private static string _rotatingPickerName = "IngredientPicker";
+
+    private static string _rotatingPickerName = "PlateHolder";
 
     public override bool Finished()
     {
@@ -32,40 +33,58 @@ public class ActionSelectIngredient : ShareAction {
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
         _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponent<RotatingPicker>();
-        if(_rotatingPicker == null)
+        if (_rotatingPicker == null)
         {
-            Debug.LogError("Couldn't find the Rotating Picker with name '"+_rotatingPickerName+"' in the scene!");
+            Debug.LogError("Couldn't find the Rotating Picker with name '" + _rotatingPickerName + "' in the scene!");
         }
     }
-    
+
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (_active)
         {
-            if(_rotatingPicker != null)
+            if (_rotatingPicker != null)
             {
                 if (_shareInput.IsPickedUp())
                 {
-                    if(_selectedIngredient == null)
+                    if (_selectedIngredient == null)
                     {
                         SoundEffectManager.Instance.PlayLiftCup();
                         _selectedIngredient = _rotatingPicker.Select();
                     }
 
-                    if(_shareInput.GetForce() >= GameSettings.ForceThreshold)
+                    if (_shareInput.GetForce() >= GameSettings.ForceThreshold)
                     {
+                        GameData.SelectedIngredient = null;
                         _ingredientIsSelected = true;
-                        GameData.SelectedIngredient = _selectedIngredient;
+
+                        foreach (Ingredient ingredient in RecipeManager._activeRecipe.GetIngredientsList())
+                        {
+                            if (_selectedIngredient.GetIngredientType() == ingredient.GetIngredientType())
+                            {
+                                GameData.SelectedIngredient = ingredient;
+                                Debug.Log("Found the corresponding ingredient!!");
+                                    break;
+                            }
+                        }
+                        if (GameData.SelectedIngredient == null)
+                        {
+                            GameData.SelectedIngredient = _selectedIngredient;
+                        }
+
                     }
 
-                } else
+                }
+                else
                 {
-                    if(_selectedIngredient != null)
+                    if (_selectedIngredient != null)
                     {
                         _selectedIngredient = null;
                         _rotatingPicker.Rotate();
@@ -73,5 +92,5 @@ public class ActionSelectIngredient : ShareAction {
                 }
             }
         }
-	}
+    }
 }

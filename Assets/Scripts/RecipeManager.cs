@@ -25,12 +25,15 @@ public class RecipeManager : MonoBehaviour {
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
                 ShareAction.Create<ActionCalibrateForce>(),
-                ShareAction.Create<ActionPickUpCup>()
+                ShareAction.Create<ActionPickUpCup>(),
+                ShareAction.Create<ActionPutDownCup>()
             });
 
         List<ShareAction> listForCoffee = new List<ShareAction>(
             new ShareAction[]{
-                ShareAction.Create<ActionSqueeze>()
+                ShareAction.Create<ActionSelectIngredient>(),
+                ShareAction.Create<ActionSqueeze>(),
+                ShareAction.Create<ActionPutDownCup>()
             });
 
         List<ShareAction> listForMilk = new List<ShareAction>(
@@ -55,6 +58,8 @@ public class RecipeManager : MonoBehaviour {
                     new Ingredient(100, Unit.Ml, Ingredients.Coffee, listForCoffee),
                     new Ingredient(50, Unit.Ml, Ingredients.Milk, listForMilk),
                     new Ingredient(2, Unit.Tablespoon,Ingredients.Caramel, listForCaramel)})));
+
+
 
         startRecipe(_recipes[0]);
 

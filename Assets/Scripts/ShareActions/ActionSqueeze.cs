@@ -45,7 +45,6 @@ public class ActionSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
         _stopSoundMethod = SoundEffectManager.Instance.StopSplash;
@@ -55,7 +54,6 @@ public class ActionSqueeze : ActionAddIngredient
 
     public override void ExitAction()
     {
-        Debug.Log("Exit ActionSqueeze Action");
         ProgressBarScript.value = 0;
     }
 
