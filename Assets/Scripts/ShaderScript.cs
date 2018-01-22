@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShaderScript : MonoBehaviour {
     // Kaffetassenshader
     [SerializeField]
-    private float _myFloat;
+    private float _filHeight;
     [SerializeField]
     private float _milchAnteil;
     [SerializeField]
@@ -28,25 +28,25 @@ public class ShaderScript : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.G))
             _positionCounter = !_positionCounter;
-        if (Input.GetKey(KeyCode.Return) && _positionCounter && _myFloat < 0.95f) {
+        if (Input.GetKey(KeyCode.Return) && _positionCounter && _filHeight < 0.95f) {
             _kaffeAnteil += Time.deltaTime * 0.25f;
-            _myFloat = _kaffeAnteil + _milchAnteil;
-            _myColor = Color.Lerp(Color.white, _brown, _kaffeAnteil / _myFloat * 1.5f);
+            _filHeight = _kaffeAnteil + _milchAnteil;
+            _myColor = Color.Lerp(Color.white, _brown, _kaffeAnteil / _filHeight * 1.5f);
             Shader.SetGlobalColor("_MyColor", _myColor);
-            Shader.SetGlobalFloat("_MyFloat", _myFloat);
+            Shader.SetGlobalFloat("_FillHeight", _filHeight);
         }
 
-        if (Input.GetKey(KeyCode.Return) && !_positionCounter && _myFloat < 0.95f) {
+        if (Input.GetKey(KeyCode.Return) && !_positionCounter && _filHeight < 0.95f) {
             _milchAnteil += Time.deltaTime * 0.25f;
-            _myFloat = _kaffeAnteil + _milchAnteil;
-            _myColor = Color.Lerp(Color.white, _brown, _kaffeAnteil / _myFloat * 1.5f);
+            _filHeight = _kaffeAnteil + _milchAnteil;
+            _myColor = Color.Lerp(Color.white, _brown, _kaffeAnteil / _filHeight * 1.5f);
             Shader.SetGlobalColor("_MyColor", _myColor);
-            Shader.SetGlobalFloat("_MyFloat", _myFloat);
+            Shader.SetGlobalFloat("_FillHeight", _filHeight);
         }
 
         if (Input.GetKey(KeyCode.R)) {
-            _myFloat = _kaffeAnteil = _milchAnteil = 0;
-            Shader.SetGlobalFloat("_MyFloat", _myFloat);
+            _filHeight = _kaffeAnteil = _milchAnteil = 0;
+            Shader.SetGlobalFloat("_FillHeight", _filHeight);
         }
     }
 }
