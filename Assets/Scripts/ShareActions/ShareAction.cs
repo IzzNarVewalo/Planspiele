@@ -42,7 +42,15 @@ public abstract class ShareAction : MonoBehaviour {
 
         if(_currentInstructionImage == null)
         {
-            _currentInstructionImage = GameObject.Find(_instructionImageObjectName).GetComponent<Image>();
+            GameObject _instructionImageObject = GameObject.Find(_instructionImageObjectName);
+            if (_instructionImageObject != null)
+            {
+                _currentInstructionImage = _instructionImageObject.GetComponent<Image>();
+            } else
+            {
+                Debug.LogWarning("Couldn't find the Instruction Image GameObject with name " + _instructionImageObjectName);
+            }
+            
         }
     }
     

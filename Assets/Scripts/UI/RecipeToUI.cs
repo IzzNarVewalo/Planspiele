@@ -8,6 +8,16 @@ public class RecipeToUI : MonoBehaviour {
     public GameObject endScreen;
     public Text scoreHead, scoreLeft, scoreRight, scoreText, scoreTotal;
 
+    private bool _endScreenOpen = false;
+
+    private void Update()
+    {
+        if (RecipeManager._activeRecipe.Finished())
+        {
+            writeScore(RecipeManager._activeRecipe);
+        }
+    }
+
     //Writes the Recipe on the Note
     public void writeRecipe(Recipe recipe)
     {
@@ -99,61 +109,70 @@ public class RecipeToUI : MonoBehaviour {
 
     public void writeScore(Recipe r)
     {
-        int scoreTotalValue = 0;
-        endScreen.SetActive(true);
-        scoreHead.text = Translation.Get(r.GetName());
-        List<Ingredient> ingredients = r.GetIngredientsList();
-        scoreLeft.text = "";
-        scoreRight.text = "";
-        scoreText.text = "";
-        //Write out the Ingredients
-        foreach (Ingredient i in ingredients)
+        if (!endScreen.activeSelf)
         {
-            string left = "";
-            string right = "";
-            string score = "";
-            left = makeAmountNice(i) + " " + i.GetUnit();
-            right = right + i.GetName();
-            score += Mathf.Clamp(200 - i.GetProgress() * 100,0,100);
-            
-            scoreTotalValue += (int)Mathf.Clamp((200 - (int)(i.GetProgress() * 100)), 0, 100);
-            Debug.Log(Translation.Get("Score")+": " + scoreTotalValue);
-            //Sets the checkmark and changes color to green if the ingredient is finished
-            if (i.GetProgress() >= 1f)
+            int scoreTotalValue = 0;
+            endScreen.SetActive(true);
+            scoreHead.text = Translation.Get(r.GetName());
+            List<Ingredient> ingredients = r.GetIngredientsList();
+            scoreLeft.text = "";
+            scoreRight.text = "";
+            scoreText.text = "";
+            //Write out the Ingredients
+            foreach (Ingredient i in ingredients)
             {
-                //Adds the checkmark
-                left = '\u2713' + left;
-                if (i.GetProgress() < ProgressBarScript.greenEnd)
+                string left = "";
+                string right = "";
+                string score = "";
+                left = makeAmountNice(i) + " " + i.GetUnit();
+                right = right + i.GetName();
+                score += Mathf.Clamp(200 - i.GetProgress() * 100, 0, 100);
+
+                scoreTotalValue += (int)Mathf.Clamp((200 - (int)(i.GetProgress() * 100)), 0, 100);
+                Debug.Log(Translation.Get("Score") + ": " + scoreTotalValue);
+                //Sets the checkmark and changes color to green if the ingredient is finished
+                if (i.GetProgress() >= 1f)
                 {
-                    //Changes color to green
-                    left = "<color=#008000ff>" + left + "</color>";
-                    right = "<color=#008000ff>" + right + "</color>";
-                    score = "<color=#008000ff>" + score + "</color>";
-                }
-                else if (i.GetProgress() > ProgressBarScript.orangeEnd)
-                {
-                    //Changes color to red
-                    left = "<color=#ff0000ff>" + left + "</color>";
-                    right = "<color=#ff0000ff>" + right + "</color>";
-                    score = "<color=#ff0000ff>" + score + "</color>";
+                    //Adds the checkmark
+                    left = '\u2713' + left;
+                    if (i.GetProgress() < ProgressBarScript.greenEnd)
+                    {
+                        //Changes color to green
+                        left = "<color=#008000ff>" + left + "</color>";
+                        right = "<color=#008000ff>" + right + "</color>";
+                        score = "<color=#008000ff>" + score + "</color>";
+                    }
+                    else if (i.GetProgress() > ProgressBarScript.orangeEnd)
+                    {
+                        //Changes color to red
+                        left = "<color=#ff0000ff>" + left + "</color>";
+                        right = "<color=#ff0000ff>" + right + "</color>";
+                        score = "<color=#ff0000ff>" + score + "</color>";
+                    }
+                    else
+                    {
+                        //Changes color to orange
+                        left = "<color=#ffa500ff>" + left + "</color>";
+                        right = "<color=#ffa500ff>" + right + "</color>";
+                        score = "<color=#ffaf00ff>" + score + "</color>";
+                    }
                 }
                 else
                 {
-                    //Changes color to orange
-                    left = "<color=#ffa500ff>" + left + "</color>";
-                    right = "<color=#ffa500ff>" + right + "</color>";
-                    score = "<color=#ffaf00ff>" + score + "</color>";
+                    left = "    " + left;     //Makes the format prettier, space for the checkmark
                 }
+                scoreLeft.text += left + "\n";
+                scoreRight.text += right + "\n";
+                scoreText.text += score + "\n";
             }
-            else
-            {
-                left = "    " + left;     //Makes the format prettier, space for the checkmark
-            }
-            scoreLeft.text += left + "\n";
-            scoreRight.text += right + "\n";
-            scoreText.text += score + "\n";
+            scoreTotal.text = Translation.Get("TotalScore") + ": " + scoreTotalValue;
+            _endScreenOpen = true;
         }
-        scoreTotal.text = Translation.Get("TotalScore")+": " + scoreTotalValue;
     }
-
+    public void CloseEndScreen()
+    {
+        endScreen.SetActive(false);
+    }
 }
+
+

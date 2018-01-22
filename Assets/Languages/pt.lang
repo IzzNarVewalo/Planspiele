@@ -1,4 +1,4 @@
-{
+ï»¿{
     "languageShort": "pt",
     "languageLong": "Portuguese",
     "dictionaryEntries": [
@@ -16,7 +16,7 @@
         },
         {
             "key": "Apple",
-            "value": "Maçã"
+            "value": "MaÃ§Ã£"
         },
         {
             "key": "Cocoa",
@@ -32,11 +32,11 @@
         },
         {
             "key": "Coffee",
-            "value": "Café"
+            "value": "CafÃ©"
         },
         {
             "key": "LemonJuice",
-            "value": "Suco de limão"
+            "value": "Suco de limÃ£o"
         },
         {
             "key": "Milk",
@@ -52,7 +52,7 @@
         },
         {
             "key": "Sugar",
-            "value": "Açúcar"
+            "value": "AÃ§Ãºcar"
         },
         {
             "key": "WhippedCream",
@@ -64,7 +64,7 @@
         },
         {
             "key": "MediumCup",
-            "value": "Copa média"
+            "value": "Copa mÃ©dia"
         },
         {
             "key": "LargeCup",
@@ -72,7 +72,7 @@
         },
         {
             "key": "Tablespoon",
-            "value": "Colheres de sopa"
+            "value": "Colher"
         },
         {
             "key": "Cup",
@@ -96,11 +96,11 @@
         },
         {
             "key": "TotalScore",
-            "value": "Pontuação total"
+            "value": "PontuaÃ§Ã£o total"
         },
         {
             "key": "CaramelCoffee",
-            "value": "Café Caramelo"
+            "value": "CafÃ© Caramelo"
         },
         {
             "key": "DemoRecipe",
@@ -112,7 +112,7 @@
         },
         {
             "key": "Medium",
-            "value": "Médio"
+            "value": "MÃ©dio"
         },
         {
             "key": "Big",
