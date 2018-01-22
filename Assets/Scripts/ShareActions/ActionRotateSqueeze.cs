@@ -10,8 +10,6 @@ public class ActionRotateSqueeze : ActionAddIngredient
     public float Duration = 5;
     IShareInput inS;
 
-
-
     public override bool Finished()
     {
         return finished;
@@ -32,6 +30,12 @@ public class ActionRotateSqueeze : ActionAddIngredient
         _active = true;
         ProgressBarScript.value = 0;
         ShowInstructionText("Rotate the Share-Device and squeeze it.");
+    }
+
+    public override void ExitAction()
+    {
+        Debug.Log("Exit ActionRotateSqueeze Action");
+        ProgressBarScript.value = 0;
     }
 
     // Update is called once per frame
