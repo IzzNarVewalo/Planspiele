@@ -53,6 +53,12 @@ public class ActionSqueeze : ActionAddIngredient
         ShowInstructionText("Squeeze the Device.");
     }
 
+    public override void ExitAction()
+    {
+        Debug.Log("Exit ActionSqueeze Action");
+        ProgressBarScript.value = 0;
+    }
+
     protected new void setInstructionImages()
     {
         instructionImages[0] = (Sprite)Resources.Load("Squeeze1");
