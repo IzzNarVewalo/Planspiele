@@ -26,10 +26,14 @@ public class ActionRotate : ActionAddIngredient {
         shareInput = ShareInputManager.ShareInput;
         _active = true;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
+        SetInstructionImages();
     }
 
     public override void ExitAction()
     {
+        base.ExitAction();
+        if (GameData.SelectedIngredient != null && GameData.SelectedIngredient.GetProgress() < 1.0f)
+            GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
         ProgressBarScript.value = 0;
     }
 
@@ -42,10 +46,9 @@ public class ActionRotate : ActionAddIngredient {
 
     // Update is called once per frame
     new void Update () {
-
+        
         if (_active)
         {
-
             base.Update();
             
             if (shareInput.GetTiltAngle() > GameSettings.TiltThreshold)

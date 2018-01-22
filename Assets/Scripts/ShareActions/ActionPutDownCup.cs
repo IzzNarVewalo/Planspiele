@@ -14,7 +14,6 @@ public class ActionPutDownCup : ShareAction {
     public override void EnterAction()
     {
         Debug.Log("Enter ActionPutDownCup Action");
-
         _active = true;
         _instructionText.text = "Put down the Share Device or press D";
 

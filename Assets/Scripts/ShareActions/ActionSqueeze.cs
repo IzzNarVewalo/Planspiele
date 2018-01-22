@@ -35,6 +35,14 @@ public class ActionSqueeze : ActionAddIngredient
             
     }
 
+    public override void ExitAction()
+    {
+        base.ExitAction();
+        if (GameData.SelectedIngredient != null&&GameData.SelectedIngredient.GetProgress() < 1.0f)
+            GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
+        ProgressBarScript.value = 0;
+    }
+
     protected override void SetInstructionImages()
     {
         instructionImages = new Sprite[2];
@@ -45,29 +53,22 @@ public class ActionSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
+        Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
         _stopSoundMethod = SoundEffectManager.Instance.StopSplash;
         _active = true;
         ShowInstructionText("Squeeze the Device.");
-    }
-
-    public override void ExitAction()
-    {
-        ProgressBarScript.value = 0;
-    }
-
-    protected new void setInstructionImages()
-    {
-        instructionImages[0] = (Sprite)Resources.Load("Squeeze1");
-        instructionImages[1] = (Sprite)Resources.Load("Squeeze2");
+        SetInstructionImages();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+       
         if (_active)
         {
+            base.Update();
             if ((inS.GetForce() > GameSettings.ForceThreshold))
             {
                 howLong = howLong + Time.deltaTime;
