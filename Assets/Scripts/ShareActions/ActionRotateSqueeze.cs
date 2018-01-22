@@ -20,8 +20,8 @@ public class ActionRotateSqueeze : ActionAddIngredient
     protected override void SetInstructionImages()
     {
         instructionImages = new Sprite[2];
-        instructionImages[0] = Resources.Load<Sprite>("Move1");
-        instructionImages[1] = Resources.Load<Sprite>("Move2");
+        instructionImages[0] = Resources.Load<Sprite>("Turn+Squeeze1");
+        instructionImages[1] = Resources.Load<Sprite>("Turn+Squeeze2");
     }
 
 

@@ -15,7 +15,7 @@ public class Ingredient {
     private Ingredients _name;
     private float _progress = 0;
     
-    private static Dictionary<Unit, Object> _meshForIngredient;
+    private static Dictionary<Unit, object> _meshForIngredient;
 
     //static Ingredient()
     //{
@@ -91,15 +91,15 @@ public class Ingredient {
             return _actions;
     }
 
-    public Object GetMeshForIngredient(Unit u) {
+    public object GetMeshForIngredient(Unit u) {
         return _meshForIngredient[u];
     }
 
-    public void AddMeshForIngredient(Unit key, Object value) {
+    public void AddMeshForIngredient(Unit key, object value) {
         _meshForIngredient.Add(key, value);
     }
 
-    public Object GetMesh() {
+    public object GetMesh() {
         return _meshForIngredient[_unit];
     }
 }   
