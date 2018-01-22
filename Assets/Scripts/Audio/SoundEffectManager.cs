@@ -26,7 +26,11 @@ public class SoundEffectManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            PlayAmbient();
+        }
+            
 
         myAudioSources = new AudioSource[6];
 
