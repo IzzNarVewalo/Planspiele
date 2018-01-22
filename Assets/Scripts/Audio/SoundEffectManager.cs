@@ -170,18 +170,22 @@ public class SoundEffectManager : MonoBehaviour
     private void PlaySound(AudioClip clip)
     {
         bool found = false;
-        foreach (AudioSource aS in myAudioSources)
+        if(myAudioSources != null)
         {
-            if (aS != null&&aS.playOnAwake == true)
+            foreach (AudioSource aS in myAudioSources)
             {
-                continue;
-            }
-            else
-            {
-                Utils.PlaySound(aS, clip);
-                found = true;
+                if (aS != null && aS.playOnAwake == true)
+                {
+                    continue;
+                }
+                else
+                {
+                    Utils.PlaySound(aS, clip);
+                    found = true;
+                }
             }
         }
+        
         if (found == false)
         {
             Debug.Log("All audio sources are busy");
