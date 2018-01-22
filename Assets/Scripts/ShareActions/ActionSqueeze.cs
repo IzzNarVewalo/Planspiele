@@ -47,6 +47,8 @@ public class ActionSqueeze : ActionAddIngredient
     {
         Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
+        _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
+        _stopSoundMethod = SoundEffectManager.Instance.StopSplash;
         _active = true;
         ShowInstructionText("Squeeze the Device.");
     }
@@ -68,7 +70,6 @@ public class ActionSqueeze : ActionAddIngredient
                 UpdateIngredientProgress(howLong / Duration);
                 if (playSound)
                 {
-                    SoundEffectManager.Instance.PlaySplash();
                     _playSoundMethod();
                     playSound = false;
                 }
@@ -78,7 +79,7 @@ public class ActionSqueeze : ActionAddIngredient
             {
                 if (!playSound)
                 {
-                    SoundEffectManager.Instance.StopSplash();
+                    _stopSoundMethod();
                     playSound = true;
                 }
             }
