@@ -10,11 +10,17 @@ public class LiquidFilling : MonoBehaviour {
     [Range(0, 1)][SerializeField]
     private float FillLevel;
 
+    [SerializeField]
+    private Color LiquidColor;
+
+    private Dictionary<Color, float> _colorAmounts;
+
     private float _worldLiquidLimit;
 
     // Use this for initialization
     void Start () {
         _renderer = GetComponent<Renderer>();
+        _colorAmounts = new Dictionary<Color, float>();
     }
 	
 	// Update is called once per frame
@@ -25,7 +31,6 @@ public class LiquidFilling : MonoBehaviour {
             _worldLiquidLimit = newLimit;
             _renderer.sharedMaterial.SetFloat("_LiquidHeight", _worldLiquidLimit);
         }
-        
     }
 
     public void SetFillLevel(float level)
@@ -33,9 +38,45 @@ public class LiquidFilling : MonoBehaviour {
         FillLevel = Mathf.Clamp(level, 0, 1);
     }
 
+    public void SetColor(Color color, float amount)
+    {
+
+        if (_colorAmounts.ContainsKey(color))
+        {
+            _colorAmounts[color] = amount;
+        } else
+        {
+            _colorAmounts.Add(color, amount);
+        }
+        
+
+        Color c = Color.black;
+        float sum = 0;
+        foreach(KeyValuePair<Color, float> colorAndFilling in _colorAmounts)
+        {
+            if (c == Color.black)
+            {
+                c = colorAndFilling.Key;
+                sum = colorAndFilling.Value;
+                continue;
+            }
+            float weight = colorAndFilling.Value / (sum + colorAndFilling.Value);
+            c = Color.Lerp(c, colorAndFilling.Key, weight);
+            sum += colorAndFilling.Value;
+        }
+
+        LiquidColor = c;
+        _renderer.sharedMaterial.SetColor("_LiquidColor", LiquidColor);
+        SetFillLevel(sum);
+    }
+
     private void OnValidate()
     {
-        SetFillLevel(FillLevel);
+        if(_renderer != null)
+        {
+            _renderer.sharedMaterial.SetFloat("_LiquidHeight", _worldLiquidLimit);
+            _renderer.sharedMaterial.SetColor("_LiquidColor", LiquidColor);
+        }
     }
     
 }
