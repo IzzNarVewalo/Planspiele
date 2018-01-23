@@ -14,6 +14,8 @@ public class RotatingPicker : MonoBehaviour {
     private List<Ingredient> _ingredientsOnPlate = new List<Ingredient>();
     private int _actualIngredient = 0;
 
+    [SerializeField] private GameObject _playerMesh;
+
     private const float SPEED = 8;
 
     private void Awake() {
@@ -46,7 +48,7 @@ public class RotatingPicker : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.W) && _canPickUp) {
             _canPickUp = !_canPickUp;
-            StopCoroutine(_rotation);
+            Select();
             Debug.Log("stop");
         }
 
@@ -98,15 +100,25 @@ public class RotatingPicker : MonoBehaviour {
             //reset angle
             tmp.transform.rotation = Quaternion.identity;
             Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
+            transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
         }
     }
 
     public Ingredient Select() {
+        _canPickUp = false;
         StopCoroutine(_rotation);
+        var tmp = (GameObject)(transform.parent.GetComponent<IngredientHolder>().GetIngredient().GetMesh());
+        Debug.Log(tmp);
+        _playerMesh.GetComponentInChildren<MeshFilter>().mesh =
+            tmp.GetComponent<MeshFilter>().sharedMesh;
+        _playerMesh.GetComponentInChildren<Transform>().localScale =
+            transform.parent.GetChild(_actualIngredient).lossyScale;
         return transform.parent.GetComponent<IngredientHolder>().GetIngredient();
     }
 
     public void Rotate() {
+        if (!_canPickUp)
+        _canPickUp = !_canPickUp;
         StartCoroutine(_rotation);
     }
 }
