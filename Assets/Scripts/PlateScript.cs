@@ -16,11 +16,11 @@ public class PlateScript : MonoBehaviour {
     // used to debug
     private void Start() {
         List<Ingredient> DEBUG = new List<Ingredient>();
-        Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.Cup, null);
+        //Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.Cup, null);
+        /*DEBUG.Add(ing);
         DEBUG.Add(ing);
         DEBUG.Add(ing);
-        DEBUG.Add(ing);
-        SetupPlate(DEBUG);
+        SetupPlate(DEBUG);*/
     }
 
     // UpdateMethod to Debug the plate
@@ -68,7 +68,7 @@ public class PlateScript : MonoBehaviour {
         }
     }
 
-    public Ingredient Select() {
+   /* public Ingredient Select() {
         return transform.GetComponent<IngredientHolder>().GetIngredient();
-    }
+    }*/
 }
