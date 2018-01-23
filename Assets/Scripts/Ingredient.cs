@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class Ingredient : MonoBehaviour{
+public class Ingredient {
     public static Dictionary<Ingredients, string> IngredientToString;
     public static Dictionary<Unit, string> UnitToString;
     // Includes the actions for each Ingredient that need to be fulfilled to add the ingredient
@@ -18,7 +19,6 @@ public class Ingredient : MonoBehaviour{
     private Ingredients _name;
     private float _progress = 0;
     
-    private static Dictionary<Unit, UnityEngine.Object> _meshForIngredient;
 
     //static Ingredient()
     //{
@@ -94,18 +94,6 @@ public class Ingredient : MonoBehaviour{
             return _actions;
     }
 
-    public UnityEngine.Object GetMeshForIngredient(Unit u) {
-        return _meshForIngredient[u];
-    }
-
-    public void AddMeshForIngredient(Unit key, UnityEngine.Object value) {
-        _meshForIngredient.Add(key, value);
-    }
-
-    public UnityEngine.Object GetMesh() {
-        return _meshForIngredient[_unit];
-    }
-
     public Ingredients GetIngredientType()
     {
         return _name;
@@ -114,5 +102,9 @@ public class Ingredient : MonoBehaviour{
     public void SetIngredientType(Ingredients ingredients)
     {
         _name = ingredients;
+    }
+
+    public Object GetMesh() {
+        return GameSettings.GetMeshForIngredient(_name);
     }
 }   
