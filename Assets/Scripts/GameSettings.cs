@@ -23,7 +23,10 @@ public static class GameSettings {
     private static Dictionary<Ingredients, Object> _meshForIngredient = new Dictionary<Ingredients, Object>();
 
     public static Object GetMeshForIngredient(Ingredients i) {
-        return _meshForIngredient[i];
+        if(_meshForIngredient.ContainsKey(i))
+            return _meshForIngredient[i];
+
+        return null;
     }
 
     public static void AddMeshForIngredient(Ingredients key, UnityEngine.Object value) {

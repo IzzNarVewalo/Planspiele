@@ -32,10 +32,19 @@ public class ActionSelectIngredient : ShareAction
         ShowInstructionText("Pick up the cup to stop the rotation and select the ingredient.");
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
-        _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponent<RotatingPicker>();
+        _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponentInChildren<RotatingPicker>();
         if (_rotatingPicker == null)
         {
             Debug.LogError("Couldn't find the Rotating Picker with name '" + _rotatingPickerName + "' in the scene!");
+        }
+    }
+
+    public override void ExitAction()
+    {
+        base.ExitAction();
+        if(GameData.SelectedIngredient.GetIngredientType() == Ingredients.LargeCup || GameData.SelectedIngredient.GetIngredientType() == Ingredients.MediumCup || GameData.SelectedIngredient.GetIngredientType() == Ingredients.SmallCup)
+        {
+            _rotatingPicker.SetupPlate(RecipeManager._activeRecipe.GetIngredientsList());
         }
     }
 

@@ -24,6 +24,10 @@ public class ShaderScript : MonoBehaviour {
     void OnRenderImage(RenderTexture src, RenderTexture dst) {
         Graphics.Blit(src, dst, ShaderMaterial);
     }
+    public void setFillHeight(float height)
+    {
+        _filHeight = height;
+    }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.G))

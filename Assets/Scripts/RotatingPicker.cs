@@ -27,6 +27,7 @@ public class RotatingPicker : MonoBehaviour {
         GameSettings.AddMeshForIngredient(Ingredients.SmallCup, _meshForIngredient[0]);
         GameSettings.AddMeshForIngredient(Ingredients.MediumCup, _meshForIngredient[1]);
         GameSettings.AddMeshForIngredient(Ingredients.LargeCup, _meshForIngredient[2]);
+        
 
         List<Ingredient> DEBUG = new List<Ingredient>();
         Ingredient ing2 = new Ingredient(1, Unit.Cup, Ingredients.MediumCup, null);
@@ -86,21 +87,27 @@ public class RotatingPicker : MonoBehaviour {
             // set angle
             Quaternion angle = Quaternion.AngleAxis(360.0f / ingredients.Count * i, transform.forward);
             _ingredientMeshDEBUG = GameSettings.GetMeshForIngredient(ingredients[i].GetIngredientType());
-            GameObject tmp = (GameObject)_ingredientMeshDEBUG;
-            Debug.Log(_ingredientMeshDEBUG.name);
-            Debug.Log(ingredients[i].GetIngredientType());
-            Vector3 pos = new Vector3(transform.position.x, transform.position.y + tmp.transform.localScale.y / 2, transform.position.z);
+            if(_ingredientMeshDEBUG != null)
+            {
+                GameObject tmp = (GameObject)_ingredientMeshDEBUG;
+                Debug.Log(_ingredientMeshDEBUG.name);
+                Debug.Log(ingredients[i].GetIngredientType());
+                Vector3 pos = new Vector3(transform.position.x, transform.position.y + tmp.transform.localScale.y / 2, transform.position.z);
 
-            //get the correct mesh
-            _ingredientMeshDEBUG = ingredients[i].GetMesh();
-            //spawn ingredient
-            tmp = (GameObject)Instantiate(_ingredientMeshDEBUG, pos, angle, transform.parent);
-            //move to the right position
-            tmp.transform.position += 1.5f * tmp.transform.forward;
-            //reset angle
-            tmp.transform.rotation = Quaternion.identity;
-            Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
-            transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
+                //get the correct mesh
+                _ingredientMeshDEBUG = ingredients[i].GetMesh();
+                //spawn ingredient
+                tmp = (GameObject)Instantiate(_ingredientMeshDEBUG, pos, angle, transform.parent);
+                //move to the right position
+                tmp.transform.position += 1.5f * tmp.transform.forward;
+                //reset angle
+                tmp.transform.rotation = Quaternion.identity;
+                Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
+                transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
+            }
+            
+
+            
         }
     }
 
@@ -111,8 +118,9 @@ public class RotatingPicker : MonoBehaviour {
         Debug.Log(tmp);
         _playerMesh.GetComponentInChildren<MeshFilter>().mesh =
             tmp.GetComponent<MeshFilter>().sharedMesh;
+        _playerMesh.GetComponentInChildren<Renderer>().material = transform.parent.GetChild(_actualIngredient).GetComponent<Renderer>().material;
         _playerMesh.GetComponentInChildren<Transform>().localScale =
-            transform.parent.GetChild(_actualIngredient).lossyScale;
+            new Vector3(0.5f, 0.5f, 0.5f);
         return transform.parent.GetComponent<IngredientHolder>().GetIngredient();
     }
 
