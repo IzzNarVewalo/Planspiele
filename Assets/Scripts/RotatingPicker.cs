@@ -2,33 +2,111 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ingredient))]
 public class RotatingPicker : MonoBehaviour {
-    private Ingredient _actualIngredient;
-    private int _counter = 0;
+    private bool _canPickUp;
+    private IEnumerator _rotation;
 
-    private Coroutine _rotation;
-    // Use this for initialization
-    void Start() {
-        _actualIngredient = GetComponentInChildren<Ingredient>();
-        _rotation = StartCoroutine(Rotate(gameObject.transform.childCount));
+    [SerializeField]
+    private Object[] _meshForIngredient;
+
+    [SerializeField]
+    private Object _ingredientMeshDEBUG;
+    private List<Ingredient> _ingredientsOnPlate = new List<Ingredient>();
+    private int _actualIngredient = 0;
+
+    private const float SPEED = 8;
+
+    private void Awake() {
+        _rotation = Rotate(360 / SPEED);
     }
-    
-    private IEnumerator Rotate(int numberOfIngredients, int counter = 0) {
-        for (int i = _counter; i < numberOfIngredients; i++) {
-            _actualIngredient = gameObject.transform.GetChild(i).GetComponent<Ingredient>();
-            _counter = i;
-            yield return new WaitForSeconds(1.2f);
+
+    // used to debug
+    private void Start() {
+        GameSettings.AddMeshForIngredient(Ingredients.SmallCup, _meshForIngredient[0]);
+        GameSettings.AddMeshForIngredient(Ingredients.MediumCup, _meshForIngredient[1]);
+        GameSettings.AddMeshForIngredient(Ingredients.LargeCup, _meshForIngredient[2]);
+
+        List<Ingredient> DEBUG = new List<Ingredient>();
+        Ingredient ing2 = new Ingredient(1, Unit.Cup, Ingredients.MediumCup, null);
+        DEBUG.Add(ing2);
+        Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.SmallCup, null);
+        DEBUG.Add(ing);
+        Ingredient ing3 = new Ingredient(1, Unit.Cup, Ingredients.LargeCup, null);
+        DEBUG.Add(ing3);
+        SetupPlate(DEBUG);
+    }
+
+    // UpdateMethod to Debug the plate
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.S) && !_canPickUp) {
+            _canPickUp = !_canPickUp;
+            StartCoroutine(_rotation);
+            Debug.Log("start");
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) && _canPickUp) {
+            _canPickUp = !_canPickUp;
+            StopCoroutine(_rotation);
+            Debug.Log("stop");
+        }
+
+
+    }
+
+    // start the rotation
+    private IEnumerator Rotate(float speed) {
+        //no ingredients on the plate
+        if (transform.parent.childCount == 1)
+            yield break;
+
+        // change to next ingredient if this hits 0
+        float changeIngredient = SPEED / (transform.parent.childCount - 1);
+        while (_canPickUp) {
+            transform.parent.Rotate(Vector3.up * speed * Time.deltaTime);
+            changeIngredient -= Time.deltaTime;
+            if (changeIngredient < 0.0f) {
+                changeIngredient = SPEED / (transform.parent.childCount - 1);
+                if (_actualIngredient + 1 < _ingredientsOnPlate.Count) {
+                    _actualIngredient++;
+                } else {
+                    _actualIngredient = 0;
+                }
+                transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    // spawns the ingredients on the plate
+    public void SetupPlate(List<Ingredient> ingredients) {
+        _ingredientsOnPlate = ingredients;
+        for (int i = 0; i < ingredients.Count; i++) {
+            // set angle
+            Quaternion angle = Quaternion.AngleAxis(360.0f / ingredients.Count * i, transform.forward);
+            _ingredientMeshDEBUG = GameSettings.GetMeshForIngredient(ingredients[i].GetIngredientType());
+            GameObject tmp = (GameObject)_ingredientMeshDEBUG;
+            Debug.Log(_ingredientMeshDEBUG.name);
+            Debug.Log(ingredients[i].GetIngredientType());
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + tmp.transform.localScale.y / 2, transform.position.z);
+
+            //get the correct mesh
+            _ingredientMeshDEBUG = ingredients[i].GetMesh();
+            //spawn ingredient
+            tmp = (GameObject)Instantiate(_ingredientMeshDEBUG, pos, angle, transform.parent);
+            //move to the right position
+            tmp.transform.position += 1.5f * tmp.transform.forward;
+            //reset angle
+            tmp.transform.rotation = Quaternion.identity;
+            Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
         }
     }
 
     public Ingredient Select() {
         StopCoroutine(_rotation);
-        return _actualIngredient;
+        return transform.parent.GetComponent<IngredientHolder>().GetIngredient();
     }
 
-    public void Rotate()
-    {
-        _rotation = StartCoroutine(Rotate(gameObject.transform.childCount));
+    public void Rotate() {
+        StartCoroutine(_rotation);
     }
 }

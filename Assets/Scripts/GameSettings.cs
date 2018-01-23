@@ -18,4 +18,15 @@ public static class GameSettings {
     public static float MinPressForce = 300;
 
     public static Translation.AvailableLanguage Language = Translation.AvailableLanguage.EN;
+
+
+    private static Dictionary<Ingredients, Object> _meshForIngredient = new Dictionary<Ingredients, Object>();
+
+    public static Object GetMeshForIngredient(Ingredients i) {
+        return _meshForIngredient[i];
+    }
+
+    public static void AddMeshForIngredient(Ingredients key, UnityEngine.Object value) {
+        _meshForIngredient.Add(key, value);
+    }
 }

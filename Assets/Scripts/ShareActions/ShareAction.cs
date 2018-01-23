@@ -85,7 +85,7 @@ public abstract class ShareAction : MonoBehaviour {
 
     protected void ShowInstructionImage()
     {
-        Debug.Log("ShowInstruction");
+        //Debug.Log("ShowInstruction");
         if(_imageChangeTimer <= 0.0f) //Change Image
         {
             if(instructionImages == null || instructionImages.Length == 0||_currentInstructionImage == null)
@@ -96,7 +96,7 @@ public abstract class ShareAction : MonoBehaviour {
             _imageChangeTimer = imageChangeStartTime;
             _currentInstructionImageIndex = (_currentInstructionImageIndex + 1) % instructionImages.Length;
             _currentInstructionImage.sprite = instructionImages[_currentInstructionImageIndex];
-            Debug.Log("Switch Picture");
+            //Debug.Log("Switch Picture");
         } else
         {
             _imageChangeTimer -= Time.deltaTime;
