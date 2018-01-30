@@ -28,6 +28,7 @@ public class Translation {
 
     public static void Test()
     {
+        Debug.Log("Test");
         LanguageFile l = LanguageFile.Create("en", "English");
         l.Save();
     }

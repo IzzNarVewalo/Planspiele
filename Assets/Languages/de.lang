@@ -122,6 +122,18 @@
         {
             "key": "Penalties",
             "value": "Strafpunkte"
+        },
+        {
+            "key": "Start",
+            "value": "Start"
+        },
+        {
+            "key": "Quit",
+            "value": "Beenden"
+        },
+        {
+            "key": "Languages",
+            "value": "Sprachen"
         }
     ]
 }

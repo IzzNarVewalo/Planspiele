@@ -121,6 +121,18 @@
         {
             "key": "Penalties",
             "value": "Penalidades"
+        },
+        {
+            "key": "Start",
+            "value": "Começar"
+        },
+        {
+            "key": "Quit",
+            "value": "Saída"
+        },
+        {
+            "key": "Languages",
+            "value": "Línguas"
         }
     ]
 }
