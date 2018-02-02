@@ -29,21 +29,23 @@ public class RotatingPicker : MonoBehaviour {
         GameSettings.AddMeshForIngredient(Ingredients.LargeCup, _meshForIngredient[2]);
         GameSettings.AddMeshForIngredient(Ingredients.Milk, _meshForIngredient[3]);
         GameSettings.AddMeshForIngredient(Ingredients.Caramel, _meshForIngredient[4]);
-        GameSettings.AddMeshForIngredient(Ingredients.Cherry, _meshForIngredient[5]);
-        GameSettings.AddMeshForIngredient(Ingredients.Orange, _meshForIngredient[6]);
+        GameSettings.AddMeshForIngredient(Ingredients.Chocolate, _meshForIngredient[5]);
+        GameSettings.AddMeshForIngredient(Ingredients.Vanilla, _meshForIngredient[6]);
         GameSettings.AddMeshForIngredient(Ingredients.Cocoa, _meshForIngredient[7]);
         
 
         List<Ingredient> DEBUG = new List<Ingredient>();
         Ingredient ing2 = new Ingredient(1, Unit.Cup, Ingredients.MediumCup, null);
         DEBUG.Add(ing2);
-        Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.SmallCup, null);
+        Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.Caramel, null);
         DEBUG.Add(ing);
         Ingredient ing3 = new Ingredient(1, Unit.Cup, Ingredients.LargeCup, null);
         DEBUG.Add(ing3);
-        ing3 = new Ingredient(1, Unit.Cup, Ingredients.Caramel, null);
+        ing3 = new Ingredient(1, Unit.Cup, Ingredients.Chocolate, null);
         DEBUG.Add(ing3);
         ing3 = new Ingredient(1, Unit.Cup, Ingredients.Milk, null);
+        DEBUG.Add(ing3);
+        ing3 = new Ingredient(1, Unit.Cup, Ingredients.Vanilla, null);
         DEBUG.Add(ing3);
         SetupPlate(DEBUG);
     }

@@ -27,6 +27,8 @@ public enum Ingredients {
     Sugar,
     Coffee,
     Cocoa,
+    Chocolate,
+    Vanilla,
     // Testing
     SmallCup,
     MediumCup,
