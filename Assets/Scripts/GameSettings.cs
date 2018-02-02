@@ -6,6 +6,7 @@ public static class GameSettings {
     public static float IdleHoldForce { get; set; }
     public static float MaxPressForce { get; set; }
     public static float TiltThreshold = 45;
+    public static bool ShareDeviceCalibrated = false;
     public static float ForceThreshold {
         get {
             if(IdleHoldForce == 0 || MaxPressForce == 0)

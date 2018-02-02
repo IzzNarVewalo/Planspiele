@@ -37,8 +37,6 @@ public class ShareInputManager : MonoBehaviour {
     private void Initialize()
     {
         SetShareInput();
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(transform.parent);
     }
 
     void Update()

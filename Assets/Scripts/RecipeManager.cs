@@ -25,14 +25,13 @@ public class RecipeManager : MonoBehaviour {
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
                 ShareAction.Create<ActionPutDownCup>(),
-                ShareAction.Create<ActionCalibrateForce>(),
-                ShareAction.Create<ActionPickUpCup>(),
+                ShareAction.Create<ActionSelectIngredient>(),
                 ShareAction.Create<ActionPutDownCup>()
             });
 
         List<ShareAction> listForCoffee = new List<ShareAction>(
             new ShareAction[]{
-                ShareAction.Create<ActionSelectIngredient>(),
+                ShareAction.Create<ActionSelectCoffee>(),
                 ShareAction.Create<ActionSqueeze>(),
                 ShareAction.Create<ActionPutDownCup>()
             });

@@ -9,6 +9,9 @@ public abstract class ActionAddIngredient : ShareAction {
         if (GameData.SelectedIngredient != null)
         {
             GameData.SelectedIngredient.SetProgress(progress);
+        } else
+        {
+            Debug.Log("Ingredient not selected!");
         }
 
         ProgressBarScript.value = progress;

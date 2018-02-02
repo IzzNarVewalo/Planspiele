@@ -32,7 +32,6 @@ public class ActionSqueeze : ActionAddIngredient
             _playSoundMethod = playSoundMethod;
             _stopSoundMethod = stopSoundMethod;
         }
-            
     }
 
     public override void ExitAction()

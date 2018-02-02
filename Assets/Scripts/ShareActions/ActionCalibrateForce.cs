@@ -79,6 +79,7 @@ public class ActionCalibrateForce : ShareAction
                         if (minMaxDiff < 100 && forceBuffer.Count() == (int)(_requiredConstantForceDuration * _forceBuffersPerSecond) && idleHoldForce < 0.3 * ShareInputManager.ShareInput.MaxForce())
                         {
                             GameSettings.IdleHoldForce = average;
+                            SoundEffectManager.Instance.PlaySubtaskComplete();
                             ChangeState(CalibrationState.MaxForce);
                         }
                     }
@@ -90,6 +91,9 @@ public class ActionCalibrateForce : ShareAction
                     if (!ShareInputManager.ShareInput.IsPickedUp() && appliedForce > idleHoldForce && appliedForce > 300)
                     {
                         GameSettings.MaxPressForce = ShareInputManager.ShareInput.MaxAppliedForce();
+                        GameSettings.ShareDeviceCalibrated = true;
+                        InstructionWindow.Hide();
+                        SoundEffectManager.Instance.PlaySubtaskComplete();
                         ChangeState(CalibrationState.Finished);
                     }
                     break;
@@ -110,11 +114,11 @@ public class ActionCalibrateForce : ShareAction
                 break;
 
             case CalibrationState.NormalForce:
-                ShowInstructionText(string.Format(Translation.Get("calibration_instruction"),_requiredConstantForceDuration));
+                InstructionWindow.Show((string.Format(Translation.Get("calibration_instruction"),_requiredConstantForceDuration)));
                 break;
 
             case CalibrationState.MaxForce:
-                ShowInstructionText(Translation.Get("calibration_instruction_maxforce"));
+                InstructionWindow.Show(Translation.Get("calibration_instruction_maxforce"));
                 ShareInputManager.ShareInput.ResetMaxAppliedForce();
                 break;
         }
