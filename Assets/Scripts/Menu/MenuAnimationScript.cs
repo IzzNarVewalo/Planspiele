@@ -13,8 +13,7 @@ public class MenuAnimationScript : MonoBehaviour {
     public Vector3 offscreenPos;
     Vector3 mainPos, startPos;
 
-    [SerializeField]
-    private ShareInput _shareInput;
+    private IShareInput _shareInput;
 
     [SerializeField]
     private Button startGameBtn, quitBtn, languageBtn, portBtn, engBtn, gerBtn;
@@ -33,6 +32,7 @@ public class MenuAnimationScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        _shareInput = ShareInputManager.ShareInput;
         startPos = Main.transform.position;
         mainPos = startPos;
         leftBtn = quitBtn;

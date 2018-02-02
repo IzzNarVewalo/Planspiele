@@ -60,6 +60,7 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     void Awake()
     {
+        DontDestroyOnLoad(this);
         Communication c = GetComponent<Communication>();
         if (c != null)
             _communication = c;

@@ -35,6 +35,7 @@ public class Communication : MonoBehaviour
 
     //Functions
     void Awake () {
+        DontDestroyOnLoad(this);
         //Set array size to 10:
         //  Data Structure:
         //  dataIn[0] -> Quaternion W
