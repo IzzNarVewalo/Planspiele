@@ -28,7 +28,7 @@ public class MenuAnimationScript : MonoBehaviour {
 
     private int selectedButton = 0;
 
-    private readonly float leftToMidBorder = 40, midToRightBorder = 320, leftRightBorder = 180, pressedThreshold = 1000;
+    private readonly float leftToMidBorder = 40, midToRightBorder = 320, leftRightBorder = 180;
 
 	// Use this for initialization
 	void Start () {
@@ -39,61 +39,70 @@ public class MenuAnimationScript : MonoBehaviour {
         midBtn = startGameBtn;
         rightBtn = languageBtn;
         btnText.RefreshButtonText();
+
+        if (!GameSettings.ShareDeviceCalibrated)
+        {
+            ShareAction calibrateForce = ShareAction.Create<ActionCalibrateForce>();
+            calibrateForce.EnterAction();
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        Debug.Log(GameSettings.Language);
-
-        Main.transform.position = Vector3.Lerp(Main.transform.position, mainPos, 0.1f);
-
-        float zTilt = _shareInput.GetRotation().eulerAngles.z;
-
-        if(zTilt > leftToMidBorder && zTilt < leftRightBorder) //left
+        if (GameSettings.ShareDeviceCalibrated)
         {
-            Debug.Log("left");
-            //selectedButton = -1;
-            leftBtn.Select();
-        } else if(zTilt < midToRightBorder && zTilt > leftToMidBorder) //right
-        {
-            Debug.Log("right");
-            //selectedButton = 1;
-            rightBtn.Select();
-        } else //mid
-        {
-            Debug.Log("mid");
-            //selectedButton = 0;
-            midBtn.Select();
+            Debug.Log(GameSettings.Language);
+
+            Main.transform.position = Vector3.Lerp(Main.transform.position, mainPos, 0.1f);
+
+            float zTilt = _shareInput.GetRotation().eulerAngles.z;
+
+            if (zTilt > leftToMidBorder && zTilt < leftRightBorder) //left
+            {
+                Debug.Log("left");
+                //selectedButton = -1;
+                leftBtn.Select();
+            }
+            else if (zTilt < midToRightBorder && zTilt > leftToMidBorder) //right
+            {
+                Debug.Log("right");
+                //selectedButton = 1;
+                rightBtn.Select();
+            }
+            else //mid
+            {
+                Debug.Log("mid");
+                //selectedButton = 0;
+                midBtn.Select();
+            }
+
+            if (_shareInput.GetForce() > GameSettings.ForceThreshold && timer <= 0.0f)
+            {
+                EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
+                timer = timeOut;
+            }
+
+            timer -= Time.deltaTime;
+
+            #region zeug
+            //if (_shareInput.GetForce() > pressedThreshold)
+            //{
+            //    if (selectedButton < 0)
+            //    {
+            //        leftBtn.onClick.Invoke();
+            //        quit();
+            //    }
+            //    else if (selectedButton > 0)
+            //    {
+            //        chooseLanguage();
+            //    }
+            //    else
+            //    {
+            //        startGame();
+            //    }
+            //}
+            #endregion
         }
-
-        if (_shareInput.GetForce() > pressedThreshold && timer <= 0.0f)
-        {
-            EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
-            timer = timeOut;
-        }
-        
-        timer -= Time.deltaTime;
-
-        #region zeug
-        //if (_shareInput.GetForce() > pressedThreshold)
-        //{
-        //    if (selectedButton < 0)
-        //    {
-        //        leftBtn.onClick.Invoke();
-        //        quit();
-        //    }
-        //    else if (selectedButton > 0)
-        //    {
-        //        chooseLanguage();
-        //    }
-        //    else
-        //    {
-        //        startGame();
-        //    }
-        //}
-        #endregion
-
     }
 
     public void startGame() {
