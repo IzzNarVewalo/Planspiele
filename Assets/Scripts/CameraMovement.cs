@@ -5,35 +5,33 @@ using UnityEngine;
 
 
 public class CameraMovement : MonoBehaviour {
+    [SerializeField]
+    private GameObject _cameraPositions;
+    private const float Speed = 10;
+    private bool lockCameraMovement = false;
+    private int positionCounter = 0;
 
-    public List<GameObject> cameraPositions;
-    public float speed = 10;
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.K))
+            StartCoroutine(NextPosition());
+    }
 
-    int positionCounter = 0;
-    bool moveToNextPos = false;
+    public IEnumerator NextPosition() {
+        if (lockCameraMovement)
+            yield break;
+        lockCameraMovement = true;
+        if (positionCounter < 2)
+            positionCounter++;
+        Vector3 startPos = transform.position;
+        float interpolationValue = 0.0f;
 
-
-	// Update is called once per frame
-	void Update () {
-
-        if (moveToNextPos)
-        {
-            
-            transform.position = Vector3.Lerp(transform.position, cameraPositions[positionCounter].transform.position, speed*Time.deltaTime);
-            
-            if((transform.position.x - cameraPositions[positionCounter].transform.position.x) < 0.1f)
-            {
-                moveToNextPos = false;
-            }
-
+        while (interpolationValue < 1.0f) {
+            interpolationValue += Speed * Time.deltaTime;
+            transform.position = Vector3.Slerp(startPos, _cameraPositions.transform.GetChild(positionCounter).transform.position, interpolationValue);
+            yield return new WaitForEndOfFrame();
         }
-        
-	}
+        lockCameraMovement = false;
 
-    public void switchPosition()
-    {
-        positionCounter = (positionCounter+1)%cameraPositions.Count;
-        moveToNextPos = true;
     }
 
 }
