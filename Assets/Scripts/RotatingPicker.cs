@@ -27,6 +27,11 @@ public class RotatingPicker : MonoBehaviour {
         GameSettings.AddMeshForIngredient(Ingredients.SmallCup, _meshForIngredient[0]);
         GameSettings.AddMeshForIngredient(Ingredients.MediumCup, _meshForIngredient[1]);
         GameSettings.AddMeshForIngredient(Ingredients.LargeCup, _meshForIngredient[2]);
+        GameSettings.AddMeshForIngredient(Ingredients.Milk, _meshForIngredient[3]);
+        GameSettings.AddMeshForIngredient(Ingredients.Caramel, _meshForIngredient[4]);
+        GameSettings.AddMeshForIngredient(Ingredients.Cherry, _meshForIngredient[5]);
+        GameSettings.AddMeshForIngredient(Ingredients.Orange, _meshForIngredient[6]);
+        GameSettings.AddMeshForIngredient(Ingredients.Cocoa, _meshForIngredient[7]);
         
 
         List<Ingredient> DEBUG = new List<Ingredient>();
@@ -35,6 +40,10 @@ public class RotatingPicker : MonoBehaviour {
         Ingredient ing = new Ingredient(1, Unit.Cup, Ingredients.SmallCup, null);
         DEBUG.Add(ing);
         Ingredient ing3 = new Ingredient(1, Unit.Cup, Ingredients.LargeCup, null);
+        DEBUG.Add(ing3);
+        ing3 = new Ingredient(1, Unit.Cup, Ingredients.Caramel, null);
+        DEBUG.Add(ing3);
+        ing3 = new Ingredient(1, Unit.Cup, Ingredients.Milk, null);
         DEBUG.Add(ing3);
         SetupPlate(DEBUG);
     }
@@ -75,6 +84,7 @@ public class RotatingPicker : MonoBehaviour {
                     _actualIngredient = 0;
                 }
                 transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
+                //TODO: Highlighting
             }
             yield return new WaitForEndOfFrame();
         }
@@ -116,11 +126,9 @@ public class RotatingPicker : MonoBehaviour {
         StopCoroutine(_rotation);
         var tmp = (GameObject)(transform.parent.GetComponent<IngredientHolder>().GetIngredient().GetMesh());
         Debug.Log(tmp);
-        _playerMesh.GetComponentInChildren<MeshFilter>().mesh =
-            tmp.GetComponent<MeshFilter>().sharedMesh;
+        _playerMesh.GetComponentInChildren<MeshFilter>().mesh = tmp.GetComponent<MeshFilter>().sharedMesh;
         _playerMesh.GetComponentInChildren<Renderer>().material = transform.parent.GetChild(_actualIngredient).GetComponent<Renderer>().material;
-        _playerMesh.GetComponentInChildren<Transform>().localScale =
-            new Vector3(0.5f, 0.5f, 0.5f);
+        //_playerMesh.GetComponentInChildren<Transform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
         return transform.parent.GetComponent<IngredientHolder>().GetIngredient();
     }
 
