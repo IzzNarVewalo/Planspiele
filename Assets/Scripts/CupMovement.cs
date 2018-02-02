@@ -7,7 +7,7 @@ public class CupMovement : MonoBehaviour {
 
     IShareInput _shareInput;
 
-    Transform _activeChild;
+    public Transform _activeChild;
 
     public bool LockMovement;
 

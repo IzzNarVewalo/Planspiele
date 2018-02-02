@@ -21,8 +21,19 @@ public class Coroutines : MonoBehaviour {
 
     private static IEnumerator Animate(GameObject target, Vector3 destination, float speed = 5)
     {
-        
+        Vector3 startPos = target.transform.position;
+        float startTime = Time.time;
+        float interpolationValue = 0.0f;
+        float timeNeeded = (startPos - destination).magnitude / speed;
+        float timePassed = Time.time - startTime;
+        while (timePassed < timeNeeded)
+        {
+            timePassed = (Time.time - startTime);
+            interpolationValue = Mathf.Clamp01(timePassed / timeNeeded);
+            interpolationValue = Mathf.Clamp01((Mathf.Sin((-Mathf.PI / 2) + (interpolationValue * Mathf.PI)) + 1) / 2);
+            target.transform.position = Vector3.Lerp(startPos, destination, interpolationValue);
+            yield return new WaitForEndOfFrame();
+        }
 
-        yield break;
     }
 }
