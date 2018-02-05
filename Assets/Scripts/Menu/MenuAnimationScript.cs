@@ -107,7 +107,7 @@ public class MenuAnimationScript : MonoBehaviour {
 
     public void startGame() {
         //TODO: link to aktual starting script
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level1Visuals");
     }
 
     public void chooseLanguage() {

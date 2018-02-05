@@ -33,9 +33,17 @@ public class ActionSelectIngredient : ShareAction
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
         _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponentInChildren<RotatingPicker>();
+        
+        
         if (_rotatingPicker == null)
         {
             Debug.LogError("Couldn't find the Rotating Picker with name '" + _rotatingPickerName + "' in the scene!");
+        } else
+        {
+            _rotatingPicker.Rotate();
+            Vector3 cameraAnimatePosition = Camera.main.transform.position;
+            cameraAnimatePosition.x = _rotatingPicker.transform.position.x;
+            Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
         }
     }
 

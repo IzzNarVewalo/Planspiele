@@ -21,10 +21,10 @@ public class Coroutines : MonoBehaviour {
         {
             destination += Utilities.GetBottomOffset(target);
         }
-        caller.StartCoroutine(Animate(target, destination, onFinish));
+        caller.StartCoroutine(AnimatePositionCoroutine(target, destination, onFinish));
     }
 
-    private static IEnumerator Animate(GameObject target, Vector3 destination, Action onFinish = null, float speed = 5)
+    private static IEnumerator AnimatePositionCoroutine(GameObject target, Vector3 destination, Action onFinish = null, float speed = 5)
     {
         Vector3 startPos = target.transform.position;
         float startTime = Time.time;
@@ -37,6 +37,31 @@ public class Coroutines : MonoBehaviour {
             interpolationValue = Mathf.Clamp01(timePassed / timeNeeded);
             interpolationValue = Mathf.Clamp01((Mathf.Sin((-Mathf.PI / 2) + (interpolationValue * Mathf.PI)) + 1) / 2);
             target.transform.position = Vector3.Lerp(startPos, destination, interpolationValue);
+            yield return new WaitForEndOfFrame();
+        }
+
+        if(onFinish != null)
+        {
+            onFinish.Invoke();
+        }
+    }
+
+    public static void AnimateRotation(GameObject target, Quaternion destination, MonoBehaviour caller, Action onFinish = null)
+    {
+        caller.StartCoroutine(AnimateRotationCoroutine(target, destination, onFinish));
+    }
+
+    private static IEnumerator AnimateRotationCoroutine(GameObject target, Quaternion destination, Action onFinish)
+    {
+        Quaternion startRotation = target.transform.rotation;
+        float timeNeeded = 2f;
+        float startTime = Time.time;
+        float timePassed = Time.time - startTime;
+        float progress = Mathf.Clamp01(timePassed / timeNeeded);
+        while(progress < 1)
+        {
+            progress = Mathf.Clamp01(timePassed / timeNeeded);
+            target.transform.rotation = Quaternion.Lerp(startRotation, destination, progress);
             yield return new WaitForEndOfFrame();
         }
 

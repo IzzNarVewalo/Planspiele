@@ -14,11 +14,8 @@ public class ActionPickUpCup : ShareAction {
     public override void EnterAction()
     {
         base.EnterAction();
-        Debug.Log("Enter ActionPickUpCup Action");
-
         _active = true;
         _instructionText.text = "Pick up the Share Device or press V";
-
     }
 
     protected override void SetInstructionImages()
@@ -45,6 +42,7 @@ public class ActionPickUpCup : ShareAction {
     void Update () {
         if (_active)
         {
+            Debug.Log(""+ShareInputManager.ShareInput.GetForce());
             base.Update();
             if (ShareInputManager.ShareInput.IsPickedUp())
             {

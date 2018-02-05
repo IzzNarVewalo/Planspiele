@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Utilities {
 
+    /// <summary>
+    /// Sets bottomPosition to the bottom mesh position of gameObejct, if a mesh is found on the gameObejct and returns true.
+    /// If no mesh is found, false is returned and bottomPosition is set to Vector3.zero.
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <param name="bottomPosition"></param>
+    /// <returns>True if position was found</returns>
 	public static bool GetBottomPosition(GameObject gameObject, out Vector3 bottomPosition)
     {
         MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
@@ -17,6 +24,11 @@ public class Utilities {
         return false;
     }
 
+    /// <summary>
+    /// Returns the offset of gameObjects position to the bottom of gameObjects mesh.
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <returns>Bottom-Offset</returns>
     public static Vector3 GetBottomOffset(GameObject gameObject)
     {
         Vector3 bottomPosition;

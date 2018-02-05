@@ -74,8 +74,8 @@ public class ActionCalibrateForce : ShareAction
                         }
                         float average = sum / forceBuffer.Count();
                         float minMaxDiff = max - min;
-                        Debug.Log("Min Max Diff: " + minMaxDiff);
-                        Debug.Log("Average: " + average);
+                        //Debug.Log("Min Max Diff: " + minMaxDiff);
+                        //Debug.Log("Average: " + average);
                         if (minMaxDiff < 100 && forceBuffer.Count() == (int)(_requiredConstantForceDuration * _forceBuffersPerSecond) && idleHoldForce < 0.3 * ShareInputManager.ShareInput.MaxForce())
                         {
                             GameSettings.IdleHoldForce = average;

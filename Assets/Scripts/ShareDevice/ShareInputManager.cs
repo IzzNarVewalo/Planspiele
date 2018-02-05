@@ -36,6 +36,7 @@ public class ShareInputManager : MonoBehaviour {
 
     private void Initialize()
     {
+        Debug.Log("Initializing Share Input Manager");
         SetShareInput();
     }
 
@@ -55,7 +56,7 @@ public class ShareInputManager : MonoBehaviour {
         {
             Destroy(gameObject.GetComponent(_shareInputType));
         }
-            
+
         switch (_inputType)
         {
             case ShareInputType.Keyboard:

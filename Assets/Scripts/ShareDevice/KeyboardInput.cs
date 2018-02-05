@@ -53,6 +53,10 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         CheckForce();
         CheckRotation();
         CheckPickUp();
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("Keyboard K pressed");
+        }
 	}
 
     void CheckForce()
@@ -67,6 +71,8 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         {
             _force = Mathf.Clamp(_force - Time.deltaTime * 2000, -5, MaxForce());
         }
+
+        Debug.Log("Force: " + _force);
     }
 
     void CheckRotation()
@@ -75,6 +81,9 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         if(horizontal != 0)
         {
             _rotation = Quaternion.RotateTowards(_rotation, Quaternion.Euler(0, 0, (horizontal / Mathf.Abs(horizontal)) * 70), Mathf.Abs(horizontal) * Time.deltaTime * 20);
+        } else
+        {
+            _rotation = Quaternion.RotateTowards(_rotation, Quaternion.identity, Time.deltaTime * 40);
         }
     }
 
