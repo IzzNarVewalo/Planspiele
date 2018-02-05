@@ -52,6 +52,7 @@ public class ActionSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
+        base.EnterAction();
         Debug.Log("Enter ActionSqueeze Action");
         inS = ShareInputManager.ShareInput;
         _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
@@ -64,7 +65,6 @@ public class ActionSqueeze : ActionAddIngredient
     // Update is called once per frame
     new void Update()
     {
-       
         if (_active)
         {
             base.Update();

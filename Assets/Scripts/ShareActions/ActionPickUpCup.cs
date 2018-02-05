@@ -13,6 +13,7 @@ public class ActionPickUpCup : ShareAction {
 
     public override void EnterAction()
     {
+        base.EnterAction();
         Debug.Log("Enter ActionPickUpCup Action");
 
         _active = true;
@@ -29,13 +30,22 @@ public class ActionPickUpCup : ShareAction {
 
     public override void ExitAction()
     {
+        base.ExitAction();
+
         SoundEffectManager.Instance.PlayLiftCup();
+
+        CupMovement cupMovement = FindObjectOfType<CupMovement>();
+        if (cupMovement != null)
+        {
+            cupMovement.LockMovement = false;
+        }
     }
 
     // Update is called once per frame
     void Update () {
         if (_active)
         {
+            base.Update();
             if (ShareInputManager.ShareInput.IsPickedUp())
             {
                 pickedUp = true;

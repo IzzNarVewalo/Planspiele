@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +15,16 @@ public class Coroutines : MonoBehaviour {
 		
 	}
 
-    public static void AnimatePosition(GameObject target, Vector3 destination, MonoBehaviour caller)
+    public static void AnimatePosition(GameObject target, Vector3 destination, MonoBehaviour caller, bool applyBottomOffset = false, Action onFinish = null)
     {
-        caller.StartCoroutine(Animate(target, destination));
+        if (applyBottomOffset)
+        {
+            destination += Utilities.GetBottomOffset(target);
+        }
+        caller.StartCoroutine(Animate(target, destination, onFinish));
     }
 
-    private static IEnumerator Animate(GameObject target, Vector3 destination, float speed = 5)
+    private static IEnumerator Animate(GameObject target, Vector3 destination, Action onFinish = null, float speed = 5)
     {
         Vector3 startPos = target.transform.position;
         float startTime = Time.time;
@@ -35,5 +40,9 @@ public class Coroutines : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
 
+        if(onFinish != null)
+        {
+            onFinish.Invoke();
+        }
     }
 }

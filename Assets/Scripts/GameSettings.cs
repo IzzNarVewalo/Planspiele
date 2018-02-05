@@ -9,9 +9,9 @@ public static class GameSettings {
     public static bool ShareDeviceCalibrated = false;
     public static float ForceThreshold {
         get {
-            if(IdleHoldForce == 0 || MaxPressForce == 0)
+            if(!ShareDeviceCalibrated)
             {
-                return 300;
+                return 500;
             }
             return IdleHoldForce + 0.5f * (MaxPressForce - IdleHoldForce);
         }

@@ -4,40 +4,50 @@ using UnityEngine;
 
 public class ActionSelectCoffee : ShareAction {
 
-    bool finished = false;
+    bool _finished = false;
+
+    bool _cupPutDown = false;
+
+    bool _initialAnimationDone = false;
+
+    CupMovement _cupMovement;
+
+    Vector3 _animateCupTo = Vector3.zero;
+
+    IShareInput _shareInput;
 
     public override bool Finished()
     {
-        return finished;
+        return _finished;
     }
 
     protected override void SetInstructionImages()
     {
-        instructionImages = null;
+        Debug.Log("Instruction images...");
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Lay1");
+        instructionImages[1] = Resources.Load<Sprite>("Lay2");
     }
 
     public override void EnterAction()
     {
         base.EnterAction();
-        CupMovement cupMovement = FindObjectOfType<CupMovement>();
-        cupMovement.LockMovement = true;
-        
-        float coffeeCupOffset = 0;
-        MeshFilter meshFilter = cupMovement._activeChild.GetComponent<MeshFilter>();
-        if(meshFilter != null)
+        _cupMovement = FindObjectOfType<CupMovement>();
+        if(_cupMovement == null)
         {
-            coffeeCupOffset = meshFilter.mesh.bounds.extents.y / 2;
-            Debug.Log(cupMovement.transform.position);
-            Debug.Log(meshFilter.mesh.bounds.extents);
+            Debug.LogError("Couldn't find the CupMovement Object in the Scene!");
         }
+        
         GameObject fillInCoffePosition = GameObject.FindGameObjectWithTag("FillInCoffeeZone");
-        Vector3 animateCupTo = fillInCoffePosition.transform.position + new Vector3(0, coffeeCupOffset, 0);
-        Vector3 cameraPosition = Camera.main.transform.position;
-        cameraPosition.x = fillInCoffePosition.transform.position.x;
         if(fillInCoffePosition != null)
         {
-            Coroutines.AnimatePosition(cupMovement.gameObject, animateCupTo, this);
+            Vector3 cameraPosition = Camera.main.transform.position;
+            cameraPosition.x = fillInCoffePosition.transform.position.x;
+            _animateCupTo = cameraPosition + Camera.main.transform.forward * 4 + Vector3.down + Vector3.right;
+            Coroutines.AnimatePosition(_cupMovement._activeChild.gameObject, _animateCupTo, this, true, OnAnimationFinish);
             Coroutines.AnimatePosition(Camera.main.gameObject, cameraPosition, this);
+            _animateCupTo = fillInCoffePosition.transform.position;
+            Debug.Log(_animateCupTo);
         } else
         {
             Debug.LogError("Couldn't find the CoffeeMachine Position to animate the coffee cup to.");
@@ -47,11 +57,43 @@ public class ActionSelectCoffee : ShareAction {
 
     // Use this for initialization
     void Start () {
-        
+        _shareInput = ShareInputManager.ShareInput;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (_active)
+        {
+            base.Update();
+            if (!_shareInput.IsPickedUp() && !_cupPutDown && _initialAnimationDone)
+            {
+                _cupPutDown = true;
+                _cupMovement.LockMovement = true;
+                Coroutines.AnimatePosition(_cupMovement._activeChild.gameObject, _animateCupTo, this, true, OnAnimationFinish);
+                List<Ingredient> ingredients = RecipeManager._activeRecipe.GetIngredientsList();
+                bool found = false;
+                foreach(Ingredient ingredient in ingredients)
+                {
+                    if(ingredient.GetIngredientType() == Ingredients.Coffee)
+                    {
+                        GameData.SelectedIngredient = ingredient;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    Debug.LogError("Couldn't find the Coffe Ingredient in the Recipe!");
+                }
+            }
+        }
 	}
+
+    void OnAnimationFinish()
+    {
+        if (!_initialAnimationDone)
+            _initialAnimationDone = true;
+        else
+            _finished = true;
+    }
 }
