@@ -57,7 +57,7 @@ public class ActionRotate : ActionAddIngredient {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
 
-                GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
+                //GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
                 if (_playSound)
                 {
                     _playSound = false;

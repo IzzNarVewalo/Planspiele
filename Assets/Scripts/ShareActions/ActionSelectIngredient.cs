@@ -48,12 +48,15 @@ public class ActionSelectIngredient : ShareAction
         {
             _picker.SetupIngredients();
             _picker.Rotate();
-            Vector3 cameraAnimatePosition = Camera.main.transform.position;
-            cameraAnimatePosition.x = _picker.transform.position.x - 3.5f;
-            Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
+
             Vector3 playerPosition = _cupMovement.transform.position;
             playerPosition.x = _picker.transform.position.x - 7f;
             _cupMovement.transform.position = playerPosition;
+
+            Vector3 cameraAnimatePosition = Camera.main.transform.position;
+            cameraAnimatePosition.x = _picker.transform.position.x - 3.5f;
+            Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
+            
 
         } else
         {
@@ -91,6 +94,7 @@ public class ActionSelectIngredient : ShareAction
 
     private void OnIngredientPickedUp()
     {
+        Debug.Log("Unlocked");
         _lock = false;
     }
 
@@ -112,8 +116,9 @@ public class ActionSelectIngredient : ShareAction
                         {
                             Debug.LogError("Selected ingredient null");
                         }
-                        _cupMovement.PickUpObject(_selectedIngredient.gameObject, OnIngredientPickedUp);
                         _lock = true;
+                        _cupMovement.PickUpObject(_selectedIngredient.gameObject, OnIngredientPickedUp);
+                        
                     }
 
                     if (_shareInput.GetForce() >= GameSettings.ForceThreshold)
@@ -142,8 +147,9 @@ public class ActionSelectIngredient : ShareAction
                 {
                     if (_selectedIngredient != null)
                     {
-                        _cupMovement.PutDownObject(OnIngredientPutDown);
                         _lock = true;
+                        _cupMovement.PutDownObject(OnIngredientPutDown);
+
                         _selectedIngredient = null;
                     }
                 }

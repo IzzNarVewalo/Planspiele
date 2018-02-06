@@ -27,10 +27,14 @@ public class IngredientPicker : MonoBehaviour {
 
     private bool _cupSelected = false;
 
+    private Quaternion initialRotation;
+
 	// Use this for initialization
 	void Start () {
+        initialRotation = transform.rotation;
         SetupIngredients();
         Rotate();
+        
 	}
 	
 	// Update is called once per frame
@@ -83,7 +87,10 @@ public class IngredientPicker : MonoBehaviour {
 
     public void SetupIngredients()
     {
+
+        _lastTimeOffset = 0;
         _currentIndex = 0;
+        transform.rotation = initialRotation;
 
         if(_currentIngredients != null)
         {
@@ -93,7 +100,16 @@ public class IngredientPicker : MonoBehaviour {
             }
         }
 
-        _currentIngredients = _cupSelected ? _ingredients : _cups;
+        int length = _cupSelected ? _ingredients.Length : _cups.Length;
+        GameObject[] copy = new GameObject[length];
+        GameObject[] toCopy = _cupSelected ? _ingredients : _cups;
+        for(int i = 0; i < length; i++)
+        {
+            copy[i] = toCopy[i];
+        }
+
+        _currentIngredients = copy;
+        
 
         if (_currentIngredients.Length > 0)
         {
@@ -115,7 +131,7 @@ public class IngredientPicker : MonoBehaviour {
     {
         if (_light != null)
         {
-            _light.transform.position = toHighlight.transform.position + toHighlight.transform.up * 3;
+            _light.transform.position = toHighlight.transform.position + toHighlight.transform.up * 4;
             _light.transform.forward = (toHighlight.transform.position - _light.transform.position).normalized;
         }
     }
