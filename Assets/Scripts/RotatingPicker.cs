@@ -102,8 +102,8 @@ public class RotatingPicker : MonoBehaviour {
             if(_ingredientMeshDEBUG != null)
             {
                 GameObject tmp = (GameObject)_ingredientMeshDEBUG;
-                Debug.Log(_ingredientMeshDEBUG.name);
-                Debug.Log(ingredients[i].GetIngredientType());
+                //Debug.Log(_ingredientMeshDEBUG.name);
+                //Debug.Log(ingredients[i].GetIngredientType());
                 Vector3 pos = new Vector3(transform.position.x, transform.position.y + tmp.transform.localScale.y / 2, transform.position.z);
 
                 //get the correct mesh
@@ -114,7 +114,7 @@ public class RotatingPicker : MonoBehaviour {
                 tmp.transform.position += 1.5f * tmp.transform.forward;
                 //reset angle
                 tmp.transform.rotation = Quaternion.identity;
-                Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
+                //Debug.Log(pos + " " + angle + " " + tmp.transform.forward);
                 transform.parent.GetComponent<IngredientHolder>().SetIngredient(_ingredientsOnPlate[_actualIngredient]);
             }
             
@@ -127,7 +127,7 @@ public class RotatingPicker : MonoBehaviour {
         _canPickUp = false;
         StopCoroutine(_rotation);
         var tmp = (GameObject)(transform.parent.GetComponent<IngredientHolder>().GetIngredient().GetMesh());
-        Debug.Log(tmp);
+        //Debug.Log(tmp);
         _playerMesh.GetComponentInChildren<MeshFilter>().mesh = tmp.GetComponent<MeshFilter>().sharedMesh;
         _playerMesh.GetComponentInChildren<Renderer>().material = transform.parent.GetChild(_actualIngredient).GetComponent<Renderer>().material;
         //_playerMesh.GetComponentInChildren<Transform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);

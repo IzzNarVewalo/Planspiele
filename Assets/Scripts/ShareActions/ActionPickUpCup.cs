@@ -13,11 +13,9 @@ public class ActionPickUpCup : ShareAction {
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionPickUpCup Action");
-
+        base.EnterAction();
         _active = true;
         _instructionText.text = "Pick up the Share Device or press V";
-
     }
 
     protected override void SetInstructionImages()
@@ -29,13 +27,22 @@ public class ActionPickUpCup : ShareAction {
 
     public override void ExitAction()
     {
+        base.ExitAction();
+
         SoundEffectManager.Instance.PlayLiftCup();
+
+        CupMovement cupMovement = FindObjectOfType<CupMovement>();
+        if (cupMovement != null)
+        {
+            cupMovement.LockMovement = false;
+        }
     }
 
     // Update is called once per frame
     void Update () {
         if (_active)
         {
+            base.Update();
             if (ShareInputManager.ShareInput.IsPickedUp())
             {
                 pickedUp = true;

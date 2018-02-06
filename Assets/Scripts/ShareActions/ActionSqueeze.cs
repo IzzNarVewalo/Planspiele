@@ -37,8 +37,7 @@ public class ActionSqueeze : ActionAddIngredient
     public override void ExitAction()
     {
         base.ExitAction();
-        if (GameData.SelectedIngredient != null&&GameData.SelectedIngredient.GetProgress() < 1.0f)
-            GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
+        
         ProgressBarScript.value = 0;
     }
 
@@ -52,7 +51,7 @@ public class ActionSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionSqueeze Action");
+        base.EnterAction();
         inS = ShareInputManager.ShareInput;
         _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
         _stopSoundMethod = SoundEffectManager.Instance.StopSplash;
@@ -64,7 +63,6 @@ public class ActionSqueeze : ActionAddIngredient
     // Update is called once per frame
     new void Update()
     {
-       
         if (_active)
         {
             base.Update();
@@ -72,7 +70,7 @@ public class ActionSqueeze : ActionAddIngredient
             {
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
-                GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
+                //GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
                 if (playSound)
                 {
                     _playSoundMethod();

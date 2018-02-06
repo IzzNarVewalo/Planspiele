@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,9 +8,14 @@ public class CupMovement : MonoBehaviour {
 
     IShareInput _shareInput;
 
-    Transform _activeChild;
+    public Transform _activeChild;
 
     public bool LockMovement;
+
+    private Vector3 _activeChildLocalPositionBeforePickUp;
+    private Quaternion _activeChildLocalRotationBeforePickup;
+    private Transform _activeChildParentBeforePickUp;
+    
 
     private void Awake()
     {
@@ -32,8 +38,35 @@ public class CupMovement : MonoBehaviour {
             }
         } else if(transform.childCount > 0)
         {
-            _activeChild = transform.GetChild(0);
+            PickUpObject(transform.GetChild(0).gameObject);
         }
     }
 
+    public void PickUpObject(GameObject objectToHold, Action onFinish = null)
+    {
+        Vector3 lastPosition = transform.position;
+        if (_activeChild != null)
+            lastPosition = _activeChild.position;
+
+        PutDownObject();
+
+        _activeChildParentBeforePickUp = objectToHold.transform.parent;
+        _activeChildLocalPositionBeforePickUp = objectToHold.transform.position;
+        _activeChildLocalRotationBeforePickup = objectToHold.transform.rotation;
+        _activeChild = objectToHold.transform;
+        _activeChild.transform.parent = transform;
+
+        Coroutines.AnimatePosition(_activeChild.gameObject, lastPosition, this, true, onFinish);
+    }
+
+    public void PutDownObject(Action onFinish = null)
+    {
+        if (_activeChild != null)
+        {
+            _activeChild.parent = _activeChildParentBeforePickUp;
+            Coroutines.AnimatePosition(_activeChild.gameObject, _activeChildLocalPositionBeforePickUp, this, false, onFinish);
+            Coroutines.AnimateRotation(_activeChild.gameObject, _activeChildLocalRotationBeforePickup, this);
+            _activeChild = null;
+        }
+    }
 }

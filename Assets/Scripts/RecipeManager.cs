@@ -24,34 +24,35 @@ public class RecipeManager : MonoBehaviour {
 
         List<ShareAction> listForCup = new List<ShareAction>(
             new ShareAction[]{
-                ShareAction.Create<ActionPutDownCup>(),
                 ShareAction.Create<ActionSelectIngredient>(),
-                ShareAction.Create<ActionPutDownCup>()
+                ShareAction.Create<ActionAddImmediate>(),
             });
 
         List<ShareAction> listForCoffee = new List<ShareAction>(
             new ShareAction[]{
                 ShareAction.Create<ActionSelectCoffee>(),
+                ShareAction.Create<ActionPutDownCup>(),
+                ShareAction.Create<ActionPickUpCup>(),
                 ShareAction.Create<ActionSqueeze>(),
-                ShareAction.Create<ActionPutDownCup>()
+                ShareAction.Create<ActionPutDownCup>(),
             });
 
         List<ShareAction> listForMilk = new List<ShareAction>(
             new ShareAction[]{
-                ShareAction.Create<ActionPickUpCup>(), 
+                ShareAction.Create<ActionSelectIngredient>(),
                 ShareAction.Create<ActionRotate>(), 
                 ShareAction.Create<ActionPutDownCup>(), 
             });
 
         List<ShareAction> listForCaramel = new List<ShareAction>(
             new ShareAction[]{
-                ShareAction.Create<ActionPickUpCup>(),
+                ShareAction.Create<ActionSelectIngredient>(),
                 ShareAction.Create<ActionRotateSqueeze>(), 
                 ShareAction.Create<ActionPutDownCup>(),
             });
 
         _recipes.Add(new Recipe("DemoRecipe",
-            0,Size.Small,
+            0,Size.Big,
             new List<Ingredient>(
                 new Ingredient[] {
                     new Ingredient(1, Unit.Cup, Ingredients.LargeCup, listForCup),

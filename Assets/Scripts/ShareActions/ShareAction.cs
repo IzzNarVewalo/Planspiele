@@ -125,7 +125,7 @@ public abstract class ShareAction : MonoBehaviour {
     /// You can do all the setup you need for the action here.
     /// </summary>
     public virtual void EnterAction() {
-        Debug.Log("Enter Action " + GetType());
+        //Debug.Log("Enter Action " + GetType());
         _active = true;
         SetInstructionImages();
         
@@ -137,7 +137,7 @@ public abstract class ShareAction : MonoBehaviour {
     /// </summary>
     public virtual void ExitAction()
     {
-        Debug.Log("Exit Action " + GetType());
+        //Debug.Log("Exit Action " + GetType());
         _active = false;
     }
     	

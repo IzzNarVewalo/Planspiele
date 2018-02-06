@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class Ingredient {
+public class Ingredient : MonoBehaviour{
     public static Dictionary<Ingredients, string> IngredientToString;
     public static Dictionary<Unit, string> UnitToString;
     // Includes the actions for each Ingredient that need to be fulfilled to add the ingredient

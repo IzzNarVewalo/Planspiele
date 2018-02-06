@@ -13,10 +13,9 @@ public class ActionPutDownCup : ShareAction {
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionPutDownCup Action");
-        _active = true;
+        base.EnterAction();
+        
         _instructionText.text = "Put down the Share Device or press D";
-
     }
 
     protected override void SetInstructionImages()
@@ -29,17 +28,24 @@ public class ActionPutDownCup : ShareAction {
     public override void ExitAction()
     {
         SoundEffectManager.Instance.PlayPutCup();
+
+        CupMovement cupMovement = FindObjectOfType<CupMovement>();
+        if (cupMovement != null)
+        {
+            cupMovement.LockMovement = true;
+        }
     }
 
     // Update is called once per frame
     new void Update()
     {
-
-        if (!ShareInputManager.ShareInput.IsPickedUp())
+        if (_active)
         {
-            satDown = true;
+            base.Update();
+            if (!ShareInputManager.ShareInput.IsPickedUp())
+            {
+                satDown = true;
+            }
         }
-
-
     }
 }
