@@ -42,7 +42,6 @@ public class ActionPickUpCup : ShareAction {
     void Update () {
         if (_active)
         {
-            Debug.Log(""+ShareInputManager.ShareInput.GetForce());
             base.Update();
             if (ShareInputManager.ShareInput.IsPickedUp())
             {

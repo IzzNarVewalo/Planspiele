@@ -7,11 +7,15 @@ public class ActionSelectIngredient : ShareAction
 
     private bool _ingredientIsSelected = false;
 
+    private bool _lock = false;
+
     private Ingredient _selectedIngredient = null;
 
     private IShareInput _shareInput;
 
     private RotatingPicker _rotatingPicker;
+    private IngredientPicker _picker;
+    private CupMovement _cupMovement;
 
     private static string _rotatingPickerName = "PlateHolder";
 
@@ -23,18 +27,40 @@ public class ActionSelectIngredient : ShareAction
 
     protected override void SetInstructionImages()
     {
-        instructionImages = null;
+        instructionImages = new Sprite[2];
+        instructionImages[0] = Resources.Load<Sprite>("Take1");
+        instructionImages[1] = Resources.Load<Sprite>("Take2");
     }
 
     public override void EnterAction()
     {
-        Debug.Log("Enter ActionSelectIngredient Action");
+        base.EnterAction();
         ShowInstructionText("Pick up the cup to stop the rotation and select the ingredient.");
         _shareInput = ShareInputManager.ShareInput;
         _active = true;
-        _rotatingPicker = GameObject.Find(_rotatingPickerName).GetComponentInChildren<RotatingPicker>();
+        GameObject rotatingPickerObject = GameObject.Find(_rotatingPickerName);
+        if(rotatingPickerObject != null)
+            _rotatingPicker = rotatingPickerObject.GetComponentInChildren<RotatingPicker>();
+        _picker = FindObjectOfType<IngredientPicker>();
+        _cupMovement = FindObjectOfType<CupMovement>();
+        if(_cupMovement == null)
+        {
+            Debug.LogError("Cup movement not found");
+        }
         
-        
+        if(_picker != null)
+        {
+            _picker.SetupIngredients();
+            _picker.Rotate();
+            Vector3 cameraAnimatePosition = Camera.main.transform.position;
+            cameraAnimatePosition.x = _picker.transform.position.x;
+            Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
+
+        } else
+        {
+            Debug.LogError("Couldn't find IngredientPicker!");
+        }
+
         if (_rotatingPicker == null)
         {
             Debug.LogError("Couldn't find the Rotating Picker with name '" + _rotatingPickerName + "' in the scene!");
@@ -50,10 +76,6 @@ public class ActionSelectIngredient : ShareAction
     public override void ExitAction()
     {
         base.ExitAction();
-        if(GameData.SelectedIngredient.GetIngredientType() == Ingredients.LargeCup || GameData.SelectedIngredient.GetIngredientType() == Ingredients.MediumCup || GameData.SelectedIngredient.GetIngredientType() == Ingredients.SmallCup)
-        {
-            _rotatingPicker.SetupPlate(RecipeManager._activeRecipe.GetIngredientsList());
-        }
     }
 
     // Use this for initialization
@@ -62,19 +84,37 @@ public class ActionSelectIngredient : ShareAction
 
     }
 
+    private void OnIngredientPutDown()
+    {
+        _picker.Rotate();
+        _lock = false;
+    }
+
+    private void OnIngredientPickedUp()
+    {
+        _lock = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (_active)
+        if (_active && !_lock)
         {
-            if (_rotatingPicker != null)
+            base.Update();
+            if (_picker != null)
             {
                 if (_shareInput.IsPickedUp())
                 {
                     if (_selectedIngredient == null)
                     {
                         SoundEffectManager.Instance.PlayLiftCup();
-                        _selectedIngredient = _rotatingPicker.Select();
+                        _selectedIngredient = _picker.Select();
+                        if(_selectedIngredient == null)
+                        {
+                            Debug.LogError("Selected ingredient null");
+                        }
+                        _cupMovement.PickUpObject(_selectedIngredient.gameObject, OnIngredientPickedUp);
+                        _lock = true;
                     }
 
                     if (_shareInput.GetForce() >= GameSettings.ForceThreshold)
@@ -91,7 +131,7 @@ public class ActionSelectIngredient : ShareAction
                                     break;
                             }
                         }
-                        if (GameData.SelectedIngredient == null)
+                        if (ReferenceEquals(GameData.SelectedIngredient, null))
                         {
                             GameData.SelectedIngredient = _selectedIngredient;
                         }
@@ -103,8 +143,9 @@ public class ActionSelectIngredient : ShareAction
                 {
                     if (_selectedIngredient != null)
                     {
+                        _cupMovement.PutDownObject(OnIngredientPutDown);
+                        _lock = true;
                         _selectedIngredient = null;
-                        _rotatingPicker.Rotate();
                     }
                 }
             }

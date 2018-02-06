@@ -32,7 +32,7 @@ public class ActionRotate : ActionAddIngredient {
     public override void ExitAction()
     {
         base.ExitAction();
-        if (GameData.SelectedIngredient != null && GameData.SelectedIngredient.GetProgress() < 1.0f)
+        if (!ReferenceEquals(GameData.SelectedIngredient, null) && GameData.SelectedIngredient.GetProgress() < 1.0f)
             GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
         ProgressBarScript.value = 0;
     }

@@ -39,4 +39,27 @@ public class Utilities {
         return bottomPosition;
     }
 
+    public static bool GetBottomPositionLocal(GameObject gameObject, out Vector3 bottomPosition)
+    {
+        MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            bottomPosition = gameObject.transform.localPosition;
+            bottomPosition.y = gameObject.transform.localPosition.y - meshFilter.mesh.bounds.extents.y * gameObject.transform.localScale.y;
+            return true;
+        }
+        bottomPosition = Vector3.zero;
+        return false;
+    }
+
+    public static Vector3 GetBottomOffsetLocal(GameObject gameObject)
+    {
+        Vector3 bottomPosition;
+        if (GetBottomPositionLocal(gameObject, out bottomPosition))
+        {
+            return gameObject.transform.localPosition - bottomPosition;
+        }
+        return bottomPosition;
+    }
+
 }

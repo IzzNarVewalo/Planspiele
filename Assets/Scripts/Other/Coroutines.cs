@@ -56,14 +56,17 @@ public class Coroutines : MonoBehaviour {
         Quaternion startRotation = target.transform.rotation;
         float timeNeeded = 2f;
         float startTime = Time.time;
-        float timePassed = Time.time - startTime;
+        float timePassed = 0;
         float progress = Mathf.Clamp01(timePassed / timeNeeded);
         while(progress < 1)
         {
+            timePassed = Time.time - startTime;
             progress = Mathf.Clamp01(timePassed / timeNeeded);
             target.transform.rotation = Quaternion.Lerp(startRotation, destination, progress);
             yield return new WaitForEndOfFrame();
         }
+
+        Debug.Log("Rotated!");
 
         if(onFinish != null)
         {

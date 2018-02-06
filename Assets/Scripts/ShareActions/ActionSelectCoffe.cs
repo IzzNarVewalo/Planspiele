@@ -23,7 +23,6 @@ public class ActionSelectCoffee : ShareAction {
 
     protected override void SetInstructionImages()
     {
-        Debug.Log("Instruction images...");
         instructionImages = new Sprite[2];
         instructionImages[0] = Resources.Load<Sprite>("Lay1");
         instructionImages[1] = Resources.Load<Sprite>("Lay2");

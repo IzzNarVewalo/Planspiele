@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,8 +12,8 @@ public class CupMovement : MonoBehaviour {
 
     public bool LockMovement;
 
-    private Vector3 _activeChildPositionBeforePickUp;
-    private Quaternion _activeChildRotationBeforePickup;
+    private Vector3 _activeChildLocalPositionBeforePickUp;
+    private Quaternion _activeChildLocalRotationBeforePickup;
     private Transform _activeChildParentBeforePickUp;
     
 
@@ -41,7 +42,7 @@ public class CupMovement : MonoBehaviour {
         }
     }
 
-    public void PickUpObject(GameObject objectToHold)
+    public void PickUpObject(GameObject objectToHold, Action onFinish = null)
     {
         Vector3 lastPosition = transform.position;
         if (_activeChild != null)
@@ -50,21 +51,22 @@ public class CupMovement : MonoBehaviour {
         PutDownObject();
 
         _activeChildParentBeforePickUp = objectToHold.transform.parent;
-        _activeChildPositionBeforePickUp = objectToHold.transform.position;
-        _activeChildRotationBeforePickup = objectToHold.transform.rotation;
+        _activeChildLocalPositionBeforePickUp = objectToHold.transform.position;
+        _activeChildLocalRotationBeforePickup = objectToHold.transform.rotation;
         _activeChild = objectToHold.transform;
         _activeChild.transform.parent = transform;
 
-        Coroutines.AnimatePosition(_activeChild.gameObject, lastPosition, this, true);
+        Coroutines.AnimatePosition(_activeChild.gameObject, lastPosition, this, true, onFinish);
     }
 
-    public void PutDownObject()
+    public void PutDownObject(Action onFinish = null)
     {
         if (_activeChild != null)
         {
             _activeChild.parent = _activeChildParentBeforePickUp;
-            Coroutines.AnimatePosition(_activeChild.gameObject, _activeChildPositionBeforePickUp, this);
-            Coroutines.AnimateRotation(_activeChild.gameObject, _activeChildRotationBeforePickup, this);
+            Coroutines.AnimatePosition(_activeChild.gameObject, _activeChildLocalPositionBeforePickUp, this, false, onFinish);
+            Coroutines.AnimateRotation(_activeChild.gameObject, _activeChildLocalRotationBeforePickup, this);
+            _activeChild = null;
         }
     }
 }

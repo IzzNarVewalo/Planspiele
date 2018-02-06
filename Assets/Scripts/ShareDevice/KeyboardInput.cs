@@ -53,10 +53,6 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         CheckForce();
         CheckRotation();
         CheckPickUp();
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("Keyboard K pressed");
-        }
 	}
 
     void CheckForce()
@@ -71,8 +67,6 @@ public class KeyboardInput : MonoBehaviour, IShareInput {
         {
             _force = Mathf.Clamp(_force - Time.deltaTime * 2000, -5, MaxForce());
         }
-
-        Debug.Log("Force: " + _force);
     }
 
     void CheckRotation()
