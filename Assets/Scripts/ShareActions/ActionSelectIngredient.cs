@@ -43,22 +43,21 @@ public class ActionSelectIngredient : ShareAction
             _rotatingPicker = rotatingPickerObject.GetComponentInChildren<RotatingPicker>();
         _picker = FindObjectOfType<IngredientPicker>();
         _cupMovement = FindObjectOfType<CupMovement>();
-        if(_cupMovement == null)
-        {
-            Debug.LogError("Cup movement not found");
-        }
         
-        if(_picker != null)
+        if(_picker != null && _cupMovement != null)
         {
             _picker.SetupIngredients();
             _picker.Rotate();
             Vector3 cameraAnimatePosition = Camera.main.transform.position;
-            cameraAnimatePosition.x = _picker.transform.position.x;
+            cameraAnimatePosition.x = _picker.transform.position.x - 3.5f;
             Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
+            Vector3 playerPosition = _cupMovement.transform.position;
+            playerPosition.x = _picker.transform.position.x - 7f;
+            _cupMovement.transform.position = playerPosition;
 
         } else
         {
-            Debug.LogError("Couldn't find IngredientPicker!");
+            Debug.LogError("Couldn't find IngredientPicker or CupMovement!");
         }
 
         if (_rotatingPicker == null)

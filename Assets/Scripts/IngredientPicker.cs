@@ -97,15 +97,15 @@ public class IngredientPicker : MonoBehaviour {
 
         if (_currentIngredients.Length > 0)
         {
-            float radius = 1;
+            float radius = 1.3f;
             float degreesPerIngredient = 360 / _currentIngredients.Length;
             for (int i = 0; i < _currentIngredients.Length; i++)
             {
                 GameObject current = _currentIngredients[i];
                 current = Instantiate(current, transform);
                 current.transform.position = transform.position + Utilities.GetBottomOffset(current);
-                current.transform.Rotate(Vector3.up, -i * degreesPerIngredient, Space.Self);
-                current.transform.Translate(Vector3.forward, Space.Self);
+                current.transform.Rotate(Vector3.up, i * degreesPerIngredient, Space.Self);
+                current.transform.Translate(Vector3.forward * radius, Space.Self);
                 _currentIngredients[i] = current;
             }
         }

@@ -39,6 +39,7 @@ public class CupMovement : MonoBehaviour {
         } else if(transform.childCount > 0)
         {
             PickUpObject(transform.GetChild(0).gameObject);
+            Debug.Log("No active child");
         }
     }
 
