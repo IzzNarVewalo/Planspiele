@@ -55,7 +55,7 @@ public class ActionRotateSqueeze : ActionAddIngredient
                 howLong = howLong + Time.deltaTime;
                 UpdateIngredientProgress(howLong / Duration);
 
-                GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
+                //GameObject.FindObjectOfType<ShaderScript>().setFillHeight(howLong / Duration);
                 if (playSound)
                 {
                     SoundEffectManager.Instance.PlaySauceSqueezing();

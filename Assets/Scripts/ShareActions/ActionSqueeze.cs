@@ -10,7 +10,7 @@ public class ActionSqueeze : ActionAddIngredient
     private float howLong = 0;
     public float Duration = 5;
     IShareInput inS;
-    CupMovement cupMovement;
+    
 
     public delegate void PlaySoundMethod();
     PlaySoundMethod _playSoundMethod;
@@ -53,22 +53,13 @@ public class ActionSqueeze : ActionAddIngredient
     public override void EnterAction()
     {
         base.EnterAction();
-        cupMovement = FindObjectOfType<CupMovement>();
+        
         inS = ShareInputManager.ShareInput;
         _playSoundMethod = SoundEffectManager.Instance.PlaySplash;
         _stopSoundMethod = SoundEffectManager.Instance.StopSplash;
         _active = true;
         ShowInstructionText("Squeeze the Device.");
-        if (!ReferenceEquals(GameData.SelectedIngredient, null))
-        {
-            if(GameData.SelectedIngredient.GetIngredientType() == Ingredients.Coffee && cupMovement != null)
-            {
-                cupMovement.LockMovement = true;
-            } else
-            {
-                cupMovement.LockMovement = false;
-            }
-        }
+        
         SetInstructionImages();
     }
 

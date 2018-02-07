@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class ActionAddIngredient : ShareAction {
 
+    CupMovement cupMovement;
+
     protected void UpdateIngredientProgress(float progress)
     {
         if (!ReferenceEquals(GameData.SelectedIngredient, null))
@@ -15,6 +17,25 @@ public abstract class ActionAddIngredient : ShareAction {
         }
 
         ProgressBarScript.value = progress;
+    }
+
+    public override void EnterAction()
+    {
+        base.EnterAction();
+
+        cupMovement = FindObjectOfType<CupMovement>();
+
+        if (!ReferenceEquals(GameData.SelectedIngredient, null))
+        {
+            if (GameData.SelectedIngredient.GetIngredientType() == Ingredients.Coffee && cupMovement != null)
+            {
+                cupMovement.LockMovement = true;
+            }
+            else
+            {
+                cupMovement.LockMovement = false;
+            }
+        }
     }
 
     public override void ExitAction()

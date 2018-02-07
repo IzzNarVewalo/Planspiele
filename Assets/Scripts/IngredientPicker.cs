@@ -120,7 +120,7 @@ public class IngredientPicker : MonoBehaviour {
                 GameObject current = _currentIngredients[i];
                 current = Instantiate(current, transform);
                 current.transform.position = transform.position + Utilities.GetBottomOffset(current);
-                current.transform.Rotate(Vector3.up, i * degreesPerIngredient, Space.Self);
+                current.transform.Rotate(Vector3.up, -i * degreesPerIngredient, Space.Self);
                 current.transform.Translate(Vector3.forward * radius, Space.Self);
                 _currentIngredients[i] = current;
             }

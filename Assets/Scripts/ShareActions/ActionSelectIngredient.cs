@@ -62,17 +62,7 @@ public class ActionSelectIngredient : ShareAction
         {
             Debug.LogError("Couldn't find IngredientPicker or CupMovement!");
         }
-
-        if (_rotatingPicker == null)
-        {
-            Debug.LogError("Couldn't find the Rotating Picker with name '" + _rotatingPickerName + "' in the scene!");
-        } else
-        {
-            _rotatingPicker.Rotate();
-            Vector3 cameraAnimatePosition = Camera.main.transform.position;
-            cameraAnimatePosition.x = _rotatingPicker.transform.position.x;
-            Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
-        }
+        
     }
 
     public override void ExitAction()

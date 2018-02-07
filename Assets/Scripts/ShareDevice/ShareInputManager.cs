@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShareInputManager : MonoBehaviour {
 
@@ -48,6 +49,8 @@ public class ShareInputManager : MonoBehaviour {
             _inputType = (ShareInputType)(((int)_inputType + 1) % numberOfEnums);
             SetShareInput();
         }
+        
+
     }
 
     private void SetShareInput()

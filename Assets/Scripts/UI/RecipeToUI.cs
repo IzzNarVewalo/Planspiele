@@ -126,7 +126,7 @@ public class RecipeToUI : MonoBehaviour {
                 string score = "";
                 left = makeAmountNice(i) + " " + i.GetUnit();
                 right = right + i.GetName();
-                score += Mathf.Clamp(200 - i.GetProgress() * 100, 0, 100);
+                score += (int)Mathf.Clamp(200 - i.GetProgress() * 100, 0, 100);
                 Debug.Log(Translation.Get("Score") + ": " + scoreTotalValue);
                 //Sets the checkmark and changes color to green if the ingredient is finished
                 if (i.GetProgress() >= 1f)
