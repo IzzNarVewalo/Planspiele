@@ -74,11 +74,11 @@ public class ShareInputManager : MonoBehaviour {
         _shareInputType = _shareInput.GetType();
     }
 
-    private void OnValidate()
+    /*private void OnValidate()
     {
         if(Application.isPlaying)
             SetShareInput();
-    }
+    }*/
 
     enum ShareInputType
     {

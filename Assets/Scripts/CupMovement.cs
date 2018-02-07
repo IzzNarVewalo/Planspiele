@@ -30,7 +30,7 @@ public class CupMovement : MonoBehaviour {
         {
             if (!LockMovement)
             {
-                _activeChild.localRotation = Quaternion.Lerp(_activeChild.localRotation, Quaternion.Euler(0, 90, 0) * _shareInput.GetRotation(), 10 * Time.deltaTime);
+                _activeChild.localRotation = Quaternion.Lerp(_activeChild.localRotation, _shareInput.GetRotation(), 10 * Time.deltaTime);
             }
             else
             {
@@ -57,6 +57,8 @@ public class CupMovement : MonoBehaviour {
         _activeChild = objectToHold.transform;
         _activeChild.transform.parent = transform;
 
+        LockMovement = false;
+
         Coroutines.AnimatePosition(_activeChild.gameObject, lastPosition, this, true, onFinish);
     }
 
@@ -67,6 +69,16 @@ public class CupMovement : MonoBehaviour {
             _activeChild.parent = _activeChildParentBeforePickUp;
             Coroutines.AnimatePosition(_activeChild.gameObject, _activeChildLocalPositionBeforePickUp, this, false, onFinish);
             Coroutines.AnimateRotation(_activeChild.gameObject, _activeChildLocalRotationBeforePickup, this);
+            _activeChild = null;
+        }
+    }
+
+    public void PutAway(Vector3 destination, Action onFinish = null)
+    {
+        if(_activeChild != null)
+        {
+            Coroutines.AnimatePosition(_activeChild.gameObject, destination, this, true, onFinish);
+            _activeChild.transform.parent = null;
             _activeChild = null;
         }
     }

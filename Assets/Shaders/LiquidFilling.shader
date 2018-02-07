@@ -1,4 +1,4 @@
-﻿Shader "Unlit/LiquidFilling"
+﻿Shader "Custom/LiquidFilling"
 {
 	Properties
 	{
@@ -8,13 +8,14 @@
 	}
 	SubShader
 	{
-		Tags{ "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
-		LOD 100
+		Tags{ "RenderType" = "Opaque" }
+		LOD 200
+		Cull Off
 
 		Pass
 		{
-			ZWrite Off
-			Blend SrcAlpha OneMinusSrcAlpha
+			//ZWrite Off
+			//Blend SrcAlpha OneMinusSrcAlpha
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

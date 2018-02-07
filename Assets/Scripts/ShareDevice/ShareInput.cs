@@ -34,7 +34,7 @@ public class ShareInput : MonoBehaviour, IShareInput {
 
     public Quaternion GetRotation()
     {
-        return _communication.rotQuat;
+        return Quaternion.Euler(0, 90, 0) * _communication.rotQuat;
     }
 
     public float GetTiltAngle()

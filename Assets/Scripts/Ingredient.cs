@@ -13,13 +13,27 @@ public class Ingredient : MonoBehaviour{
     private List<ShareAction> _actions;
     [SerializeField] 
     private float _amount;
+    public float AmountNeeded { get { return _amount; } }
     [SerializeField]
     private Unit _unit;
+    public Unit Unit { get { return _unit; } }
     [SerializeField]
     private Ingredients _name;
     private float _progress = 0;
-    
+    [SerializeField]
+    private Color _color;
+    public Color Color { get { return _color; } set { _color = value; } }
 
+    public float AmountAdded { get { return _progress * _amount; } }
+
+    public static Ingredients[] cupTypes = new Ingredients[] { Ingredients.SmallCup, Ingredients.MediumCup, Ingredients.LargeCup };
+    public bool AddLiquidToCup {
+        get{
+            return !(Array.IndexOf(cupTypes, _name) > -1);
+        }
+    }
+
+    private IngredientSetting settings;
     //static Ingredient()
     //{
     //    SetupIngredientActions();
@@ -55,6 +69,25 @@ public class Ingredient : MonoBehaviour{
         _unit = unit;
         _name = name;
         _actions = actions;
+
+        GameObject ingredientPrefab = IngredientManager.Instance.GetIngredientPrefab(name);
+        if(ingredientPrefab != null)
+        {
+            Ingredient prefabIngredient = ingredientPrefab.GetComponent<Ingredient>();
+            if(prefabIngredient != null)
+            {
+                _color = prefabIngredient._color;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        LiquidFilling liquidFilling = GetComponentInChildren<LiquidFilling>();
+        if (liquidFilling != null)
+        {
+            liquidFilling.Capacity = RecipeManager._activeRecipe.CapacityNeeded();
+        }
     }
 
     public String PrintIngredient() {
@@ -107,4 +140,4 @@ public class Ingredient : MonoBehaviour{
     public Object GetMesh() {
         return GameSettings.GetMeshForIngredient(_name);
     }
-}   
+}

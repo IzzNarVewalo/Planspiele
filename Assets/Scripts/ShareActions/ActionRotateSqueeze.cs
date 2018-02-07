@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class ActionRotateSqueeze : ActionAddIngredient
 {
-    private bool finished = false;
+    
     private bool playSound = true;
     private float howLong = 0;
     public float Duration = 5;
     IShareInput inS;
-
-
-
-    public override bool Finished()
-    {
-        return finished;
-    }
 
     protected override void SetInstructionImages()
     {
@@ -29,19 +22,12 @@ public class ActionRotateSqueeze : ActionAddIngredient
 
     public override void EnterAction()
     {
+        base.EnterAction();
         inS = ShareInputManager.ShareInput;
         _active = true;
         UpdateIngredientProgress(0);
         ShowInstructionText("Rotate the Share-Device and squeeze it.");
         SetInstructionImages();
-    }
-
-    public override void ExitAction()
-    {
-        base.ExitAction();
-        if (!ReferenceEquals(GameData.SelectedIngredient, null) && GameData.SelectedIngredient.GetProgress() < 1.0f)
-            GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
-        ProgressBarScript.value = 0;
     }
 
     // Update is called once per frame
@@ -80,7 +66,7 @@ public class ActionRotateSqueeze : ActionAddIngredient
             if (!inS.IsPickedUp())
             {
                 //Return the time value
-                finished = true;
+                _finished = true;
             }
 
         }

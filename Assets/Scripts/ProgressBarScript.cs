@@ -22,7 +22,7 @@ public class ProgressBarScript : MonoBehaviour {
             progressFill.color = new Color(1, 0.75f, 0);
             return;
         }
-        if(value > yellowEnd) {
+        if(value >= yellowEnd) {
             progressFill.color = Color.green;
         }
         if(value < yellowEnd) {

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class RecipeManager : MonoBehaviour {
     // Collection of all available recipes
@@ -11,7 +13,12 @@ public class RecipeManager : MonoBehaviour {
 
     private static RecipeToUI _recipeToUI;
 
-    void Start() {
+    void Awake() {
+
+        if (_recipeToUI == null)
+        {
+            _recipeToUI = FindObjectOfType<RecipeToUI>();
+        }
 
         LanguageFile.Load("en").Save();
         //Set Progress Bar Values
@@ -78,22 +85,12 @@ public class RecipeManager : MonoBehaviour {
         if (_activeRecipe != null) {
             _activeRecipe.Update();
         }
-
-    }
-
-    private void Awake()
-    {
-        if(_recipeToUI == null)
-        {
-            _recipeToUI = FindObjectOfType<RecipeToUI>();
-        }
     }
 
     private void startRecipe(Recipe r)
     {
         _activeRecipe = r;
-        _recipeToUI.writeRecipe(r);
-        _recipeToUI.CloseEndScreen();
+        UpdateRecipeUI();        
     }
 
     public static void UpdateRecipeUI()
@@ -107,5 +104,14 @@ public class RecipeManager : MonoBehaviour {
         }
     }
 
-   
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _recipeToUI = FindObjectOfType<RecipeToUI>();
+        if (_recipeToUI != null)
+        {
+            UpdateRecipeUI();
+            _recipeToUI.CloseEndScreen();
+        }
+    }
+
 }

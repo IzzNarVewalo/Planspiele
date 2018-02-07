@@ -6,11 +6,22 @@ public abstract class ActionAddIngredient : ShareAction {
 
     CupMovement cupMovement;
 
+    protected bool _finished = false;
+
+    public override bool Finished()
+    {
+        return _finished;
+    }
+
     protected void UpdateIngredientProgress(float progress)
     {
         if (!ReferenceEquals(GameData.SelectedIngredient, null))
         {
             GameData.SelectedIngredient.SetProgress(progress);
+            if (GameData.SelectedCup != null && GameData.SelectedIngredient.AddLiquidToCup)
+            {
+                GameData.SelectedCupFilling.SetColor(GameData.SelectedIngredient.Color, GameData.SelectedIngredient.AmountAdded, GameData.SelectedIngredient.Unit);
+            }
         } else
         {
             Debug.LogError("Ingredient not selected!");
@@ -25,15 +36,18 @@ public abstract class ActionAddIngredient : ShareAction {
 
         cupMovement = FindObjectOfType<CupMovement>();
 
-        if (!ReferenceEquals(GameData.SelectedIngredient, null))
+        if (cupMovement != null && !ReferenceEquals(GameData.SelectedIngredient, null))
         {
-            if (GameData.SelectedIngredient.GetIngredientType() == Ingredients.Coffee && cupMovement != null)
+            if (GameData.SelectedIngredient.GetIngredientType() == Ingredients.Coffee)
             {
                 cupMovement.LockMovement = true;
             }
             else
             {
                 cupMovement.LockMovement = false;
+
+                
+                
             }
         }
     }
@@ -43,6 +57,11 @@ public abstract class ActionAddIngredient : ShareAction {
         base.ExitAction();
         if (!ReferenceEquals(GameData.SelectedIngredient, null) && GameData.SelectedIngredient.GetProgress() < 1.0f)
             GameData.SelectedIngredient.SetProgress(2.0f - GameData.SelectedIngredient.GetProgress());
+
+        if(this.GetType() != typeof(ActionAddImmediate))
+            cupMovement.PutDownObject();
+
+        ProgressBarScript.value = 0;
     }
 
 }

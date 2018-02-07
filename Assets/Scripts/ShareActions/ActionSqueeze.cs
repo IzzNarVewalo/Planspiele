@@ -5,21 +5,14 @@ using UnityEngine;
 
 public class ActionSqueeze : ActionAddIngredient
 {
-    private bool finished = false;
     private bool playSound = true;
     private float howLong = 0;
     public float Duration = 5;
     IShareInput inS;
-    
 
     public delegate void PlaySoundMethod();
     PlaySoundMethod _playSoundMethod;
     PlaySoundMethod _stopSoundMethod;
-
-    public override bool Finished()
-    {
-        return finished;
-    }
 
     public void SetSoundMethods(PlaySoundMethod playSoundMethod, PlaySoundMethod stopSoundMethod, bool add = true)
     {
@@ -35,18 +28,16 @@ public class ActionSqueeze : ActionAddIngredient
         }
     }
 
-    public override void ExitAction()
-    {
-        base.ExitAction();
-        
-        ProgressBarScript.value = 0;
-    }
-
     protected override void SetInstructionImages()
     {
         instructionImages = new Sprite[2];
         instructionImages[0] = Resources.Load<Sprite>("Squeeze1");
         instructionImages[1] = Resources.Load<Sprite>("Squeeze2");
+    }
+
+    public override void ExitAction()
+    {
+        base.ExitAction();
     }
 
 
@@ -99,7 +90,7 @@ public class ActionSqueeze : ActionAddIngredient
             if (!inS.IsPickedUp())
             {
                 //Return the time value
-                finished = true;
+                _finished = true;
             }
 
         }

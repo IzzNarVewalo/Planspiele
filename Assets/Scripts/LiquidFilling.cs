@@ -13,6 +13,19 @@ public class LiquidFilling : MonoBehaviour {
     [SerializeField]
     private Color LiquidColor;
 
+    [SerializeField]
+    private float _capacity;
+
+    private Vector3 _lastPosition;
+
+    /// <summary>
+    /// The capacity of the container in ML
+    /// </summary>
+    public float Capacity {
+        get { return _capacity; }
+        set { _capacity = value; }
+    }
+
     private Dictionary<Color, float> _colorAmounts;
 
     private float _worldLiquidLimit;
@@ -38,8 +51,10 @@ public class LiquidFilling : MonoBehaviour {
         FillLevel = Mathf.Clamp(level, 0, 1);
     }
 
-    public void SetColor(Color color, float amount)
+    public void SetColor(Color color, float amount, Unit unit)
     {
+
+        amount = UnitConversion.ToMl(amount, unit);
 
         if (_colorAmounts.ContainsKey(color))
         {
@@ -67,7 +82,7 @@ public class LiquidFilling : MonoBehaviour {
 
         LiquidColor = c;
         _renderer.sharedMaterial.SetColor("_LiquidColor", LiquidColor);
-        SetFillLevel(sum);
+        SetFillLevel(sum / Capacity);
     }
 
     private void OnValidate()

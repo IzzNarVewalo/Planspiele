@@ -33,6 +33,8 @@ public class Coroutines : MonoBehaviour {
         float timePassed = Time.time - startTime;
         while (timePassed < timeNeeded)
         {
+            if (target == null)
+                break;
             timePassed = (Time.time - startTime);
             interpolationValue = Mathf.Clamp01(timePassed / timeNeeded);
             interpolationValue = Mathf.Clamp01((Mathf.Sin((-Mathf.PI / 2) + (interpolationValue * Mathf.PI)) + 1) / 2);

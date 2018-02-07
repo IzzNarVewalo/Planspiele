@@ -56,7 +56,10 @@ public abstract class ShareAction : MonoBehaviour {
     
     protected void Update()
     {
-        ShowInstructionImage();
+        if (_active)
+        {
+            ShowInstructionImage();
+        }
     }
 
     public void SetActive(bool active)

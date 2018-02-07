@@ -5,8 +5,6 @@ using UnityEngine;
 public class ActionRotate : ActionAddIngredient {
 
     public float tiltAngleThreshold;
-
-    private bool finished = false;
     
     private float howLong = 0;
 
@@ -18,11 +16,12 @@ public class ActionRotate : ActionAddIngredient {
 
     public override bool Finished()
     {
-        return finished;
+        return _finished;
     }
 
     public override void EnterAction()
     {
+        base.EnterAction();
         shareInput = ShareInputManager.ShareInput;
         _active = true;
         ShowInstructionText("Rotate the Share Device to add the ingredient!");
@@ -78,7 +77,7 @@ public class ActionRotate : ActionAddIngredient {
             }
 
             if (!shareInput.IsPickedUp())
-                finished = true;
+                _finished = true;
 
         }
 

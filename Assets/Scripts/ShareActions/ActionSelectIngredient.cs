@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class ActionSelectIngredient : ShareAction
     private RotatingPicker _rotatingPicker;
     private IngredientPicker _picker;
     private CupMovement _cupMovement;
+    private Vector3 _coffeCupFillPosition;
 
     private static string _rotatingPickerName = "PlateHolder";
 
@@ -23,7 +25,6 @@ public class ActionSelectIngredient : ShareAction
     {
         return _ingredientIsSelected;
     }
-
 
     protected override void SetInstructionImages()
     {
@@ -43,21 +44,30 @@ public class ActionSelectIngredient : ShareAction
             _rotatingPicker = rotatingPickerObject.GetComponentInChildren<RotatingPicker>();
         _picker = FindObjectOfType<IngredientPicker>();
         _cupMovement = FindObjectOfType<CupMovement>();
-        
-        if(_picker != null && _cupMovement != null)
+
+        GameObject fillPositionObject = GameObject.FindGameObjectWithTag("AddIngredientCoffeePosition");
+        if(fillPositionObject != null)
+        {
+            _coffeCupFillPosition = fillPositionObject.transform.position;
+        }
+
+        if (_picker != null && _cupMovement != null)
         {
             _picker.SetupIngredients();
             _picker.Rotate();
 
             Vector3 playerPosition = _cupMovement.transform.position;
-            playerPosition.x = _picker.transform.position.x - 7f;
+            playerPosition.x = _picker.transform.position.x + 6f;
             _cupMovement.transform.position = playerPosition;
 
             Vector3 cameraAnimatePosition = Camera.main.transform.position;
-            cameraAnimatePosition.x = _picker.transform.position.x - 3.5f;
+            cameraAnimatePosition.x = _picker.transform.position.x + 3.5f;
             Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
-            
 
+            if(GameData.SelectedCup != null && _coffeCupFillPosition != null)
+            {
+                Coroutines.AnimatePosition(GameData.SelectedCup, _coffeCupFillPosition, this, true);
+            }
         } else
         {
             Debug.LogError("Couldn't find IngredientPicker or CupMovement!");
@@ -105,10 +115,12 @@ public class ActionSelectIngredient : ShareAction
                         if(_selectedIngredient == null)
                         {
                             Debug.LogError("Selected ingredient null");
+                        } else
+                        {
+                            _lock = true;
+                            _cupMovement.PickUpObject(_selectedIngredient.gameObject, OnIngredientPickedUp);
                         }
-                        _lock = true;
-                        _cupMovement.PickUpObject(_selectedIngredient.gameObject, OnIngredientPickedUp);
-                        
+
                     }
 
                     if (_shareInput.GetForce() >= GameSettings.ForceThreshold)
@@ -125,9 +137,16 @@ public class ActionSelectIngredient : ShareAction
                                     break;
                             }
                         }
+
                         if (ReferenceEquals(GameData.SelectedIngredient, null))
                         {
                             GameData.SelectedIngredient = _selectedIngredient;
+                        }
+
+                        LiquidFilling cupFilling = _selectedIngredient.GetComponentInChildren<LiquidFilling>();
+                        if (cupFilling != null)
+                        {
+                            GameData.SelectedCup = _selectedIngredient.gameObject;
                         }
 
                     }

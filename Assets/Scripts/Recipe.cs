@@ -69,6 +69,17 @@ public class Recipe {
         return _size.ToString();
     }
 
+    public float CapacityNeeded()
+    {
+        float ingredientVolume = 0;
+        foreach(Ingredient ingredient in _ingredients)
+        {
+            if(ingredient.AddLiquidToCup)
+                ingredientVolume += UnitConversion.ToMl(ingredient.AmountNeeded, ingredient.Unit);
+        }
+        return ingredientVolume * 1.1f;
+    }
+
     public String GetIngredients() {
         String ingr = null;
         foreach (Ingredient ingredient in _ingredients) {

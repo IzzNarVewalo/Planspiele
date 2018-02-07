@@ -27,6 +27,8 @@ public class IngredientPicker : MonoBehaviour {
 
     private bool _cupSelected = false;
 
+    private GameObject _selectedCup = null;
+
     private Quaternion initialRotation;
 
 	// Use this for initialization
@@ -96,7 +98,8 @@ public class IngredientPicker : MonoBehaviour {
         {
             foreach(GameObject go in _currentIngredients)
             {
-                Destroy(go);
+                if(go != _selectedCup)
+                    Destroy(go);
             }
         }
 
@@ -131,7 +134,9 @@ public class IngredientPicker : MonoBehaviour {
     {
         if (_light != null)
         {
-            _light.transform.position = toHighlight.transform.position + toHighlight.transform.up * 4;
+            Vector3 lightPosition = toHighlight.transform.position + toHighlight.transform.up * 3;
+            lightPosition += toHighlight.transform.forward * 3;
+            _light.transform.position = lightPosition;
             _light.transform.forward = (toHighlight.transform.position - _light.transform.position).normalized;
         }
     }
@@ -139,9 +144,10 @@ public class IngredientPicker : MonoBehaviour {
     public Ingredient Select()
     {
         Debug.Log("Selected ingredient!");
-        if (!_cupSelected)
+        if (_currentIngredients[_currentIndex].GetComponentInChildren<LiquidFilling>() != null)
         {
             _cupSelected = true;
+            _selectedCup = _currentIngredients[_currentIndex];
         }
         StopRotate();
         return _currentIngredients[_currentIndex].GetComponent<Ingredient>();
