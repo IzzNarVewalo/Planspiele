@@ -39,6 +39,10 @@ public class LiquidFilling : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float newLimit = _renderer.bounds.min.y + (_renderer.bounds.max.y - _renderer.bounds.min.y) * FillLevel;
+        if(FillLevel == 0)
+        {
+            newLimit -= 0.1f;
+        }
         if(_worldLiquidLimit != newLimit)
         {
             _worldLiquidLimit = newLimit;
