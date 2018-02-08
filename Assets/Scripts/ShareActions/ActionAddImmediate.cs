@@ -14,7 +14,7 @@ public class ActionAddImmediate : ActionAddIngredient {
         base.EnterAction();
         if(!ReferenceEquals(GameData.SelectedIngredient, null))
         {
-            UpdateIngredientProgress(1.000001f);
+            UpdateIngredientProgress(1f);
             _finished = true;
         }
     }

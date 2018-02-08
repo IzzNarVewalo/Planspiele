@@ -78,6 +78,7 @@ public class CupMovement : MonoBehaviour {
         if(_activeChild != null)
         {
             Coroutines.AnimatePosition(_activeChild.gameObject, destination, this, true, onFinish);
+            Coroutines.AnimateRotation(_activeChild.gameObject, Quaternion.identity, this);
             _activeChild.transform.parent = null;
             _activeChild = null;
         }
