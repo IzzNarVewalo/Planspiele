@@ -64,7 +64,7 @@ public class ActionSelectIngredient : ShareAction
             cameraAnimatePosition.x = _picker.transform.position.x + 3.5f;
             Coroutines.AnimatePosition(Camera.main.gameObject, cameraAnimatePosition, this);
 
-            if(GameData.SelectedCup != null && _coffeCupFillPosition != null)
+            if(GameData.SelectedCup != null && _coffeCupFillPosition != Vector3.zero)
             {
                 Coroutines.AnimatePosition(GameData.SelectedCup, _coffeCupFillPosition, this, true);
             }
@@ -99,7 +99,7 @@ public class ActionSelectIngredient : ShareAction
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         if (_active && !_lock)
         {

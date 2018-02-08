@@ -77,7 +77,7 @@ public class Recipe {
             if(ingredient.AddLiquidToCup)
                 ingredientVolume += UnitConversion.ToMl(ingredient.AmountNeeded, ingredient.Unit);
         }
-        return ingredientVolume * 1.1f;
+        return ingredientVolume * 1.2f;
     }
 
     public String GetIngredients() {

@@ -50,7 +50,7 @@ public class IngredientManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Didn't find Ingredient Prefab: " + type.ToString());
+                Debug.LogWarning("Didn't find Ingredient Prefab: " + type.ToString());
             }
         }
     }

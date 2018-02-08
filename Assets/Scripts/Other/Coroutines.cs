@@ -62,6 +62,8 @@ public class Coroutines : MonoBehaviour {
         float progress = Mathf.Clamp01(timePassed / timeNeeded);
         while(progress < 1)
         {
+            if (target == null)
+                break;
             timePassed = Time.time - startTime;
             progress = Mathf.Clamp01(timePassed / timeNeeded);
             target.transform.rotation = Quaternion.Lerp(startRotation, destination, progress);

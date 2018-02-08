@@ -21,7 +21,7 @@ public class InstructionWindow : MonoBehaviour {
     {
         if(_instructionCanvas != null)
         {
-            for (int i = 0; i < _instructionCanvas.transform.GetChildCount(); i++)
+            for (int i = 0; i < _instructionCanvas.transform.childCount; i++)
             {
                 Transform t = _instructionCanvas.transform.GetChild(i);
                 t.gameObject.SetActive(false);
@@ -33,7 +33,7 @@ public class InstructionWindow : MonoBehaviour {
     {
         if(_instructionCanvas != null)
         {
-            for (int i = 0; i < _instructionCanvas.transform.GetChildCount(); i++)
+            for (int i = 0; i < _instructionCanvas.transform.childCount; i++)
             {
                 Transform tr = _instructionCanvas.transform.GetChild(i);
                 tr.gameObject.SetActive(true);

@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class LanguageFile {
 
-    private static readonly string _savePath = Application.dataPath + "/Languages/";
+    private static readonly string _savePath = Application.streamingAssetsPath + "/Languages/";
 
     public string languageShort;
 

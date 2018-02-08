@@ -60,7 +60,7 @@ public class ActionSelectCoffee : ShareAction {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
         if (_active)
         {
             base.Update();
